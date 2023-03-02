@@ -9,6 +9,7 @@ import { FallbackViewDirective } from './fallback-view.directive';
 import { ErrorViewDirective } from './error-view.directive';
 import { NotLazyComponent } from './not-lazy/not-lazy.component';
 import { NotLazy2Component } from './not-lazy2/not-lazy2.component';
+import { NotLazyEventdrivenComponent } from './not-lazy-eventdriven/not-lazy-eventdriven.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { NotLazy2Component } from './not-lazy2/not-lazy2.component';
     ErrorViewDirective,
     NotLazyComponent,
     NotLazy2Component,
+    NotLazyEventdrivenComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],

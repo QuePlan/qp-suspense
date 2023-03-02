@@ -3,17 +3,22 @@ import {
   ContentChild,
   ViewChild,
   ViewContainerRef,
-  ComponentFactoryResolver,
+  Type,
   Injector,
   ComponentRef,
   ContentChildren,
   QueryList,
+  createComponent,
+  inject,
+  EnvironmentInjector,
+  createNgModule,
+  NgModuleRef,
 } from '@angular/core';
-import { DefaultViewDirective } from '../default-view.directive';
+import { TDefaultSuspenseable, DefaultViewDirective } from '../default-view.directive';
 import { FallbackViewDirective } from '../fallback-view.directive';
 import { from, forkJoin } from 'rxjs';
 import { ErrorViewDirective } from '../error-view.directive';
-import { SUSPENSE, Suspenseable } from '../types';
+import { SUSPENSE, Suspenseable, SuspenseableModule } from '../types';
 
 @Component({
   selector: 'suspense',
@@ -30,26 +35,39 @@ export class SuspenseComponent {
   @ContentChildren(SUSPENSE as any) suspenseables: QueryList<Suspenseable>;
   // https://github.com/angular/angular/commit/97dc85ba5e4eb6cfa741908a04cfccb1459cec9b
 
+  environmentInjector = inject(EnvironmentInjector);
+  injector            = inject(Injector);
+
   show = false;
   private compRef: ComponentRef<Suspenseable>;
 
-  constructor(
-    private resolver: ComponentFactoryResolver,
-    private injector: Injector
-  ) {}
+  constructor() {}
+
+  setComponentParams(compRef: Suspenseable, compParams: { [key: string]: unknown }) {
+    if (!compParams) return;
+    const params: Array<string> = Object.keys(compParams).filter(v => v !== 'clazzName');
+    for(let idx in params) {
+      compRef[params[idx]] = compParams[params[idx]];
+    }
+  }
 
   ngAfterViewInit() {
     this.anchor.createEmbeddedView(this.fallbackView.tpl);
     const isLazy = this.defaultView?.fetch;
 
     if (!isLazy) {
-      const setup = this.suspenseables.map((comp) => comp.setup());
+      const setup = this.suspenseables.map((comp) => { 
+        console.log('Not lazy comp: ', comp);
+        return comp.setup();
+      });
       forkJoin(setup).subscribe({
-        next: () => {
+        next: (v?) => {
+          console.log('==> ', v);
           this.anchor.clear();
           this.show = true;
         },
-        error: () => {
+        error: (err) => {
+          console.error('Not lazy error: ', err);
           this.anchor.remove();
           this.anchor.createEmbeddedView(this.errorView.tpl);
         },
@@ -57,9 +75,22 @@ export class SuspenseComponent {
       return;
     }
 
-    this.defaultView.fetch().then((comp) => {
-      const factory = this.resolver.resolveComponentFactory(comp.default);
-      this.compRef = factory.create(this.injector);
+    this.defaultView.fetch().then((comp: TDefaultSuspenseable | Type<unknown>) => {
+      // const factory = this.resolver.resolveComponentFactory(comp.default);
+      // this.compRef = factory.create(this.injector);
+      let compClazz: Type<Suspenseable>;
+      if (this.defaultView.isModule) {
+        console.log('Componente esta dentro de un modulo: ', comp, Object.keys(comp));
+        const moduleName: string = (typeof this.defaultView.isModule === 'string') ? this.defaultView.isModule : Object.keys(comp).shift();
+        const moduleRef: NgModuleRef<SuspenseableModule> = createNgModule(comp[moduleName], this.injector)
+        compClazz = moduleRef.instance.getComponent();
+      } else { 
+        console.log('Componente es de tipo Suspenseable: ', comp);
+        compClazz = (comp as TDefaultSuspenseable).default;
+      }
+      
+      this.compRef =  createComponent(compClazz, { environmentInjector: this.environmentInjector });
+      this.setComponentParams(this.compRef.instance, this.defaultView.componentParams);
 
       from(this.compRef.instance.setup()).subscribe({
         next: () => {

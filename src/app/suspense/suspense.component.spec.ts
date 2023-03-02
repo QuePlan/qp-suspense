@@ -8,9 +8,8 @@ describe('SuspenseComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SuspenseComponent ]
-    })
-    .compileComponents();
+      declarations: [SuspenseComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {

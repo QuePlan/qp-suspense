@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { timer } from 'rxjs';
 import { Suspenseable, useSuspense } from '../types';
@@ -9,7 +9,10 @@ import { Suspenseable, useSuspense } from '../types';
   styleUrls: ['./not-lazy2.component.scss'],
   providers: [useSuspense(NotLazy2Component)],
 })
-export class NotLazy2Component implements Suspenseable {
+export class NotLazy2Component extends Suspenseable {
+  @Input() saludos: string;
+  ngOnInit(): void {}
+  ngOnDestroy(): void {}
   setup() {
     return timer(5000);
   }
