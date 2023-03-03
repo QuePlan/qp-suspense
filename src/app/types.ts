@@ -1,5 +1,5 @@
 import { inject, Injectable, InjectionToken, OnDestroy, OnInit, Type } from '@angular/core';
-import { BehaviorSubject, ObservableInput } from 'rxjs';
+import { BehaviorSubject, combineLatest, filter, map, ObservableInput, takeUntil, tap } from 'rxjs';
 import { EventService } from './event.service';
 
 export const SUSPENSE = new InjectionToken('SUSPENSE');
@@ -55,7 +55,7 @@ export interface ISuspenseable {
    * Pensada para absorber las operaciones que realiza ngOnInit().
    * Su implementación es opcional.
    */
-  init?(): void;
+  init(): void;
 }
 
 /**
@@ -79,11 +79,37 @@ export abstract class Suspenseable implements ISuspenseable, OnInit, OnDestroy {
   setupReady : BehaviorSubject<boolean> = new BehaviorSubject(false);
   hasError   : BehaviorSubject<boolean> = new BehaviorSubject(false);
 
+  defaultEventDrivenSetup(response: { [key: string]: unknown }, useInit = false) {
+    console.log('[defaultEventDrivenSetup] setup()');
+
+    if(useInit) {
+      this.init();
+    }
+    return this.setupReady.pipe(
+      takeUntil( 
+        combineLatest([this.setupReady, this.hasError]).pipe(
+          filter(([ isReady, hasError ]) => isReady || hasError),
+          tap( 
+            ([ isReady, hasError ]) => {
+              console.log('[defaultEventDrivenSetup] isReady, hasError: ', isReady, hasError );
+              if (hasError) throw new Error('[defaultEventDrivenSetup] No se pudo cargar el componente');
+            } 
+          )
+        )
+      ),
+      map(() => (response))
+    );
+  }
+
+  init() {
+    throw new Error('init() no implementado');
+  }
+
   setup(): ObservableInput<any> {
     // Permite que en un contexto de desarrollo sepamos que este método no
     // está implementado => despliegue de estado de error para carga del componente
     // Aplica solamente para el modo de operación "normal" (usando  función `setup()` )
-    throw new Error('setup() no implementado')
+    throw new Error('setup() no implementado');
   }
 
   eventHandler(eventName: string): void {
