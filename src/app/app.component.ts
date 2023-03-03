@@ -11,4 +11,6 @@ export class AppComponent {
 
   lazyInModuleFactory = () => import('./lazy-in-module/lazy-in-module.module');
   lazyInModuleParams = { whoAmI: 'I am your father!!!!' };
+
+  condicionMagica = true;
 }

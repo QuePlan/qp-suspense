@@ -34,3 +34,10 @@
     <p>ERROR cargando componente lazy desde modulo</p>
   </ng-template>
 </suspense>
+
+<ng-container *ngIf="condicionMagica; else noEsNa">
+  <p>Se cumple</p>
+</ng-container>
+<ng-template #noEsNa>
+  <p>No se cumple</p>
+</ng-template>
