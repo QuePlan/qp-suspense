@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { combineLatest, filter, map, ObservableInput, takeUntil, takeWhile, tap, timer } from 'rxjs';
+import { ObservableInput, timer } from 'rxjs';
 import { Suspenseable, useSuspense } from '../types';
 
 @Component({
@@ -25,22 +25,8 @@ export class NotLazyEventdrivenComponent extends Suspenseable {
     })
   }
   setup(): ObservableInput<any> {
-    console.log('[NotLazyEventdrivenComponent] setup()');
-    this.init();
-    return this.setupReady.pipe(
-      takeUntil( 
-        combineLatest([this.setupReady, this.hasError]).pipe(
-          filter(([ isReady, hasError ]) => isReady || hasError),
-          tap( 
-            ([ isReady, hasError ]) => {
-              console.log('[NotLazyEventdrivenComponent] isReady, hasError: ', isReady, hasError );
-              if (hasError) throw new Error('[NotLazyEventdrivenComponent] No se pudo cargar el componente');
-            } 
-          )
-        )
-      ),
-      map( () => ({ eventName: this.eventNameRef }) )
-    );
+    const response = { eventName: this.eventNameRef };
+    return this.defaultEventDrivenSetup(response, true);
   }
 
   ngOnInit(): void {
