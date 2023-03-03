@@ -10,6 +10,7 @@ import { ErrorViewDirective } from './error-view.directive';
 import { NotLazyComponent } from './not-lazy/not-lazy.component';
 import { NotLazy2Component } from './not-lazy2/not-lazy2.component';
 import { NotLazyEventdrivenComponent } from './not-lazy-eventdriven/not-lazy-eventdriven.component';
+import { TestSuspenseableComponent } from './test-suspenseable/test-suspenseable.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { NotLazyEventdrivenComponent } from './not-lazy-eventdriven/not-lazy-eve
     NotLazyComponent,
     NotLazy2Component,
     NotLazyEventdrivenComponent,
+    TestSuspenseableComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, HttpClientModule],
   providers: [],
