@@ -18,7 +18,7 @@ import { TDefaultSuspenseable, DefaultViewDirective } from '../directives/defaul
 import { FallbackViewDirective } from '../directives/fallback-view.directive';
 import { from, forkJoin } from 'rxjs';
 import { ErrorViewDirective } from '../directives/error-view.directive';
-import { SUSPENSE, Suspenseable, SuspenseableModule } from '../types/types';
+import { ISuspenseable, SUSPENSE, SuspenseableModule } from '../types/types';
 import { CommonModule, NgIf } from '@angular/common';
 
 @Component({
@@ -41,23 +41,23 @@ export class SuspenseComponent {
   @ContentChild(DefaultViewDirective) defaultView: DefaultViewDirective;
   @ContentChild(FallbackViewDirective) fallbackView: FallbackViewDirective;
   @ContentChild(ErrorViewDirective) errorView: ErrorViewDirective;
-  @ContentChildren(SUSPENSE as any) suspenseables: QueryList<Suspenseable>;
+  @ContentChildren(SUSPENSE as any) suspenseables: QueryList<ISuspenseable>;
   // https://github.com/angular/angular/commit/97dc85ba5e4eb6cfa741908a04cfccb1459cec9b
 
   environmentInjector = inject(EnvironmentInjector);
   injector            = inject(Injector);
 
   show = false;
-  private compRef: ComponentRef<Suspenseable>;
+  private compRef: ComponentRef<ISuspenseable>;  
 
   constructor() {}
 
-  setComponentParams(compRef: Suspenseable, compParams: { [key: string]: unknown }) {
+  setComponentParams(compRef: ISuspenseable, compParams: { [key: string]: unknown }) {
     if (!compParams) return;
     const params: Array<string> = Object.keys(compParams).filter(v => v !== 'clazzName');
-    for(let idx in params) {
-      compRef[params[idx]] = compParams[params[idx]];
-    }
+    params.forEach(param => {
+      (compRef as any)[param as keyof typeof compRef] = compParams[param];
+    });
   }
 
   ngAfterViewInit() {
@@ -87,11 +87,11 @@ export class SuspenseComponent {
     this.defaultView.fetch().then((comp: TDefaultSuspenseable | Type<unknown>) => {
       // const factory = this.resolver.resolveComponentFactory(comp.default);
       // this.compRef = factory.create(this.injector);
-      let compClazz: Type<Suspenseable>;
+      let compClazz: Type<ISuspenseable>;
       if (this.defaultView.isModule) {
         console.log('Componente esta dentro de un modulo: ', comp, Object.keys(comp));
-        const moduleName: string = (typeof this.defaultView.isModule === 'string') ? this.defaultView.isModule : Object.keys(comp).shift();
-        const moduleRef: NgModuleRef<SuspenseableModule> = createNgModule(comp[moduleName], this.injector)
+        const moduleName: string = (typeof this.defaultView.isModule === 'string') ? this.defaultView.isModule : Object.keys(comp).shift() as string;
+        const moduleRef: NgModuleRef<SuspenseableModule> = createNgModule(comp[moduleName as keyof typeof comp], this.injector)
         compClazz = moduleRef.instance.getComponent();
       } else { 
         console.log('Componente es de tipo Suspenseable: ', comp);
@@ -116,6 +116,6 @@ export class SuspenseComponent {
 
   ngOnDestroy() {
     this.compRef?.destroy();
-    this.compRef = null;
+    (this.compRef as any) = null;
   }
 }
