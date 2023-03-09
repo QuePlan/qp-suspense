@@ -3,10 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SuspenseComponent } from './suspense/suspense.component';
-import { DefaultViewDirective } from './default-view.directive';
-import { FallbackViewDirective } from './fallback-view.directive';
-import { ErrorViewDirective } from './error-view.directive';
+import { SuspenseComponent, ErrorViewDirective, DefaultViewDirective, FallbackViewDirective } from '@queplan/suspense';
 import { NotLazyComponent } from './not-lazy/not-lazy.component';
 import { NotLazy2Component } from './not-lazy2/not-lazy2.component';
 import { NotLazyEventdrivenComponent } from './not-lazy-eventdriven/not-lazy-eventdriven.component';
@@ -15,17 +12,21 @@ import { TestSuspenseableComponent } from './test-suspenseable/test-suspenseable
 @NgModule({
   declarations: [
     AppComponent,
-    SuspenseComponent,
-    DefaultViewDirective,
-    FallbackViewDirective,
-    ErrorViewDirective,
     NotLazyComponent,
     NotLazy2Component,
     NotLazyEventdrivenComponent,
     TestSuspenseableComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule],
+  imports: [
+    BrowserModule, 
+    AppRoutingModule, 
+    HttpClientModule, 
+    SuspenseComponent,
+    DefaultViewDirective,
+    FallbackViewDirective,
+    ErrorViewDirective
+  ],
   providers: [],
-  bootstrap: [AppComponent],
+  bootstrap: [ AppComponent ],
 })
 export class AppModule {}

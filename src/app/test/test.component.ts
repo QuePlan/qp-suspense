@@ -1,5 +1,5 @@
 import { Component, Input, NgModule } from '@angular/core';
-import { Suspenseable } from '../types';
+import { Suspenseable } from '@queplan/suspense';
 import { HttpClient } from '@angular/common/http';
 import { tap, delay } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';

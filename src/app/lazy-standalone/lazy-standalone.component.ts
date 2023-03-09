@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Suspenseable } from '../types';
+import { Suspenseable } from '@queplan/suspense';
 
 @Component({
   selector: 'app-lazy-standalone',
