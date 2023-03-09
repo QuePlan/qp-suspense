@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { timer } from 'rxjs';
-import { Suspenseable, useSuspense } from '@queplan/suspense';
+import { SuspenseableClassic, useSuspense } from '@queplan/suspense';
 
 @Component({
   selector: 'app-not-lazy2',
@@ -9,7 +9,7 @@ import { Suspenseable, useSuspense } from '@queplan/suspense';
   styleUrls: ['./not-lazy2.component.scss'],
   providers: [useSuspense(NotLazy2Component)],
 })
-export class NotLazy2Component extends Suspenseable {
+export class NotLazy2Component extends SuspenseableClassic {
   @Input() saludos: string;
   ngOnInit(): void {}
   ngOnDestroy(): void {}

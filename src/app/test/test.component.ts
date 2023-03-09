@@ -1,5 +1,5 @@
 import { Component, Input, NgModule } from '@angular/core';
-import { Suspenseable } from '@queplan/suspense';
+import { SuspenseableClassic } from '@queplan/suspense';
 import { HttpClient } from '@angular/common/http';
 import { tap, delay } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
@@ -14,7 +14,7 @@ import { CommonModule } from '@angular/common';
     </ul>
   `,
 })
-export default class TestComponent extends Suspenseable {
+export default class TestComponent extends SuspenseableClassic {
   
   @Input() origen: string;
   users = [];

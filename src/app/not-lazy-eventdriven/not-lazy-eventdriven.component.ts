@@ -1,14 +1,13 @@
 import { Component, Input } from '@angular/core';
 import { ObservableInput, timer } from 'rxjs';
-import { Suspenseable, useSuspense } from '@queplan/suspense';
-
+import { SuspenseableEventDriven, useSuspense } from '@queplan/suspense';
 @Component({
   selector: 'app-not-lazy-eventdriven',
   templateUrl: './not-lazy-eventdriven.component.html',
   styleUrls: ['./not-lazy-eventdriven.component.css'],
   providers: [ useSuspense(NotLazyEventdrivenComponent) ],
 })
-export class NotLazyEventdrivenComponent extends Suspenseable {
+export class NotLazyEventdrivenComponent extends SuspenseableEventDriven {
   @Input() eventNameRef: string;
   init() {
     if (this.initialized) {
