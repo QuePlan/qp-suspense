@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subject, Observable } from 'rxjs';
 
-type listenerFunction = (params?) => any;
+type listenerFunction = (params?: any) => any;
 @Injectable({
   providedIn: 'root'
 })
@@ -20,7 +20,7 @@ export class EventService {
       this.events.subscribe(
           ({name, args}) => {
               if (this.listeners.has(name)) {
-                  for (const listener of this.listeners.get(name)) {
+                  for (const listener of this.listeners.get(name) ?? []) {
                       listener(...args);
                   }
               }
@@ -32,7 +32,7 @@ export class EventService {
           this.listeners.set(name, []);
       }
 
-      this.listeners.get(name).push(listener);
+      this.listeners?.get(name)?.push(listener);
   }
 
   off(name: string) {
