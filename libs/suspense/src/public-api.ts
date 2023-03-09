@@ -9,4 +9,4 @@ export * from './lib/directives/fallback-view.directive';
 
 export * from './lib/services/event.service';
 
-export * from './lib/types/types';
+export * from './lib/types';
