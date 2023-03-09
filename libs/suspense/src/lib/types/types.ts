@@ -1,6 +1,9 @@
 import { inject, Injectable, InjectionToken, OnDestroy, OnInit, Type } from '@angular/core';
 import { BehaviorSubject, combineLatest, filter, map, ObservableInput, takeUntil, tap } from 'rxjs';
 import { EventService } from '../services/event.service';
+import { SuspenseableBroadcaster } from './suspenseable-broadcaster';
+import { SuspenseableClassic } from './suspenseable-classic';
+import { SuspenseableEventDriven } from './suspenseable-event-driven';
 
 export const SUSPENSE = new InjectionToken('SUSPENSE');
 
@@ -65,7 +68,7 @@ export interface SuspenseableModule {
   /**
    * Debe retornar el componente Suspenseable que está declarado en el módulo
    */
-  getComponent(): Type<Suspenseable>;
+  getComponent(): Type<ISuspenseable>;
 }
 
 @Injectable()
@@ -75,31 +78,6 @@ export abstract class Suspenseable implements ISuspenseable, OnInit, OnDestroy {
   
   eventService : EventService = inject(EventService);
   eventName   ?: string;
-  initialized = false;
-  setupReady : BehaviorSubject<boolean> = new BehaviorSubject(false);
-  hasError   : BehaviorSubject<boolean> = new BehaviorSubject(false);
-
-  defaultEventDrivenSetup(response: { [key: string]: unknown }, useInit = false) {
-    console.log('[defaultEventDrivenSetup] setup()');
-
-    if(useInit) {
-      this.init();
-    }
-    return this.setupReady.pipe(
-      takeUntil( 
-        combineLatest([this.setupReady, this.hasError]).pipe(
-          filter(([ isReady, hasError ]) => isReady || hasError),
-          tap( 
-            ([ isReady, hasError ]) => {
-              console.log('[defaultEventDrivenSetup] isReady, hasError: ', isReady, hasError );
-              if (hasError) throw new Error('[defaultEventDrivenSetup] No se pudo cargar el componente');
-            } 
-          )
-        )
-      ),
-      map(() => (response))
-    );
-  }
 
   init() {
     throw new Error('init() no implementado');
@@ -134,7 +112,11 @@ export abstract class Suspenseable implements ISuspenseable, OnInit, OnDestroy {
   }
 }
 
-export const useSuspense = (comp: Type<Suspenseable>) => ({
+export abstract class SuspenseableInModule extends Suspenseable {}
+
+export type TSuspenseable = Type<Suspenseable | SuspenseableClassic | SuspenseableEventDriven | SuspenseableBroadcaster | SuspenseableInModule>;
+
+export const useSuspense = (comp: TSuspenseable) => ({
   provide: SUSPENSE,
   useExisting: comp,
 });
