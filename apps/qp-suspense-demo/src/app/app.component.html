@@ -41,3 +41,13 @@
 <ng-template #noEsNa>
   <p>No se cumple</p>
 </ng-template>
+
+<suspense>
+  <ng-template [defaultView]="lazyStandaloneFactory" [componentParams]="lazyStandaloneParams" onEvent="lazystandalone"></ng-template>
+  <ng-template fallbackView>
+    <p>Cargando componente lazy standalone</p>
+  </ng-template>
+  <ng-template errorView>
+    <p>ERROR cargando componente lazy standalone</p>
+  </ng-template>
+</suspense>
