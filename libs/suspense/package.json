@@ -1,0 +1,30 @@
+{
+  "name": "@queplan/qp-suspense",
+  "version": "1.0.0",
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/QuePlan/qp-suspense"
+  },
+  "keywords": [
+    "angular",
+    "component",
+    "suspense",
+    "qp-suspense",
+    "ng-suspense"
+  ],
+  "author": {
+    "name": "Jose Ignacio Santa Cruz G <jsanta@queplan.cl>"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^15.2.0",
+    "@angular/core": "^15.2.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false
+}

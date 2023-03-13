@@ -1,13 +1,14 @@
 {
   "compilerOptions": {
     "target": "es2020",
+    "useDefineForClassFields": false,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": false,
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": false,
     "noFallthroughCasesInSwitch": true,
-    "strictPropertyInitialization": false //No pida inicializacion
+    "strictPropertyInitialization": false
   },
   "files": [],
   "include": [],
@@ -23,6 +24,7 @@
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
-    "strictTemplates": false,
+    "strictInputAccessModifiers": false,
+    "strictTemplates": false
   }
 }

@@ -1,10 +1,26 @@
 {
   "name": "suspense",
-  "$schema": "../node_modules/nx/schemas/project-schema.json",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
   "sourceRoot": "libs/suspense/src",
-  "prefix": "popo",
+  "prefix": "queplan",
   "targets": {
+    "build": {
+      "executor": "@nrwl/angular:package",
+      "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "options": {
+        "project": "libs/suspense/ng-package.json"
+      },
+      "configurations": {
+        "production": {
+          "tsConfig": "libs/suspense/tsconfig.lib.prod.json"
+        },
+        "development": {
+          "tsConfig": "libs/suspense/tsconfig.lib.json"
+        }
+      },
+      "defaultConfiguration": "production"
+    },
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
