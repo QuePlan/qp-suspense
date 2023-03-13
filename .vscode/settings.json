@@ -1,6 +1,7 @@
 {
     "conventionalCommits.scopes": [
-        "qp-suspense"
+        "qp-suspense",
+        "VS Code"
     ],
     "angular.enable-strict-mode-prompt": false
 }
