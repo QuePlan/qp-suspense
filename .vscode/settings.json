@@ -1,5 +1,6 @@
 {
     "conventionalCommits.scopes": [
         "qp-suspense"
-    ]
+    ],
+    "angular.enable-strict-mode-prompt": false
 }
