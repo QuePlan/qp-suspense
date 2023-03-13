@@ -1,5 +1,6 @@
-import { inject, Injectable, InjectionToken, OnDestroy, OnInit, Type } from '@angular/core';
-import { BehaviorSubject, combineLatest, filter, map, ObservableInput, takeUntil, tap } from 'rxjs';
+import { isPlatformBrowser } from '@angular/common';
+import { ElementRef, inject, Injectable, InjectionToken, OnDestroy, OnInit, PLATFORM_ID, Renderer2, Type } from '@angular/core';
+import { ObservableInput } from 'rxjs';
 import { EventService } from '../services/event.service';
 import { SuspenseableBroadcaster } from './suspenseable-broadcaster';
 import { SuspenseableClassic } from './suspenseable-classic';
@@ -71,8 +72,27 @@ export interface SuspenseableModule {
   getComponent(): Type<ISuspenseable>;
 }
 
+export class SuspenseableRenderer {
+  renderer: Renderer2    = inject(Renderer2);
+  elementRef: ElementRef = inject(ElementRef);
+  platformId: Object     = inject(PLATFORM_ID);
+
+  defaultDisplay: string = 'inherit';
+
+  constructor() {
+    if(isPlatformBrowser(this.platformId)) {
+      this.defaultDisplay = window.getComputedStyle(this.elementRef.nativeElement).getPropertyValue('display');
+    } 
+    this.renderer.setStyle(this.elementRef.nativeElement, 'display', 'none');
+  }
+
+  renderComponenteReady() {
+    this.renderer.setStyle(this.elementRef.nativeElement, 'display', this.defaultDisplay);  
+  }
+}
+
 @Injectable()
-export abstract class Suspenseable implements ISuspenseable, OnInit, OnDestroy {
+export abstract class Suspenseable extends SuspenseableRenderer implements ISuspenseable, OnInit, OnDestroy {
   abstract ngOnInit(): void;
   abstract ngOnDestroy(): void;
   
@@ -113,6 +133,9 @@ export abstract class Suspenseable implements ISuspenseable, OnInit, OnDestroy {
 }
 
 export abstract class SuspenseableInModule extends Suspenseable {}
+
+export type TDefaultSuspenseable   = { default: Type<Suspenseable> };
+export type SuspenseFactoryPromise = () => Promise<TDefaultSuspenseable> | Promise<Type<unknown>>;
 
 export type TSuspenseable = Type<Suspenseable | SuspenseableClassic | SuspenseableEventDriven | SuspenseableBroadcaster | SuspenseableInModule>;
 

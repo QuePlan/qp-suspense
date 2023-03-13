@@ -1,12 +1,12 @@
 import { BehaviorSubject, combineLatest, filter, map, ObservableInput, takeUntil, tap } from "rxjs";
-import { ISuspenseable } from "./types";
+import { ISuspenseable, SuspenseableRenderer } from "./types";
 
-export abstract class SuspenseableEventDriven implements Pick<ISuspenseable, 'setup'> {
+export abstract class SuspenseableEventDriven  extends SuspenseableRenderer implements Pick<ISuspenseable, 'setup'> {
   initialized = false;
   setupReady : BehaviorSubject<boolean> = new BehaviorSubject(false);
   hasError   : BehaviorSubject<boolean> = new BehaviorSubject(false);
 
-  private defaultEventDrivenSetup(response: { [key: string]: unknown }, useInit = false) {
+  defaultEventDrivenSetup(response: { [key: string]: unknown }, useInit = false) {
     console.log('[defaultEventDrivenSetup] setup()');
 
     if(useInit) {

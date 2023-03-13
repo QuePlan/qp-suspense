@@ -1,6 +1,6 @@
 import { ObservableInput } from "rxjs";
-import { ISuspenseable } from "./types";
+import { ISuspenseable, SuspenseableRenderer } from "./types";
 
-export abstract class SuspenseableClassic implements Pick<ISuspenseable, 'setup'> {
+export abstract class SuspenseableClassic extends SuspenseableRenderer implements Pick<ISuspenseable, 'setup'> {
   abstract setup(): ObservableInput<any>;
 }
