@@ -93,6 +93,9 @@ export class SuspenseComponent {
             isStandAlone                  = !!clazzName;
     }
     
+    // IMPORTANTE: Al crear la instancia del componente, si esto se hace usando `this.anchor.createComponent(compClazz)`, la instancia del componente es
+    // INMEDIATAMENTE  agregada a la vista, independiente de si el componente está en un estado listo o no listo para ser desplegada.
+    // Crear un componente simplemente con createComponent() no agrega el componente a la vista, sin embargo esto no funciona para componentes de tipo `standalone`.
     componentInstance = isStandAlone ? this.anchor.createComponent(compClazz) : createComponent(compClazz, { environmentInjector: this.environmentInjector });
     // componentInstance = createComponent(compClazz, { environmentInjector: this.environmentInjector });
     this.setComponentParams(componentInstance.instance, componentParams);
