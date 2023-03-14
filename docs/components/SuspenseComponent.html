@@ -169,7 +169,7 @@ ya que en ese caso el import se hace antes de que realmente sea necesario (pudie
 
             <tr>
                 <td class="col-md-3">selector</td>
-                <td class="col-md-9"><code>suspense</code></td>
+                <td class="col-md-9"><code>suspense, [suspense]</code></td>
             </tr>
 
 
@@ -1154,7 +1154,7 @@ import { EventService, YieldToMainService } from &#x27;../services&#x27;;
  * ya que en ese caso el import se hace antes de que realmente sea necesario (pudiera haber casos donde sea válido, o necesario realizar antes la carga del módulo/componente).
  */
 @Component({
-  selector: &#x27;suspense&#x27;,
+  selector: &#x27;suspense, [suspense]&#x27;,
   template: &#x60;
     &lt;ng-template #anchor&gt;&lt;/ng-template&gt;
     &lt;ng-content *ngIf&#x3D;&quot;show&quot;&gt;&lt;/ng-content&gt;
@@ -1475,7 +1475,7 @@ export class SuspenseComponent {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><ng-template #anchor></ng-template><ng-content *ngIf="show"></ng-content></div>'
-    var COMPONENTS = [{'name': 'QpSuspenseErrorComponent', 'selector': 'qp-suspense-error'},{'name': 'QpSuspenseSpinnerComponent', 'selector': 'qp-suspense-spinner'},{'name': 'SuspenseComponent', 'selector': 'suspense'}];
+    var COMPONENTS = [{'name': 'QpSuspenseErrorComponent', 'selector': 'qp-suspense-error'},{'name': 'QpSuspenseSpinnerComponent', 'selector': 'qp-suspense-spinner'},{'name': 'SuspenseComponent', 'selector': 'suspense, [suspense]'}];
     var DIRECTIVES = [{'name': 'DefaultViewDirective', 'selector': '[defaultView]'},{'name': 'ErrorViewDirective', 'selector': '[errorView]'},{'name': 'FallbackViewDirective', 'selector': '[fallbackView]'}];
     var ACTUAL_COMPONENT = {'name': 'SuspenseComponent'};
 </script>

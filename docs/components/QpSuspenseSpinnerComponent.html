@@ -424,7 +424,7 @@ export class QpSuspenseSpinnerComponent {
 <script src="../js/libs/deep-iterator.js"></script>
 <script>
         var COMPONENT_TEMPLATE = '<div><div class="suspense-wrapper">  <span class="suspense-loader" [style.scale]="scale"></span>  <p><ng-content></ng-content></p></div></div>'
-    var COMPONENTS = [{'name': 'QpSuspenseErrorComponent', 'selector': 'qp-suspense-error'},{'name': 'QpSuspenseSpinnerComponent', 'selector': 'qp-suspense-spinner'},{'name': 'SuspenseComponent', 'selector': 'suspense'}];
+    var COMPONENTS = [{'name': 'QpSuspenseErrorComponent', 'selector': 'qp-suspense-error'},{'name': 'QpSuspenseSpinnerComponent', 'selector': 'qp-suspense-spinner'},{'name': 'SuspenseComponent', 'selector': 'suspense, [suspense]'}];
     var DIRECTIVES = [{'name': 'DefaultViewDirective', 'selector': '[defaultView]'},{'name': 'ErrorViewDirective', 'selector': '[errorView]'},{'name': 'FallbackViewDirective', 'selector': '[fallbackView]'}];
     var ACTUAL_COMPONENT = {'name': 'QpSuspenseSpinnerComponent'};
 </script>
