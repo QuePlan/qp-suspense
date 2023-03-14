@@ -60,7 +60,15 @@
 <li>fallbackView : es el loader que se mostrará mientras el componente efectivamente se carga.</li>
 <li>errorView : es el componente que se va a desplegar en caso de presentarse errores en la carga del componente.</li>
 </ul>
-<h1 id="casos-de-uso">Casos de uso</h1>
+<p>Si se desea minimizar el LCP reservando el espacio para el componente, se puede utilizar un elemento HTML, con estilos o clases CSS; y usar suspense como una
+directiva de tipo atributo:</p>
+<div><pre class="line-numbers"><code class="language-none">&lt;section suspense style=&quot;display: block; min-height: 15rem;&quot;&gt;
+  &lt;ng-template [defaultView]=&quot;usersFactory&quot; [componentParams]=&quot;componentParams&quot;&gt;&lt;/ng-template&gt;
+
+  &lt;ng-template fallbackView&gt;
+    &lt;h4&gt;Fetching Users...&lt;/h4&gt;
+  &lt;/ng-template&gt;
+&lt;/section&gt;</code></pre></div><h1 id="casos-de-uso">Casos de uso</h1>
 <ul>
 <li>Componentes cargados de manera lazy.</li>
 <li>Componentes definidos dentro de un módulo, cargados de manera lazy.</li>
