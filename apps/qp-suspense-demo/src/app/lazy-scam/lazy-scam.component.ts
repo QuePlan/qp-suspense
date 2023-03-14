@@ -1,6 +1,6 @@
 import { Component, NgModule, Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ISuspenseable, Suspenseable, SuspenseableModule } from '@queplan/suspense';
+import { ISuspenseable, Suspenseable, SuspenseableModule } from '@queplan/qp-suspense/types';
 
 @Component({
   selector: 'app-lazy-scam',

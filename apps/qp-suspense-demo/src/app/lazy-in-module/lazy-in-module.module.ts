@@ -1,7 +1,7 @@
 import { NgModule, Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LazyInModuleComponent } from './lazy-in-module.component';
-import { ISuspenseable, Suspenseable, SuspenseableModule } from '@queplan/suspense';
+import { ISuspenseable, SuspenseableModule } from '@queplan/qp-suspense/types';
 
 @NgModule({
   declarations: [ 

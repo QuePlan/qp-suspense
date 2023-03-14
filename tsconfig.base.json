@@ -11,7 +11,9 @@
     "lib": ["es2018", "dom"],
     "baseUrl": "./",
     "paths": {
-      "@queplan/suspense": ["libs/suspense/src/index.ts"]
+      "@queplan/qp-suspense": ["libs/suspense/src/index.ts"],
+      "@queplan/qp-suspense/*": ["libs/suspense/src/lib/*"],
+      "@queplan/qp-suspense/suspense.component": ["libs/suspense/src/lib/suspense/suspense.component.ts"],
     }
   }
 }

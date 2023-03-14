@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { tap, timer } from 'rxjs';
-import { useSuspense, Suspenseable, SuspenseableClassic } from '@queplan/suspense';
+import { useSuspense, SuspenseableClassic } from '@queplan/qp-suspense/types';
 
 @Component({
   selector: 'app-not-lazy',
