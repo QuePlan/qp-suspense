@@ -117,7 +117,7 @@ import { EventService, YieldToMainService } from '../services';
  * ya que en ese caso el import se hace antes de que realmente sea necesario (pudiera haber casos donde sea válido, o necesario realizar antes la carga del módulo/componente).
  */
 @Component({
-  selector: 'suspense',
+  selector: 'suspense, [suspense]',
   template: `
     <ng-template #anchor></ng-template>
     <ng-content *ngIf="show"></ng-content>
