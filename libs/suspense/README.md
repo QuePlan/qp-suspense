@@ -40,6 +40,19 @@ y bajo el supuesto que el código no sea lo suficiente autoexplicativo:
 * fallbackView : es el loader que se mostrará mientras el componente efectivamente se carga.
 * errorView : es el componente que se va a desplegar en caso de presentarse errores en la carga del componente.
 
+Si se desea minimizar el LCP reservando el espacio para el componente, se puede utilizar un elemento HTML, con estilos o clases CSS; y usar suspense como una
+directiva de tipo atributo:
+
+```
+<section suspense style="display: block; min-height: 15rem;">
+  <ng-template [defaultView]="usersFactory" [componentParams]="componentParams"></ng-template>
+
+  <ng-template fallbackView>
+    <h4>Fetching Users...</h4>
+  </ng-template>
+</section>
+```
+
 Casos de uso
 ==============
 
