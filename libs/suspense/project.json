@@ -8,6 +8,7 @@
     "build": {
       "executor": "@nrwl/angular:package",
       "outputs": ["{workspaceRoot}/dist/{projectRoot}"],
+      "deleteOutputPath": true,
       "options": {
         "project": "libs/suspense/ng-package.json"
       },
