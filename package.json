@@ -1,6 +1,6 @@
 {
-  "name": "popo",
-  "version": "0.0.0",
+  "name": "qp-suspense",
+  "version": "1.0.0",
   "scripts": {
     "ng": "nx",
     "start": "ng serve",
@@ -8,9 +8,10 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "docs": "compodoc -p tsconfig.doc.json -d ./docs --theme readthedocs --hideGenerator --disableCoverage --language es-ES",
     "postinstall": "node ./decorate-angular-cli.js"
   },
-  "private": true,
+  "private": false,
   "dependencies": {
     "@angular/animations": "~15.2.1",
     "@angular/common": "~15.2.1",
@@ -35,6 +36,7 @@
     "@angular/cli": "^15.2.1",
     "@angular/compiler-cli": "^15.2.1",
     "@angular/language-service": "~15.2.1",
+    "@compodoc/compodoc": "^1.1.19",
     "@nrwl/angular": "^15.8.1",
     "@nrwl/cypress": "15.8.1",
     "@nrwl/eslint-plugin-nx": "15.8.1",
@@ -72,5 +74,22 @@
     "ts-node": "10.9.1",
     "tslint": "~6.1.0",
     "typescript": "4.9.5"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/QuePlan/qp-suspense"
+  },
+  "keywords": [
+    "angular",
+    "component",
+    "suspense",
+    "qp-suspense",
+    "ng-suspense"
+  ],
+  "author": {
+    "name": "Jose Ignacio Santa Cruz G",
+    "email": "jsanta@queplan.cl",
+    "url": "https://jsantacl.medium.com/"
+  },
+  "license": "MIT"
 }

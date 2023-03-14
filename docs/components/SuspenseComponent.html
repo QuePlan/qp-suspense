@@ -1,0 +1,1558 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>qp-suspense documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/readthedocs.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">qp-suspense documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Escribe para buscar"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Componentes</li>
+  <li
+  >
+  SuspenseComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>Fichero</h3>
+</p>
+<p class="comment">
+    <code>libs/suspense/src/lib/suspense/suspense.component.ts</code>
+</p>
+
+
+    <p class="comment">
+        <h3>Descripción</h3>
+    </p>
+    <p class="comment">
+        <h1 id="componente-suspense">Componente suspense</h1>
+<p>Implementación Angular de la lógica de carga de componentes tipo Suspense (al estilo React, o Vue).
+Carga de manera lazy un componente (usando imports dinámicos), y controla, a través del despliegue
+de estados, el estado de la carga de un componente:</p>
+<ul>
+<li><code>defaultView</code>: Componente a ser cargado</li>
+<li><code>fallbackView</code>: Componente a desplegar mientras el componente default está cargándose</li>
+<li><code>errorView</code>: Componente de error que se despliega si es que fallara la carga del compoente default.</li>
+</ul>
+<h2 id="ventajas">Ventajas</h2>
+<ul>
+<li>Mejor UX,, el usuario ve el contenido de la página en la medida que se va disponibilizando (vs una página completa de loader).</li>
+<li>Mayor control sobre la carga de un componente (estados de carga y error).</li>
+<li>Minimización del bundle (imports dinamicos al momento de ser requeridos).</li>
+<li>Opción de definir prioridades de carga (a través de Webpack Magic comments).</li>
+</ul>
+<h2 id="desventajas">Desventajas</h2>
+<ul>
+<li>Sólo funciona para componentes definidos como Suspenseable.</li>
+<li>No soporta @Output() (este funcionamiento se puede reemplazar por eventos/comportamiento reactivo).</li>
+<li>Si el componente a desplegar está dentro de un módulo que está importado en otro lugar,
+es casi lo mismo que no usarlo (no se le saca provecho a la carga dinámica).</li>
+<li>Su funcionamiento óptimo es usando componentes standalone al estilo de Angular 15.</li>
+<li>Si el componente no es standalone requiere que el modulo donde este esté definido implemente SuspenseableModule.</li>
+</ul>
+<h2 id="tldr-desventajas">TL;DR Desventajas</h2>
+<p>Hay que programar los componentes pensando en que serán Suspenseables.</p>
+<h2 id="cómo-se-usa">Cómo se usa</h2>
+<ol>
+<li>Se define el componente extendiendo la clase abstracta Suspenseable.</li>
+<li>Dependiendo de el modo de operación requerido se deberá reimplementar la función setup() o eventHandlers(). Al extender alguno de
+los subtipos Suspenseable, la misma implementación guía al desarrollador en que funciones debe reimplementar.</li>
+<li>El componente <em>padre</em> debe definir variables para el contructor del componente y sus correspondientes parámetros.</li>
+<li>Uso modo por defecto (no reactivo, despliega cuando termina el setup()):</li>
+</ol>
+<div><pre class="line-numbers"><code class="language-none">&lt;suspense&gt;
+ &lt;ng-template [defaultView]=&quot;compFactory&quot; [componentParams]=&quot;compParams&quot; clazzName=&quot;CompComponent&quot;&gt;&lt;/ng-template&gt;
+
+ &lt;ng-template fallbackView&gt;&lt;suspense-spinner&gt;Cargando Comp...&lt;/suspense-spinner&gt;&lt;/ng-template&gt;
+ &lt;ng-template errorView&gt;&lt;suspense-error&gt;Falló carga de Comp&lt;/suspense-error&gt;&lt;/ng-template&gt;
+&lt;/suspense&gt;</code></pre></div><p><code>clazzName</code> puede ir como @Input() o como otro atributo dentro de @Input() componentParams:
+<code>componentParams = { clazzName: &#39;CompComponent&#39; };</code>
+CompComponent debe extender de Suspenseable e implementar setup(), por ejemplo:</p>
+<div><pre class="line-numbers"><code class="language-none">  setup(): ObservableInput&lt;any&gt; {
+    this.ngOnInit();
+    return of({
+      input: this.input,
+      otherInput: this.otherInput,
+      anotherInput: this.anotherInput
+    });
+  }</code></pre></div><p>Si el componente no es standalone, se le debe indicar a defaultView que el componente debe importarse desde el módulo donde se lo declara.
+El parámetro isModule puede tomar un valor booleano o bien el nombre específico del módulo que se requiere.
+El módulo en cuestión debe implementar SuspenseableModule.
+<strong>IMPORTANTE</strong>: Si el módulo lleva un nombre  diferente al del componente, asegurese de ser específico en el nombre del módulo para evitar errores y lograr
+desplegar exitosamente el componente. A priori esto no debioera ser necesario ya que el componente <em>&quot;sabe&quot;</em> encontrar el nombre del módulo o del componente,
+sin embargo siempre es bueno estar al tanto de esto.</p>
+<div><pre class="line-numbers"><code class="language-none"> &lt;ng-template [defaultView]=&quot;compFactory&quot; [componentParams]=&quot;compParams&quot; clazzName=&quot;CompComponent&quot; [isModule]=&quot;true&quot;&gt;&lt;/ng-template&gt;</code></pre></div><h2 id="errores">Errores</h2>
+<p>En la mayoría de los casos los errores son bastante explicativos (favor leer los mensajes en la consola), sin embargo hay algunos
+casos particulares que no resultan tan claros:</p>
+<ul>
+<li><code>TypeError: Cannot read properties of undefined (reading &#39;ɵcmp&#39;)</code>: Quiere decir que no tiene una clase para poder instanciar el componente, lo que puede
+por varios motivos:<ul>
+<li>El nombre de la clase no corresponde al del componente de tipo Suspenseable (Ej. está mal escrito, no existe)</li>
+<li>El import dinámico para obtener el contructor del componente tiene errores (Ej. apunta a otro componente/módulo)</li>
+<li>En caso que el componente esté declarado en un módulo (componente no-standalone), el módulo debe declarar y exportar el componente. El módulo debe implementar
+SuspenseableModule</li>
+</ul>
+</li>
+<li>Errores de compilacion en el template de un componente: Probablemente el componente de tipo Suspenseable tenga dependencias definidas en un módulo, por lo que
+deberá indicarse isModule=true|&lt;nombre del módulo&gt;, y el módulo debe implementar SuspenseableModule</li>
+</ul>
+<p>Para sacar mejor provecho de los lazy components se recomienda asegurar que el componente o su módulo asociado no esté importado en el componente padre (o su módulo),
+ya que en ese caso el import se hace antes de que realmente sea necesario (pudiera haber casos donde sea válido, o necesario realizar antes la carga del módulo/componente).</p>
+
+    </p>
+
+
+
+
+<section>
+    <h3>Meta datos</h3>
+    <table class="table table-sm table-hover metadata">
+        <tbody>
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">providers</td>
+                <td class="col-md-9">
+                                <code><a href="../injectables/EventService.html" target="_self" >EventService</a></code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>suspense</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">template</td>
+                <td class="col-md-9"><pre class="line-numbers"><code class="language-html">&lt;ng-template #anchor&gt;&lt;/ng-template&gt;
+&lt;ng-content *ngIf&#x3D;&quot;show&quot;&gt;&lt;/ng-content&gt;
+</code></pre></td>
+            </tr>
+
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Índice</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Propiedades</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#anchor" >anchor</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#compRef" >compRef</a>
+                            </li>
+                            <li>
+                                <a href="#defaultView" >defaultView</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#done" >done</a>
+                            </li>
+                            <li>
+                                <a href="#environmentInjector" >environmentInjector</a>
+                            </li>
+                            <li>
+                                <a href="#errorView" >errorView</a>
+                            </li>
+                            <li>
+                                <a href="#eventService" >eventService</a>
+                            </li>
+                            <li>
+                                <a href="#fallbackView" >fallbackView</a>
+                            </li>
+                            <li>
+                                <a href="#injector" >injector</a>
+                            </li>
+                            <li>
+                                <a href="#show" >show</a>
+                            </li>
+                            <li>
+                                <a href="#suspenseables" >suspenseables</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Métodos</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Private</span>
+                                <a href="#getComponentInstance" >getComponentInstance</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Async</span>
+                                <a href="#ngAfterViewInit" >ngAfterViewInit</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnDestroy" >ngOnDestroy</a>
+                            </li>
+                            <li>
+                                <a href="#setComponentParams" >setComponentParams</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Definido en <a href="" data-line="195" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:195</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Métodos
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getComponentInstance"></a>
+                    <span class="name">
+                        <span class="modifier">Private</span>
+                        <span ><b>getComponentInstance</b></span>
+                        <a href="#getComponentInstance"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>getComponentInstance(clazz: <a href="../injectables/Suspenseable.html" target="_self">TDefaultSuspenseable | Type&lt;&gt;</a>, componentParams?: literal type, isModule: boolean | string, clazzName?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Definido en <a href="" data-line="226"
+                            class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:226</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Crea una instancia del componente Suspenseable, y en caso que corresponda,
+setea los parámetros (@Input()) correspondientes.
+La instancia será creada de la clase del componente o desde el módulo donde este esté definido.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parámetros :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Nombre</td>
+                                    <td>Tipo</td>
+                                    <td>Opcional</td>
+                                    <td>Valor por defecto</td>
+                                    <td>Descripción</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>clazz</td>
+                                    <td>
+                                                <code><a href="../injectables/Suspenseable.html" target="_self" >TDefaultSuspenseable | Type&lt;&gt;</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <p>Clase asociada al componente</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>componentParams</td>
+                                    <td>
+                                            <code>literal type</code>
+                                    </td>
+
+                                    <td>
+                                        Si
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <p>Parámetros (@Input()) del componente</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>isModule</td>
+                                    <td>
+                                            <code>boolean | string</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                        <code>false</code>
+                                    </td>
+
+                                    <td>
+                                        <p>Indica si el componente está dentro de un módulo</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>clazzName</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        Si
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <p>(opcional) Nombre de la clase del componente</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Devuelve : </b>        <code><a href="../injectables/Suspenseable.html" target="_self" >ComponentRef&lt;ISuspenseable&gt;</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>Instancia componente</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngAfterViewInit"></a>
+                    <span class="name">
+                        <span class="modifier">Async</span>
+                        <span ><b>ngAfterViewInit</b></span>
+                        <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>ngAfterViewInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Definido en <a href="" data-line="258"
+                            class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:258</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Devuelve : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnDestroy"></a>
+                    <span class="name">
+                        <span ><b>ngOnDestroy</b></span>
+                        <a href="#ngOnDestroy"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnDestroy()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Definido en <a href="" data-line="391"
+                            class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:391</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Devuelve : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="setComponentParams"></a>
+                    <span class="name">
+                        <span ><b>setComponentParams</b></span>
+                        <a href="#setComponentParams"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>setComponentParams(compRef: <a href="../injectables/Suspenseable.html" target="_self">T | ISuspenseable</a>, compParams: literal type)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Definido en <a href="" data-line="207"
+                            class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:207</a></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <b>Parámetros de tipo :</b>
+                    <ul class="type-parameters">
+                        <li>T</li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>En caso que existan parámetros para el componente los asignará a la correspondiente instancia,
+iterando por cada una de las llaves del objeto de parámetros.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parámetros :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Nombre</td>
+                                    <td>Tipo</td>
+                                    <td>Opcional</td>
+                                    <td>Valor por defecto</td>
+                                    <td>Descripción</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>compRef</td>
+                                    <td>
+                                                <code><a href="../injectables/Suspenseable.html" target="_self" >T | ISuspenseable</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                    </td>
+
+                                    <td>
+                                        <p>Instancia del componente a cargar</p>
+
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>compParams</td>
+                                    <td>
+                                            <code>literal type</code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+                                    <td>
+                                        <code>{}</code>
+                                    </td>
+
+                                    <td>
+                                        <p>Objeto con los parámetros que se van a asignar al componente (todos los</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Devuelve : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>void en caso que no haya parámetros. Internamente modifica la instancia del componente entregado como parámetro.</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+    <h3 id="inputs">
+        Propiedades
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="anchor"></a>
+                    <span class="name">
+                        <span ><b>anchor</b></span>
+                        <a href="#anchor"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Tipo : </i>        <code><a href="https://angular.io/api/core/ViewContainerRef" target="_blank" >ViewContainerRef</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decoradores : </b>
+                        <br />
+                        <code>
+                            @ViewChild(&#x27;anchor&#x27;, {read: ViewContainerRef})<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Definido en <a href="" data-line="140" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:140</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>#anchor es el template contenedor de <code>suspense</code> donde se van a desplegar ya sea
+el componente Suspenseable, o sus estados de &quot;estoy cargando&quot; o de error (si corresponde)</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="compRef"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>compRef</b></span>
+                        <a href="#compRef"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Tipo : </i>        <code><a href="../injectables/Suspenseable.html" target="_self" >ComponentRef&lt;ISuspenseable&gt;</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Definido en <a href="" data-line="189" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:189</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Objeto de referencia para componente instanciado.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="defaultView"></a>
+                    <span class="name">
+                        <span ><b>defaultView</b></span>
+                        <a href="#defaultView"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Tipo : </i>        <code><a href="../directives/DefaultViewDirective.html" target="_self" >DefaultViewDirective</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decoradores : </b>
+                        <br />
+                        <code>
+                            @ContentChild(DefaultViewDirective)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Definido en <a href="" data-line="146" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:146</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Las directivas definen las áreas del DOM donde se va a desplegar el componente que
+corresponda según el flujo de carga del componente Suspenseable</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="done"></a>
+                    <span class="name">
+                            <span class="modifier">Private</span>
+                        <span ><b>done</b></span>
+                        <a href="#done"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Tipo : </i>    <code>Subject&lt;boolean&gt;</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Valor por defecto : </i><code>new Subject&lt;boolean&gt;()</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Definido en <a href="" data-line="195" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:195</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Subject para control de suscripción sobre ejecución de función
+setup() de componente Suspenseable en modo de operación &quot;normal&quot; (no reactivo)</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="environmentInjector"></a>
+                    <span class="name">
+                        <span ><b>environmentInjector</b></span>
+                        <a href="#environmentInjector"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Valor por defecto : </i><code>inject(EnvironmentInjector)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Definido en <a href="" data-line="171" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:171</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Inyectores que permiten la incorporación de estos componentes en la vista.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="errorView"></a>
+                    <span class="name">
+                        <span ><b>errorView</b></span>
+                        <a href="#errorView"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Tipo : </i>        <code><a href="../directives/ErrorViewDirective.html" target="_self" >ErrorViewDirective</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decoradores : </b>
+                        <br />
+                        <code>
+                            @ContentChild(ErrorViewDirective)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Definido en <a href="" data-line="148" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:148</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="eventService"></a>
+                    <span class="name">
+                        <span ><b>eventService</b></span>
+                        <a href="#eventService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Valor por defecto : </i><code>inject(EventService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Definido en <a href="" data-line="178" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:178</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Servicio de eventos para comunicación entre componentes. Utilizado para el modo de operacion reactivo.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fallbackView"></a>
+                    <span class="name">
+                        <span ><b>fallbackView</b></span>
+                        <a href="#fallbackView"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Tipo : </i>        <code><a href="../directives/FallbackViewDirective.html" target="_self" >FallbackViewDirective</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decoradores : </b>
+                        <br />
+                        <code>
+                            @ContentChild(FallbackViewDirective)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Definido en <a href="" data-line="147" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:147</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="injector"></a>
+                    <span class="name">
+                        <span ><b>injector</b></span>
+                        <a href="#injector"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Valor por defecto : </i><code>inject(Injector)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Definido en <a href="" data-line="172" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:172</a></div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="show"></a>
+                    <span class="name">
+                        <span ><b>show</b></span>
+                        <a href="#show"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Valor por defecto : </i><code>false</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Definido en <a href="" data-line="184" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:184</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Boolean para controlar el despliegue del bloque d proyección de contenido. Esto va a aplicar en caso que se utilice un
+componente Suspenseable de tipo &quot;no-lazy&quot; (ie que no se carga dinámicamente).</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="suspenseables"></a>
+                    <span class="name">
+                        <span ><b>suspenseables</b></span>
+                        <a href="#suspenseables"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Tipo : </i>        <code><a href="../injectables/Suspenseable.html" target="_self" >QueryList&lt;ISuspenseable&gt;</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decoradores : </b>
+                        <br />
+                        <code>
+                            @ContentChildren(SUSPENSE as any)<br />
+                        </code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Definido en <a href="" data-line="165" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:165</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Para el caso de requerir desplegar componentes Suspenseables de tipo &quot;no-lazy&quot; (ie que no se cargan dinámicamente)
+se hace referencia a un QueryList de ISuspenseable. En estos casos <strong>SE DEBE</strong> indicar en el componente un provider que
+señale explícitamente que es un componente de tipo Suspenseable, por ejemplo:</p>
+<div><pre class="line-numbers"><code class="language-none">&#64;Component({
+  selector: &#39;app-not-lazy&#39;,
+  templateUrl: &#39;./not-lazy.component.html&#39;,
+  styleUrls: [ &#39;./not-lazy.component.scss&#39; ],
+  providers: [ useSuspense(NotLazyComponent) ],
+})
+export class NotLazyComponent extends SuspenseableClassic  { ... }</code></pre></div></div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import {
+  Component,
+  ContentChild,
+  ViewChild,
+  ViewContainerRef,
+  Type,
+  Injector,
+  ComponentRef,
+  ContentChildren,
+  QueryList,
+  createComponent,
+  inject,
+  EnvironmentInjector,
+  createNgModule,
+  NgModuleRef,
+} from &#x27;@angular/core&#x27;;
+import { CommonModule, NgIf } from &#x27;@angular/common&#x27;;
+import { from, forkJoin, Subject, takeUntil, finalize } from &#x27;rxjs&#x27;;
+import { ISuspenseable, SUSPENSE, SuspenseableModule, SuspenseableRenderer, TDefaultSuspenseable } from &#x27;../types/types&#x27;;
+import { DefaultViewDirective, FallbackViewDirective, ErrorViewDirective } from &#x27;../directives&#x27;;
+import { EventService, YieldToMainService } from &#x27;../services&#x27;;
+
+/**
+ * Componente suspense
+ * &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;
+ * 
+ * Implementación Angular de la lógica de carga de componentes tipo Suspense (al estilo React, o Vue).  
+ * Carga de manera lazy un componente (usando imports dinámicos), y controla, a través del despliegue 
+ * de estados, el estado de la carga de un componente:
+ * 
+ * - &#x60;defaultView&#x60;: Componente a ser cargado
+ * - &#x60;fallbackView&#x60;: Componente a desplegar mientras el componente default está cargándose
+ * - &#x60;errorView&#x60;: Componente de error que se despliega si es que fallara la carga del compoente default.
+ * 
+ * Ventajas
+ * -----------
+ * 
+ * - Mejor UX,, el usuario ve el contenido de la página en la medida que se va disponibilizando (vs una página completa de loader).
+ * - Mayor control sobre la carga de un componente (estados de carga y error).
+ * - Minimización del bundle (imports dinamicos al momento de ser requeridos).
+ * - Opción de definir prioridades de carga (a través de Webpack Magic comments).
+ * 
+ * Desventajas
+ * -------------
+ * 
+ * - Sólo funciona para componentes definidos como Suspenseable.
+ * - No soporta @Output() (este funcionamiento se puede reemplazar por eventos/comportamiento reactivo).
+ * - Si el componente a desplegar está dentro de un módulo que está importado en otro lugar, 
+ *   es casi lo mismo que no usarlo (no se le saca provecho a la carga dinámica).
+ * - Su funcionamiento óptimo es usando componentes standalone al estilo de Angular 15.
+ * - Si el componente no es standalone requiere que el modulo donde este esté definido implemente SuspenseableModule.
+ * 
+ * TL;DR Desventajas
+ * -------------------
+ * 
+ * Hay que programar los componentes pensando en que serán Suspenseables.
+ * 
+ * Cómo se usa
+ * -------------
+ * 
+ * 1. Se define el componente extendiendo la clase abstracta Suspenseable.
+ * 2. Dependiendo de el modo de operación requerido se deberá reimplementar la función setup() o eventHandlers(). Al extender alguno de
+ *    los subtipos Suspenseable, la misma implementación guía al desarrollador en que funciones debe reimplementar.
+ * 3. El componente _padre_ debe definir variables para el contructor del componente y sus correspondientes parámetros.
+ * 4. Uso modo por defecto (no reactivo, despliega cuando termina el setup()):
+ * 
+ * &#x60;&#x60;&#x60;
+ * &lt;suspense&gt;
+ *  &lt;ng-template [defaultView]&#x3D;&quot;compFactory&quot; [componentParams]&#x3D;&quot;compParams&quot; clazzName&#x3D;&quot;CompComponent&quot;&gt;&lt;/ng-template&gt;
+ * 
+ *  &lt;ng-template fallbackView&gt;&lt;suspense-spinner&gt;Cargando Comp...&lt;/suspense-spinner&gt;&lt;/ng-template&gt;
+ *  &lt;ng-template errorView&gt;&lt;suspense-error&gt;Falló carga de Comp&lt;/suspense-error&gt;&lt;/ng-template&gt;
+ * &lt;/suspense&gt;
+ * &#x60;&#x60;&#x60;
+ * 
+ * &#x60;clazzName&#x60; puede ir como @Input() o como otro atributo dentro de @Input() componentParams:
+ * &#x60;componentParams &#x3D; { clazzName: &#x27;CompComponent&#x27; };&#x60;
+ * CompComponent debe extender de Suspenseable e implementar setup(), por ejemplo:
+ * 
+ * &#x60;&#x60;&#x60;
+ *   setup(): ObservableInput&lt;any&gt; {
+ *     this.ngOnInit();
+ *     return of({
+ *       input: this.input,
+ *       otherInput: this.otherInput, 
+ *       anotherInput: this.anotherInput
+ *     });
+ *   }
+ * &#x60;&#x60;&#x60;
+ * 
+ * Si el componente no es standalone, se le debe indicar a defaultView que el componente debe importarse desde el módulo donde se lo declara.
+ * El parámetro isModule puede tomar un valor booleano o bien el nombre específico del módulo que se requiere.
+ * El módulo en cuestión debe implementar SuspenseableModule.  
+ * **IMPORTANTE**: Si el módulo lleva un nombre  diferente al del componente, asegurese de ser específico en el nombre del módulo para evitar errores y lograr 
+ * desplegar exitosamente el componente. A priori esto no debioera ser necesario ya que el componente *&quot;sabe&quot;* encontrar el nombre del módulo o del componente,
+ * sin embargo siempre es bueno estar al tanto de esto.
+ * 
+ * &#x60;&#x60;&#x60;
+ *  &lt;ng-template [defaultView]&#x3D;&quot;compFactory&quot; [componentParams]&#x3D;&quot;compParams&quot; clazzName&#x3D;&quot;CompComponent&quot; [isModule]&#x3D;&quot;true&quot;&gt;&lt;/ng-template&gt;
+ * &#x60;&#x60;&#x60;
+ * 
+ * Errores
+ * ---------
+ * En la mayoría de los casos los errores son bastante explicativos (favor leer los mensajes en la consola), sin embargo hay algunos 
+ * casos particulares que no resultan tan claros:
+ * 
+ * - &#x60;TypeError: Cannot read properties of undefined (reading &#x27;ɵcmp&#x27;)&#x60;: Quiere decir que no tiene una clase para poder instanciar el componente, lo que puede 
+ *   por varios motivos:
+ *   * El nombre de la clase no corresponde al del componente de tipo Suspenseable (Ej. está mal escrito, no existe)
+ *   * El import dinámico para obtener el contructor del componente tiene errores (Ej. apunta a otro componente/módulo)
+ *   * En caso que el componente esté declarado en un módulo (componente no-standalone), el módulo debe declarar y exportar el componente. El módulo debe implementar 
+ *     SuspenseableModule
+ * - Errores de compilacion en el template de un componente: Probablemente el componente de tipo Suspenseable tenga dependencias definidas en un módulo, por lo que 
+ *   deberá indicarse isModule&#x3D;true|&lt;nombre del módulo&gt;, y el módulo debe implementar SuspenseableModule
+ * 
+ * Para sacar mejor provecho de los lazy components se recomienda asegurar que el componente o su módulo asociado no esté importado en el componente padre (o su módulo),
+ * ya que en ese caso el import se hace antes de que realmente sea necesario (pudiera haber casos donde sea válido, o necesario realizar antes la carga del módulo/componente).
+ */
+@Component({
+  selector: &#x27;suspense&#x27;,
+  template: &#x60;
+    &lt;ng-template #anchor&gt;&lt;/ng-template&gt;
+    &lt;ng-content *ngIf&#x3D;&quot;show&quot;&gt;&lt;/ng-content&gt;
+  &#x60;,
+  standalone: true,
+  imports: [
+    CommonModule, 
+    NgIf,
+    DefaultViewDirective, 
+    FallbackViewDirective, 
+    ErrorViewDirective
+  ],
+  providers: [ EventService ]
+})
+export class SuspenseComponent {
+  /**
+   * #anchor es el template contenedor de &#x60;suspense&#x60; donde se van a desplegar ya sea
+   * el componente Suspenseable, o sus estados de &quot;estoy cargando&quot; o de error (si corresponde)
+   */
+  @ViewChild      (&#x27;anchor&#x27;, { read: ViewContainerRef }) anchor: ViewContainerRef;
+
+  /**
+   * Las directivas definen las áreas del DOM donde se va a desplegar el componente que 
+   * corresponda según el flujo de carga del componente Suspenseable
+   */
+  @ContentChild   (DefaultViewDirective) defaultView           : DefaultViewDirective;
+  @ContentChild   (FallbackViewDirective) fallbackView         : FallbackViewDirective;
+  @ContentChild   (ErrorViewDirective) errorView               : ErrorViewDirective;
+
+  /**
+   * Para el caso de requerir desplegar componentes Suspenseables de tipo &quot;no-lazy&quot; (ie que no se cargan dinámicamente)
+   * se hace referencia a un QueryList de ISuspenseable. En estos casos **SE DEBE** indicar en el componente un provider que
+   * señale explícitamente que es un componente de tipo Suspenseable, por ejemplo:
+   * 
+   * &#x60;&#x60;&#x60;
+   * @Component({
+   *   selector: &#x27;app-not-lazy&#x27;,
+   *   templateUrl: &#x27;./not-lazy.component.html&#x27;,
+   *   styleUrls: [ &#x27;./not-lazy.component.scss&#x27; ],
+   *   providers: [ useSuspense(NotLazyComponent) ],
+   * })
+   * export class NotLazyComponent extends SuspenseableClassic  { ... }
+   * &#x60;&#x60;&#x60;
+   */
+  @ContentChildren(SUSPENSE as any) suspenseables              : QueryList&lt;ISuspenseable&gt;;
+  // https://github.com/angular/angular/commit/97dc85ba5e4eb6cfa741908a04cfccb1459cec9b
+
+  /**
+   * Inyectores que permiten la incorporación de estos componentes en la vista.
+   */
+  environmentInjector &#x3D; inject(EnvironmentInjector);
+  injector            &#x3D; inject(Injector);
+
+
+  /**
+   * Servicio de eventos para comunicación entre componentes. Utilizado para el modo de operacion reactivo.
+   */
+  eventService        &#x3D; inject(EventService);
+
+  /**
+   * Boolean para controlar el despliegue del bloque d proyección de contenido. Esto va a aplicar en caso que se utilice un
+   * componente Suspenseable de tipo &quot;no-lazy&quot; (ie que no se carga dinámicamente).
+   */
+  show &#x3D; false;
+
+  /**
+   * Objeto de referencia para componente instanciado.
+   */
+  private compRef: ComponentRef&lt;ISuspenseable&gt;;  
+
+    /**
+   * Subject para control de suscripción sobre ejecución de función
+   * setup() de componente Suspenseable en modo de operación &quot;normal&quot; (no reactivo)
+   */
+  private done: Subject&lt;boolean&gt; &#x3D; new Subject&lt;boolean&gt;();
+
+  constructor() {}
+
+  /**
+   * En caso que existan parámetros para el componente los asignará a la correspondiente instancia,
+   * iterando por cada una de las llaves del objeto de parámetros.
+   * 
+   * @param compRef Instancia del componente a cargar
+   * @param compParams Objeto con los parámetros que se van a asignar al componente (todos los @Input() )
+   * @returns void en caso que no haya parámetros. Internamente modifica la instancia del componente entregado como parámetro.
+   */
+  setComponentParams&lt;T&gt;(compRef: T | ISuspenseable, compParams: { clazzName?: string | undefined, [key: string]: unknown } &#x3D; {}) {
+    const params: Array&lt;string&gt; &#x3D; Object.keys(compParams).filter(v &#x3D;&gt; v !&#x3D;&#x3D; &#x27;clazzName&#x27;);
+    if (!compParams || params.length &#x3D;&#x3D;&#x3D; 0) return;
+    
+    params.forEach(param &#x3D;&gt; {
+      (compRef as any)[param as keyof typeof compRef] &#x3D; compParams[param];
+    });
+  }
+
+  /**
+   * Crea una instancia del componente Suspenseable, y en caso que corresponda,
+   * setea los parámetros (@Input()) correspondientes.
+   * La instancia será creada de la clase del componente o desde el módulo donde este esté definido.
+   * @param clazz Clase asociada al componente
+   * @param componentParams Parámetros (@Input()) del componente
+   * @param isModule Indica si el componente está dentro de un módulo
+   * @param clazzName (opcional) Nombre de la clase del componente
+   * @returns Instancia componente
+   */
+  private getComponentInstance(clazz: TDefaultSuspenseable | Type&lt;unknown&gt;, componentParams?: { clazzName?: string, [key: string]: unknown }, isModule: boolean | string &#x3D; false, clazzName?: string): ComponentRef&lt;ISuspenseable&gt; {
+    let componentInstance: ComponentRef&lt;ISuspenseable&gt;;
+
+    /**
+     * compClazz hace referencia a la clase del componente y será obtenidda según sea el valor de this.defaultView.isModule
+     */
+    let compClazz        : Type&lt;ISuspenseable&gt;;
+    let isStandAlone &#x3D; false;
+    if (isModule) {
+      console.log(&#x27;Componente esta dentro de un modulo: &#x27;, clazz, Object.keys(clazz));
+      const moduleName: string                         &#x3D; (typeof isModule &#x3D;&#x3D;&#x3D; &#x27;string&#x27;) ? isModule : Object.keys(clazz).shift() as string;
+      const moduleRef: NgModuleRef&lt;SuspenseableModule&gt; &#x3D; createNgModule(clazz[moduleName as keyof typeof clazz], this.injector)
+            compClazz                                  &#x3D; moduleRef.instance.getComponent();
+    } else { 
+      console.log(&#x27;Componente es de tipo Suspenseable: &#x27;, clazz);
+      let _clazzName: string | undefined &#x3D; !clazzName ? ( !(clazz as TDefaultSuspenseable).default ? Object.keys(clazz).shift() as string : undefined ) : clazzName;
+          compClazz                      &#x3D; !_clazzName ? (clazz as TDefaultSuspenseable).default : (clazz as TDefaultSuspenseable)[_clazzName as keyof typeof clazz];
+          isStandAlone                   &#x3D; !!_clazzName;
+    }
+    
+    /**
+     * **IMPORTANTE**: Al crear la instancia del componente, si esto se hace usando &#x60;this.anchor.createComponent(compClazz)&#x60;, la instancia del componente es
+     * INMEDIATAMENTE  agregada a la vista, independiente de si el componente está en un estado listo o no listo para ser desplegada.
+     * Crear un componente simplemente con &#x60;createComponent()&#x60; no agrega el componente a la vista, sin embargo esto no funciona para componentes de tipo &#x60;standalone&#x60;.
+     */
+    componentInstance &#x3D; isStandAlone ? this.anchor.createComponent(compClazz) : createComponent(compClazz, { environmentInjector: this.environmentInjector });
+    // componentInstance &#x3D; createComponent(compClazz, { environmentInjector: this.environmentInjector });
+    this.setComponentParams(componentInstance.instance, componentParams);
+    
+    return componentInstance;
+  }
+
+  async ngAfterViewInit() {
+    this.anchor.clear();
+
+    /**
+     * Crea la vista con el componente para desplegar el estado &quot;cargando&quot; (loader/spinner/otro)
+     */
+    this.anchor.createEmbeddedView(this.fallbackView.tpl, { index: 0 });
+    const isLazy &#x3D; this.defaultView?.fetch;
+
+    /**
+     * Si en su definición el componente no tiene un factory (es decir no define un import), fetch devolverá undefined
+     * y por ende se entenderá que el componente no es lazy.
+     */
+    if (!isLazy) {
+      console.log(&#x27;Not lazy components.&#x27;)
+
+      /**
+       * Recorre los componentes Suspenseable hijos y ejecuta la función setup() de cada uno de ellos.
+       * Una vez que estén listos, se ejecuta la función renderComponenteReady() para desplegarlos en la vista.
+       */
+      const setup &#x3D; this.suspenseables.map((comp) &#x3D;&gt; { 
+        return comp.setup();
+      });
+      forkJoin(setup).subscribe({
+        next: (_readyStatus?: Array&lt;unknown&gt;) &#x3D;&gt; {
+          this.suspenseables.forEach(comp &#x3D;&gt; {
+            (&lt;unknown&gt; comp as SuspenseableRenderer).renderComponenteReady();
+          });
+          this.anchor.clear();
+
+          /**
+           * Muestra el  ng-content (proyección de contenido)
+           */
+          this.show &#x3D; true;
+        },
+        error: (_err) &#x3D;&gt; {
+          this.anchor.remove(0);
+          this.anchor.createEmbeddedView(this.errorView.tpl);
+        },
+      });
+
+      return;
+    }
+
+    let clazzName    &#x3D; this.defaultView.getClazzName();
+
+    /**
+     * Fetch puede ser un import con prioridades (webpack magic comments)
+     * @see https://medium.com/@geor.oikonomopoulos/angular-component-dynamic-import-prioritization-using-ngcomponentoutlet-d9681becba9b
+     */
+    const fetchClass &#x3D; this.defaultView.fetch(clazzName);
+    fetchClass().then((comp: TDefaultSuspenseable | Type&lt;unknown&gt;) &#x3D;&gt; {
+      this.compRef &#x3D; this.getComponentInstance(comp, this.defaultView.componentParams, this.defaultView.isModule);
+
+      if(!this.defaultView.onEvent) {
+        console.log(&#x60;No hay evento para carga dinamica del componente.\nUsando setup().&#x60;);
+
+        /**
+         * La operación normal de suspense intentará desplegar el componente trás la 
+         * ejecución de la función &#x60;setup(): ObservableInput&lt;any&gt;&#x60;
+         * &#x60;done&#x60; se encargará de asegurar que el subscribe no genere una fuga de memoria.
+         */
+        from(this.compRef.instance.setup()).pipe(
+          takeUntil(this.done),
+          finalize(async () &#x3D;&gt; await YieldToMainService.yieldToMain())
+        ).subscribe({
+          next: () &#x3D;&gt; {
+            (&lt;unknown&gt; this.compRef.instance as SuspenseableRenderer).renderComponenteReady();
+            this.anchor.remove(0);
+            this.anchor.insert(this.compRef.hostView);
+            this.done.next(true);
+          },
+          error: () &#x3D;&gt; {
+            this.anchor.remove(0);
+            this.anchor.createEmbeddedView(this.errorView.tpl);
+            this.done.next(false);
+          },
+        });
+      } else {
+        const eventName &#x3D; this.defaultView.onEvent;
+        clazzName       &#x3D; Object.keys(comp).shift() as string;
+        if (!(clazzName?.toLowerCase())?.startsWith(eventName)) {
+          this.done.next(false);
+          throw new Error(&#x60;El evento debe usar el nombre del componente: ${(clazzName.toLowerCase()).replace(&#x27;component&#x27;, &#x27;&#x27;)} y tiene el valor de: ${eventName}&#x60;);
+        } else {
+          /**
+           * Caso de operación reactiva:
+           * - Genera la instancia del componente
+           * - Setea eventName en el componente (llamada a &#x60;eventHandlers()&#x60;)
+           */
+          console.log(&#x60;EventHandlers para ${clazzName}&#x60;);
+          this.compRef.instance.eventHandler(eventName);
+
+          /**
+           * Declara los eventos a ser monitoreados:
+           * - &lt;eventName&gt;:load para informar la carga (estado &quot;ready&quot;) del componente
+           * - &lt;eventName&gt;:error para informar algún error en la carga del componente
+           * IMPORTANTE: Aquí no se tiene el detalle específico del error.
+           */
+          this.eventService.on(&#x60;${eventName}:load&#x60;, async () &#x3D;&gt; {
+            console.log(&#x60;${eventName}:load&#x60;);
+            this.anchor.remove(0);
+            this.anchor.insert(this.compRef.hostView);
+            this.done.next(true);
+
+            await YieldToMainService.yieldToMain();
+          });  
+          this.eventService.on(&#x60;${eventName}:error&#x60;, async () &#x3D;&gt; {
+            console.log(&#x60;${eventName}:error&#x60;);
+            this.anchor.clear();
+            this.anchor.createEmbeddedView(this.errorView.tpl);
+            this.done.next(false);
+
+            await YieldToMainService.yieldToMain();
+          });
+        }
+      }
+    })
+    .catch(suspenseErr &#x3D;&gt; {
+      this.done.next(false);
+      console.error(&#x60;No se pudo generar instancia de component Suspense!&#x60;, suspenseErr);
+
+      /**
+       * En caso de error, limpia la vista y despliega el componente para desplegar el estado de error
+       * en la carga del componente Suspenseable.
+       */
+      this.anchor.clear();
+      this.anchor.createEmbeddedView(this.errorView.tpl);
+    });
+
+    await YieldToMainService.yieldToMain();
+  }
+
+  ngOnDestroy() {
+    /**
+     * Elimina las referencias al componente que se ha cargado
+     */
+    this.compRef?.destroy();
+    (this.compRef as any) &#x3D; null;
+
+    /**
+     * En caso de operación reactiva, elimina los eventos usados para
+     * notificar la carga o error en la carga del componente.
+     * Son eventos &quot;de un solo uso&quot;.
+     */
+    const eventName &#x3D; this.defaultView.onEvent;
+    if(eventName){
+      this.eventService.off(&#x60;${eventName}:load&#x60;);
+      this.eventService.off(&#x60;${eventName}:error&#x60;);
+    }
+  }
+}
+</code></pre>
+    </div>
+
+
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Leyenda</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Elemento Html</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Componente</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Elemento Html con directiva</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><ng-template #anchor></ng-template><ng-content *ngIf="show"></ng-content></div>'
+    var COMPONENTS = [{'name': 'QpSuspenseErrorComponent', 'selector': 'qp-suspense-error'},{'name': 'QpSuspenseSpinnerComponent', 'selector': 'qp-suspense-spinner'},{'name': 'SuspenseComponent', 'selector': 'suspense'}];
+    var DIRECTIVES = [{'name': 'DefaultViewDirective', 'selector': '[defaultView]'},{'name': 'ErrorViewDirective', 'selector': '[errorView]'},{'name': 'FallbackViewDirective', 'selector': '[fallbackView]'}];
+    var ACTUAL_COMPONENT = {'name': 'SuspenseComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> comparación de resultados "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No hay resultados que coincidan "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'SuspenseComponent.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

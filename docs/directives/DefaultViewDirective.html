@@ -1,0 +1,718 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>qp-suspense documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/readthedocs.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">qp-suspense documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Escribe para buscar"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content directive">
+                   <div class="content-data">
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Directivas</li>
+  <li >DefaultViewDirective</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>Fichero</h3>
+        </p>
+        <p class="comment">
+            <code>libs/suspense/src/lib/directives/default-view.directive.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Descripción</h3>
+            </p>
+            <p class="comment">
+                <p>Directiva que define el área donde se va a incluir el componente de tipo Suspenseable.
+IMPORTANTE: Es opcional definir el nombre de la clase del componente. De hacerlo se debe usar el
+            @Input() clazzName ó bien indicar el valor como un atributo &#39;clazzName&#39; dentro del objeto
+            @Input() componentParams</p>
+
+            </p>
+
+
+
+
+        <section>
+            <h3>Meta datos</h3>
+            <table class="table table-sm table-hover metadata">
+                <tbody>
+                    <tr>
+                        <td class="col-md-3">Proveedores</td>
+                        <td class="col-md-9">
+                            <code>
+                                SuspenseCacheService
+                            </code>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-3">Selector</td>
+                        <td class="col-md-9"><code>[defaultView]</code></td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </section>
+
+            <section>
+    <h3 id="index">Índice</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Propiedades</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#suspenseCache" >suspenseCache</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Métodos</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#fetch" >fetch</a>
+                            </li>
+                            <li>
+                                <a href="#getClazzName" >getClazzName</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Entradas</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#clazzName" >clazzName</a>
+                            </li>
+                            <li>
+                                <a href="#componentParams" >componentParams</a>
+                            </li>
+                            <li>
+                                <a href="#defaultView" >defaultView</a>
+                            </li>
+                            <li>
+                                <a href="#isModule" >isModule</a>
+                            </li>
+                            <li>
+                                <a href="#onEvent" >onEvent</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(suspenseCache: <a href="../injectables/SuspenseCacheService.html" target="_self">SuspenseCacheService&lt;SuspenseFactoryPromise&gt;</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Definido en <a href="" data-line="54" class="link-to-prism">libs/suspense/src/lib/directives/default-view.directive.ts:54</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div class="io-description"><p>Constructor de la directiva.</p>
+</div>
+                            <div>
+                                    <b>Parámetros :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Nombre</td>
+                                                    <td>Tipo</td>
+                                                <td>Opcional</td>
+                                                    <td>Descripción</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>suspenseCache</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/SuspenseCacheService.html" target="_self" >SuspenseCacheService&lt;SuspenseFactoryPromise&gt;</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                        <td>
+                                                                <p>Servicio que se encargará de almacenar los componentes que se hayan cargado previamente.</p>
+
+                                                        </td>
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+            <section>
+    <h3 id="inputs">Entradas</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="clazzName"></a>
+                        <b>clazzName</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Tipo : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Definido en <a href="" data-line="32" class="link-to-prism">libs/suspense/src/lib/directives/default-view.directive.ts:32</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>(opcional) Nombre de la clase asociada al componente a cargar.
+IMPORTANTE: Su opcionalidad está condicionada a que el valor de clazzName
+            pueda haberse definido previamente dentro del @Input() componentParams</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="componentParams"></a>
+                        <b>componentParams</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Tipo : </i>    <code>literal type</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Definido en <a href="" data-line="39" class="link-to-prism">libs/suspense/src/lib/directives/default-view.directive.ts:39</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>(opcional) Objeto con los parámetros del Componente, que están definidos como sus @Input()
+IMPORTANTE: Es opcional (caso que no haya @Input()), pero clazzName debe estar definido aquí ó
+            en el @Input() clazzName</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="defaultView"></a>
+                        <b>defaultView</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Tipo : </i>        <code><a href="../miscellaneous/typealiases.html#SuspenseFactoryPromise" target="_self" >SuspenseFactoryPromise</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Definido en <a href="" data-line="25" class="link-to-prism">libs/suspense/src/lib/directives/default-view.directive.ts:25</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>Constructor/Factory para el componente a cargar. Comparte el nombre de la directiva, por lo que se
+se asigna como parámetro.
+<code>[defaultView]=&quot;componentFactory&quot;</code></p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="isModule"></a>
+                        <b>isModule</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Tipo : </i>    <code>boolean | string</code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Definido en <a href="" data-line="54" class="link-to-prism">libs/suspense/src/lib/directives/default-view.directive.ts:54</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>(opcional) Indicará si el componente que se va a cargar está definido dentro de un módulo (no es standalone). Puede ser true o
+señalar el nombre del módulo (en caso que difiera del nombre del componente). Requiere que el módulo donde está declarado el componente
+implemente SuspenseableModule.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="onEvent"></a>
+                        <b>onEvent</b>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Tipo : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-2" colspan="2">
+                                    <div class="io-line">Definido en <a href="" data-line="47" class="link-to-prism">libs/suspense/src/lib/directives/default-view.directive.ts:47</a></div>
+                            </td>
+                        </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <div class="io-description"><p>(opcional) Nombre que se utilizará como prefijo para los eventos. Aplica solamente para el modo de operación reactivo.</p>
+</div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+            <section>
+    
+    <h3 id="methods">
+        Métodos
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="fetch"></a>
+                    <span class="name">
+                        <span ><b>fetch</b></span>
+                        <a href="#fetch"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>fetch(clazzName?: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Definido en <a href="" data-line="77"
+                            class="link-to-prism">libs/suspense/src/lib/directives/default-view.directive.ts:77</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>La función fetch() se encargará de realizar la petición hacia el código del componente a cargar.
+Si se ha especificado el nombre de la clase del componente, se utilizará el cache para evitar realizar
+la petición nuevamente.</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Parámetros :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Nombre</td>
+                                    <td>Tipo</td>
+                                    <td>Opcional</td>
+                                    <td>Descripción</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>clazzName</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        Si
+                                    </td>
+
+
+                                    <td>
+                                        <p>opcional, en caso de pasarlo como parámetro se usará el cache</p>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Devuelve : </b>        <code><a href="../miscellaneous/typealiases.html#SuspenseFactoryPromise" target="_self" >SuspenseFactoryPromise</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>Promise que devuelve el componente a cargar</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getClazzName"></a>
+                    <span class="name">
+                        <span ><b>getClazzName</b></span>
+                        <a href="#getClazzName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getClazzName()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Definido en <a href="" data-line="66"
+                            class="link-to-prism">libs/suspense/src/lib/directives/default-view.directive.ts:66</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Rescata el nombre de la clase que eventualmente pudiera haberse entregado como parámetro del componente.</p>
+</div>
+
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Devuelve : </b>    <code>string | undefined</code>
+
+                    </div>
+                    <div class="io-description">
+                        <p>Nombre de la clase del componente a cargar</p>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+            <section>
+    
+    <h3 id="inputs">
+        Propiedades
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="suspenseCache"></a>
+                    <span class="name">
+                            <span class="modifier">Public</span>
+                        <span ><b>suspenseCache</b></span>
+                        <a href="#suspenseCache"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Tipo : </i>        <code><a href="../injectables/SuspenseCacheService.html" target="_self" >SuspenseCacheService&lt;SuspenseFactoryPromise&gt;</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Definido en <a href="" data-line="60" class="link-to-prism">libs/suspense/src/lib/directives/default-view.directive.ts:60</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description">Servicio que se encargará de almacenar los componentes que se hayan cargado previamente.</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+</section>
+
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Directive, Input } from &#x27;@angular/core&#x27;;
+import { SuspenseCacheService } from &#x27;../services&#x27;;
+import { SuspenseFactoryPromise } from &#x27;../types/types&#x27;;
+
+/**
+ * Directiva que define el área donde se va a incluir el componente de tipo Suspenseable.
+ * IMPORTANTE: Es opcional definir el nombre de la clase del componente. De hacerlo se debe usar el 
+ *             @Input() clazzName ó bien indicar el valor como un atributo &#x27;clazzName&#x27; dentro del objeto 
+ *             @Input() componentParams
+ */
+@Directive({
+  selector  : &#x27;[defaultView]&#x27;,
+  standalone: true,
+  providers : [ SuspenseCacheService ]
+})
+export class DefaultViewDirective {
+  // Ref: https://medium.com/javascript-everyday/tip-20-prefetch-lazy-loaded-component-fc04abb6eb87
+  // defer(() &#x3D;&gt; import(/* webpackPrefetch: true | &lt;number&gt; */&#x27;&lt;lib&gt;&#x27;).then( ({ [ComponentClass] }) &#x3D;&gt; ComponentClass ))
+
+  /**
+   * Constructor/Factory para el componente a cargar. Comparte el nombre de la directiva, por lo que se
+   * se asigna como parámetro. 
+   * &#x60;[defaultView]&#x3D;&quot;componentFactory&quot;&#x60;
+   */
+  @Input(&#x27;defaultView&#x27;) componentFactory!: SuspenseFactoryPromise;  
+
+  /**
+   * (opcional) Nombre de la clase asociada al componente a cargar.
+   * IMPORTANTE: Su opcionalidad está condicionada a que el valor de clazzName 
+   *             pueda haberse definido previamente dentro del @Input() componentParams
+   */
+  @Input() clazzName?         : string;
+
+  /**
+   * (opcional) Objeto con los parámetros del Componente, que están definidos como sus @Input()
+   * IMPORTANTE: Es opcional (caso que no haya @Input()), pero clazzName debe estar definido aquí ó
+   *             en el @Input() clazzName
+   */
+  @Input() componentParams?   : { 
+    clazzName?: string | undefined,
+    [key: string]: unknown 
+  };
+
+  /**
+   * (opcional) Nombre que se utilizará como prefijo para los eventos. Aplica solamente para el modo de operación reactivo.
+   */
+  @Input() onEvent?: string;
+
+  /**
+   * (opcional) Indicará si el componente que se va a cargar está definido dentro de un módulo (no es standalone). Puede ser true o 
+   * señalar el nombre del módulo (en caso que difiera del nombre del componente). Requiere que el módulo donde está declarado el componente
+   * implemente SuspenseableModule.
+   */
+  @Input() isModule?          : boolean | string;
+
+  /**
+   * Constructor de la directiva.
+   * @param suspenseCache Servicio que se encargará de almacenar los componentes que se hayan cargado previamente.
+   */
+  constructor(public suspenseCache: SuspenseCacheService&lt;SuspenseFactoryPromise&gt;) {}
+
+  /**
+   * Rescata el nombre de la clase que eventualmente pudiera haberse entregado como parámetro del componente.
+   * @returns {string | undefined} Nombre de la clase del componente a cargar
+   */
+  getClazzName(): string | undefined {
+    return this.clazzName ?? this.componentParams?.clazzName;
+  }
+
+  /**
+   * La función fetch() se encargará de realizar la petición hacia el código del componente a cargar.
+   * Si se ha especificado el nombre de la clase del componente, se utilizará el cache para evitar realizar
+   * la petición nuevamente.
+   * @param clazzName opcional, en caso de pasarlo como parámetro se usará el cache
+   * @returns {SuspenseFactoryPromise} Promise que devuelve el componente a cargar
+   */
+  fetch(clazzName?: string): SuspenseFactoryPromise {  
+    if(clazzName) {
+      console.log(&#x27;Usando cache para clazzName: &#x27;, clazzName);
+      if (!this.suspenseCache.hasClazz(clazzName)) {
+        console.log(&#x27;Seteando cache para clazzName: &#x27;, clazzName);
+        this.suspenseCache.setClazz(clazzName, this.componentFactory);
+      }       
+      return this.suspenseCache.getClazz(clazzName);
+    } else {
+      console.log(&#x27;Devolviendo componentFactory&#x27;);
+      return this.componentFactory;
+    }
+  }
+}
+</code></pre>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> comparación de resultados "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No hay resultados que coincidan "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'directive';
+            var COMPODOC_CURRENT_PAGE_URL = 'DefaultViewDirective.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
