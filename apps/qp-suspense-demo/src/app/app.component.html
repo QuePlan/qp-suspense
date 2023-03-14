@@ -1,10 +1,11 @@
-<suspense>
+<!-- Al reservar los espacios se disminuye el LCP (Largest Contentful Paint) y se mejora la experiencia de usuario. -->
+<section suspense style="display: block; min-height: 15rem;">
   <ng-template [defaultView]="usersFactory" [componentParams]="componentParams"></ng-template>
 
   <ng-template fallbackView>
     <h4>Fetching Users...</h4>
   </ng-template>
-</suspense>
+</section>
 
 <suspense>
   <app-not-lazy saludo="Hola hola"></app-not-lazy>
