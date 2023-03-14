@@ -1,27 +1,58 @@
-# Popo
+# QP Suspense
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.9.
+QP Suspense es una implementación de la lógica de Suspense (al estilo React, Vue, Svelte). Muy en simple (y raptando descaradamente la definición de Suspense que trae React):
 
-## Development server
+> `<Suspense>` lets you display a fallback until its children have finished loading.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Entonces tenemos que aplicando `suspense` podemos, de alguna manera, asegurar que el o los componentes serán desplegados cuando efectivamente estén listos para ser desplegados. Y mientras tanto se muestra un loader (*fallback*).
 
-## Code scaffolding
+## Requerimientos
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+De momento el único requerimiento es una versión de Angular >= v14 , ya que  utiliza componentes y directivas `standalone`.
 
-## Build
+## Instalación
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+La librería aún no está publicada en NPM, sin embargo se puede instalar desde el repositorio Github, referenciando directamente el paquete:
 
-## Running unit tests
+`npm install https://github.comQuePlan/qp-suspense/releases/download/v1.0.0/qp-suspense-v1.0.0.tgz`
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Versiones disponibles: https://github.com/QuePlan/qp-suspense/releases
 
-## Running end-to-end tests
+## Suspense en Angular
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Resumiendo mucho el uso de este componente, el caso de uso más simple es: 
 
-## Further help
+```
+<suspense>
+  <ng-template [defaultView]="myComponentFactory"></ng-template>
+  <ng-template fallbackView>
+    <p>Cargando componente MyComponent</p>
+  </ng-template>
+  <ng-template errorView>
+    <p>ERROR cargando componente MyComponent</p>
+  </ng-template>
+</suspense>
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+y bajo el supuesto que el código no sea lo suficiente autoexplicativo:
+
+* defaultView : es donde se va a desplegar el componente Suspenseable. Recibe como valor el import asociado a la clase donde se ha definido el componente.
+* fallbackView : es el loader que se mostrará mientras el componente efectivamente se carga.
+* errorView : es el componente que se va a desplegar en caso de presentarse errores en la carga del componente.
+
+Casos de uso
+==============
+
+* Componentes cargados de manera lazy.
+* Componentes definidos dentro de un módulo, cargados de manera lazy.
+* Componentes cuya carga está definida por marcas de estado `setupReady` y  `hasError`.
+* Componentes que informan su estado de cargado o error a través de un  evento.
+* Componentes que son cargados de manera no-lazy.
+
+En todos los casos, los componentes deben estar definidos como alguna variedad de Suspenseable, y según sea la clase que extienden, serán los métodos que van a requerir implementar (los subtipos + OOP se encargan de esa magia).
+
+Para mayor información se recomienda ejecutar el proyecto de ejemplo:
+
+`npm start -- --configuration=development --project qp-suspense-demo --o`
+
+El detalle cada caso supuestamente está bien documentado.
