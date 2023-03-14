@@ -9,6 +9,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "docs": "compodoc -p tsconfig.doc.json -d ./docs --theme readthedocs --hideGenerator --disableCoverage --language es-ES",
+    "pack": "nx build suspense && cd ./dist/libs/suspense && npm pack --pack-destination ../../../releases",
     "postinstall": "node ./decorate-angular-cli.js"
   },
   "private": false,
