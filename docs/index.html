@@ -1,0 +1,154 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>qp-suspense documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	   <link rel="stylesheet" href="./styles/style.css">
+        <link rel="stylesheet" href="./styles/dark.css">
+        <link rel="stylesheet" href="./styles/readthedocs.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="./" class="navbar-brand">qp-suspense documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Escribe para buscar"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content getting-started">
+                   <div class="content-data">
+
+<h1 id="qp-suspense">QP Suspense</h1>
+<p>QP Suspense es una implementación de la lógica de Suspense (al estilo React, Vue, Svelte). Muy en simple (y raptando descaradamente la definición de Suspense que trae React):</p>
+<blockquote>
+<p><code>&lt;Suspense&gt;</code> lets you display a fallback until its children have finished loading.</p>
+</blockquote>
+<p>Entonces tenemos que aplicando <code>suspense</code> podemos, de alguna manera, asegurar que el o los componentes serán desplegados cuando efectivamente estén listos para ser desplegados. Y mientras tanto se muestra un loader (<em>fallback</em>).</p>
+<h2 id="requerimientos">Requerimientos</h2>
+<p>De momento el único requerimiento es una versión de Angular &gt;= v14 , ya que  utiliza componentes y directivas <code>standalone</code>.</p>
+<h2 id="instalación">Instalación</h2>
+<p>La librería aún no está publicada en NPM, sin embargo se puede instalar desde el repositorio Github, referenciando directamente el paquete:</p>
+<p><code>npm install https://github.comQuePlan/qp-suspense/releases/download/v1.0.0/qp-suspense-v1.0.0.tgz</code></p>
+<p>Versiones disponibles: <a href="https://github.com/QuePlan/qp-suspense/releases">https://github.com/QuePlan/qp-suspense/releases</a></p>
+<h2 id="suspense-en-angular">Suspense en Angular</h2>
+<p>Resumiendo mucho el uso de este componente, el caso de uso más simple es: </p>
+<div><pre class="line-numbers"><code class="language-none">&lt;suspense&gt;
+  &lt;ng-template [defaultView]=&quot;myComponentFactory&quot;&gt;&lt;/ng-template&gt;
+  &lt;ng-template fallbackView&gt;
+    &lt;p&gt;Cargando componente MyComponent&lt;/p&gt;
+  &lt;/ng-template&gt;
+  &lt;ng-template errorView&gt;
+    &lt;p&gt;ERROR cargando componente MyComponent&lt;/p&gt;
+  &lt;/ng-template&gt;
+&lt;/suspense&gt;</code></pre></div><p>y bajo el supuesto que el código no sea lo suficiente autoexplicativo:</p>
+<ul>
+<li>defaultView : es donde se va a desplegar el componente Suspenseable. Recibe como valor el import asociado a la clase donde se ha definido el componente.</li>
+<li>fallbackView : es el loader que se mostrará mientras el componente efectivamente se carga.</li>
+<li>errorView : es el componente que se va a desplegar en caso de presentarse errores en la carga del componente.</li>
+</ul>
+<h1 id="casos-de-uso">Casos de uso</h1>
+<ul>
+<li>Componentes cargados de manera lazy.</li>
+<li>Componentes definidos dentro de un módulo, cargados de manera lazy.</li>
+<li>Componentes cuya carga está definida por marcas de estado <code>setupReady</code> y  <code>hasError</code>.</li>
+<li>Componentes que informan su estado de cargado o error a través de un  evento.</li>
+<li>Componentes que son cargados de manera no-lazy.</li>
+</ul>
+<p>En todos los casos, los componentes deben estar definidos como alguna variedad de Suspenseable, y según sea la clase que extienden, serán los métodos que van a requerir implementar (los subtipos + OOP se encargan de esa magia).</p>
+<p>Para mayor información se recomienda ejecutar el proyecto de ejemplo:</p>
+<p><code>npm start -- --configuration=development --project qp-suspense-demo --o</code></p>
+<p>El detalle cada caso supuestamente está bien documentado.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> comparación de resultados "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No hay resultados que coincidan "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
+            var COMPODOC_CURRENT_PAGE_URL = 'index.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+
+       <script src="./js/menu-wc.js" defer></script>
+       <script nomodule src="./js/menu-wc_es5.js" defer></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+       <script src="./js/libs/zepto.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

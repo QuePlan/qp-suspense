@@ -1,0 +1,446 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>qp-suspense documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/readthedocs.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">qp-suspense documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Escribe para buscar"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content interface">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Interfaces</li>
+  <li
+  >
+  SuspenseableModule</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>Fichero</h3>
+        </p>
+        <p class="comment">
+            <code>libs/suspense/src/lib/types/types.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Descripción</h3>
+            </p>
+            <p class="comment">
+                <p>Define la estructura que debe implementar un módulo que declare un componente Suspenseable no standalone</p>
+
+            </p>
+
+
+        <section>
+            <h3 id="index">Índice</h3>
+            <table class="table table-sm table-bordered index-table">
+                <tbody>
+                    <tr>
+                        <td class="col-md-4">
+                            <h6><b>Métodos</b></h6>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <ul class="index-list">
+                                <li>
+                                    <a href="#getComponent" 
+>
+                                        getComponent
+                                    </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+            <section>
+    
+    <h3 id="methods">
+        Métodos
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getComponent"></a>
+                    <span class="name">
+                        <span ><b>getComponent</b></span>
+                        <a href="#getComponent"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getComponent()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Definido en <a href="" data-line="72"
+                            class="link-to-prism">libs/suspense/src/lib/types/types.ts:72</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Debe retornar el componente Suspenseable que está declarado en el módulo</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Devuelve : </b>        <code><a href="../injectables/Suspenseable.html" target="_self" >Type&lt;ISuspenseable&gt;</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { isPlatformBrowser } from &#x27;@angular/common&#x27;;
+import { ElementRef, inject, Injectable, InjectionToken, OnDestroy, OnInit, PLATFORM_ID, Renderer2, Type } from &#x27;@angular/core&#x27;;
+import { ObservableInput } from &#x27;rxjs&#x27;;
+import { EventService } from &#x27;../services/event.service&#x27;;
+import { SuspenseableBroadcaster } from &#x27;./suspenseable-broadcaster&#x27;;
+import { SuspenseableClassic } from &#x27;./suspenseable-classic&#x27;;
+import { SuspenseableEventDriven } from &#x27;./suspenseable-event-driven&#x27;;
+
+export const SUSPENSE &#x3D; new InjectionToken(&#x27;SUSPENSE&#x27;);
+
+/**
+ * Define la estructura esperada para un componente al que se pueda aplicar la 
+ * lógica tipo Suspense (al estilo React, o Vue)
+ * @see https://netbasal.com/adding-suspense-to-angular-%EF%B8%8F-%EF%B8%8F-1f34fd603584
+ */
+export interface ISuspenseable {
+  /**
+   * Funcion de configuración o preparación de un componente de tipo Suspenseable
+   * Debe responder al momento en que el componente esté efectivamente en condiciones de
+   * ser desplegado.
+   */
+  setup(): ObservableInput&lt;any&gt;;
+
+  /**
+   * Cabe la posibilidad que el componente esté en un estado &quot;listo para poder desplegarse&quot;
+   * una vez que se hayan ejecutado ciertos procesos, que serán capturados a través de los eventos:
+   * - &lt;eventName&gt;:load una vez que el componente este listo
+   * - &lt;eventName&gt;:error en caso que deba informarse un error
+   * Este tipo de operación podríamos  interpretarlo como reactivo, ya que son eventos que
+   * disparan ciertas acciones.
+   * La implementación recomendada para esta función es:
+   * &#x60;&#x60;&#x60;
+   * eventHandler(eventName: string): void {
+   *   this.eventName &#x3D; eventName;
+   * }
+   * &#x60;&#x60;&#x60;
+   * Si la variable eventName del componente Suspenseable no tiene valor definido, la carga del 
+   * componente buscará realizarse luego de llamar la función &#x60;setup()&#x60;
+   * @param eventName Nombre que servirá para identificar el evento a capturar
+   */
+  eventHandler(eventName: string): void;
+
+  /**
+   * En caso de estar habilitado el modo &quot;reactivo&quot; (habiendo definido el nombre del evento a capturar
+   * en la variable eventName del componente de tipo Suspenseable), la función informará el estado de carga 
+   * como listo. 
+   */
+  broadcastLoad(): void;
+
+  /**
+   * En caso de estar habilitado el modo &quot;reactivo&quot; (habiendo definido el nombre del evento a capturar
+   * en la variable eventName del componente de tipo Suspenseable), la función informará un estado de error 
+   * en la carga del componente. 
+   */
+  broadcastError(): void;
+
+  /**
+   * Funcion encargada de la inicialización del componente.
+   * Pensada para absorber las operaciones que realiza ngOnInit().
+   * Su implementación es opcional.
+   */
+  init(): void;
+}
+
+/**
+ * Define la estructura que debe implementar un módulo que declare un componente Suspenseable no standalone
+ */
+export interface SuspenseableModule {
+  /**
+   * Debe retornar el componente Suspenseable que está declarado en el módulo
+   */
+  getComponent(): Type&lt;ISuspenseable&gt;;
+}
+
+/**
+ * Un componente de tipo Suspenseable, dependiendo de como sea inyectado en la vista, pudiera ser desplegado
+ * antes que se encuentre en un estado listo para ser desplegado. Dado que eso es un error, se define una
+ * clase que se encargará de que el componente no sea desplegado hasta que se encuentre en un estado listo.
+ * Al momento de cargar el componente, y de iniciar el proceso del constructor, y flujos del ciclo de vida de 
+ * Angular (ngOnInit, ngAfterViewInit, etc), el componente ya se encuentra cargado en memoria, sin embargo se 
+ * desconoce su estado. Estando en memoria, para eviar que se despliegue, se oculta el componente vía CSS usando 
+ * &#x60;display: none&#x60;, y se desplegará, cambiando a &#x60;display: inherit&#x60; ó su valor inicial,  una vez que se encuentre 
+ * en un estado listo.
+ * 
+ * Todos los subtipos de Suspenseable extienden de esta clase.
+ */
+export class SuspenseableRenderer {
+  renderer: Renderer2    &#x3D; inject(Renderer2);
+  elementRef: ElementRef &#x3D; inject(ElementRef);
+  platformId: Object     &#x3D; inject(PLATFORM_ID);
+
+  defaultDisplay: string &#x3D; &#x27;inherit&#x27;;
+
+
+  /**
+   * En caso que la operación sea desde dentro de un browser, se rescatará el valor CSS inicial/original de &#x60;display&#x60; 
+   * del componente, y se cambiará a none, de esa manera se oculta el componente (asumiendo un estado *no listo*).
+   */
+  constructor() {
+    if(isPlatformBrowser(this.platformId)) {
+      this.defaultDisplay &#x3D; window.getComputedStyle(this.elementRef.nativeElement).getPropertyValue(&#x27;display&#x27;);
+      this.renderer.setStyle(this.elementRef.nativeElement, &#x27;display&#x27;, &#x27;none&#x27;);
+    } 
+  }
+
+  /**
+   * En caso que la operación sea desde dentro de un browser, se cambia el valor de &#x60;display&#x60; a su valor inicial; de
+   * esa manera se despliega el componente (asumiendo un estado *listo para ser desplegado*).
+   */
+  renderComponenteReady() {
+    if(isPlatformBrowser(this.platformId)) {
+      this.renderer.setStyle(this.elementRef.nativeElement, &#x27;display&#x27;, this.defaultDisplay);  
+    }
+  }
+}
+
+/**
+ * Clase abstracta que define la estructura de un componente de tipo Suspenseable.
+ * Considera de manera muy inocente, todos los posibles casos de uso, y funciones posiblemente requeridas.
+ * Es abstracta de modo de a lo menos obligar la implmentación de las interfaces OnInit y OnDestroy.
+ */
+@Injectable()
+export abstract class Suspenseable extends SuspenseableRenderer implements ISuspenseable, OnInit, OnDestroy {
+  abstract ngOnInit(): void;
+  abstract ngOnDestroy(): void;
+  
+  /**
+   * Servicio de eventos, requerido para el modo de operación &quot;reactivo&quot;
+   */
+  eventService : EventService &#x3D; inject(EventService);
+
+  /**
+   * Nombre del evento a capturar, en caso de operar en modo &quot;reactivo&quot;
+   */
+  eventName   ?: string;
+
+  init() {
+    throw new Error(&#x27;init() no implementado&#x27;);
+  }
+
+  setup(): ObservableInput&lt;any&gt; {
+    /**
+     * Permite que en un contexto de desarrollo sepamos que este método no
+     * está implementado &#x3D;&gt; despliegue de estado de error para carga del componente
+     * Aplica solamente para el modo de operación &quot;normal&quot; (usando  función &#x60;setup()&#x60; )
+     */
+    throw new Error(&#x27;setup() no implementado&#x27;);
+  }
+
+  eventHandler(eventName: string): void {
+    /**
+     * Permite que en un contexto de desarrollo sepamos que este método no
+     * está implementado &#x3D;&gt; despliegue de estado de error para carga del componente
+     * Aplica solamente para el modo de operación &quot;reactivo&quot; (variable &#x60;eventName&#x60; con valor definido )
+     */
+    throw new Error(&#x27;eventHandler() no implementado&#x27;);
+  }
+
+  broadcastLoad(): void {
+    /**
+     * Sólo notifica el estado en caso de  estar operando en modo &quot;reactivo&quot;
+     */
+    if (this.eventName) {   
+      this.renderComponenteReady();   
+      this.eventService.broadcast(&#x60;${this.eventName}:load&#x60;, true);
+    } else {
+      throw new Error(&#x27;Usando modo reactivo sin haber defido el nombre del evento. Verifique implementación de eventHandler()&#x27;);
+    }
+  }
+
+  broadcastError(): void {
+    /**
+     * Sólo notifica el estado en caso de  estar operando en modo &quot;reactivo&quot;
+     */    
+    if (this.eventName) {
+      this.renderComponenteReady();
+      this.eventService.broadcast(&#x60;${this.eventName}:error&#x60;, true);
+    } else {
+      throw new Error(&#x27;Usando modo reactivo sin haber defido el nombre del evento. Verifique implementación de eventHandler()&#x27;);
+    }
+  }
+}
+
+/**
+ * Clase abstracta que define la estructura de un componente de tipo Suspenseable aplicable cuando el  componente se encuentra
+ * definido dentro de un módulo. A priori se desconoce que subtipo de componente Suspenseable será, por lo que lo menos malo es
+ * usar la clase abstracta Suspenseable, y definir explícitamente todos los métodos que se requieran.
+ */
+export abstract class SuspenseableInModule extends Suspenseable {}
+
+/**
+ * Tipo especial para la respuesta del import de un componente definido como Suspenseable.
+ * Usando el atributo default se evita requerir expresamente el nombre del componente.
+ */
+export type TDefaultSuspenseable   &#x3D; { default: Type&lt;Suspenseable&gt; };
+
+/**
+ * Tipo de la promesa utilizada en la directiva defaultView para la carga de un componente Suspenseable.
+ * Componentes Suspenseable &quot;normales&quot; son de tipo Promise&lt;TDefaultSuspenseable&gt;
+ * Componentes Suspenseable &quot;standalone&quot; o aquellos que cuyo factory sea el módulo donde están definidos son de tipo Promise&lt;Type&lt;unknown&gt;&gt;
+ * 
+ */
+export type SuspenseFactoryPromise &#x3D; () &#x3D;&gt; Promise&lt;TDefaultSuspenseable&gt; | Promise&lt;Type&lt;unknown&gt;&gt;;
+
+/**
+ * Tipo general para los componentes de tipo Suspenseable.
+ * Sabemos que es Suspenseable, pero no sabemos que tipo de Suspenseable es.
+ */
+export type TSuspenseable &#x3D; Type&lt;Suspenseable | SuspenseableClassic | SuspenseableEventDriven | SuspenseableBroadcaster | SuspenseableInModule&gt;;
+
+/**
+ * Se utiliza como proveedor de un componente de tipo Suspenseable que es cargado de modo &quot;no lazy&quot; (es decir sin un import explícito).
+ * En este caso, lo más habitual es que los componentes esten definidos dentro de un módulo.
+ * @param comp {TSuspenseable} Componente de tipo Suspenseable
+ * @returns 
+ */
+export const useSuspense &#x3D; (comp: TSuspenseable) &#x3D;&gt; ({
+  provide: SUSPENSE,
+  useExisting: comp,
+});
+</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> comparación de resultados "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No hay resultados que coincidan "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'interface';
+            var COMPODOC_CURRENT_PAGE_URL = 'SuspenseableModule.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

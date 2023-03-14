@@ -19,7 +19,7 @@
   "cli": {
     "analytics": false
   },
-  "defaultProject": "popo",
+  "defaultProject": "qp-suspense-demo",
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
     "build": {

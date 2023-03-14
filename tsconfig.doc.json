@@ -1,0 +1,4 @@
+{
+  "include": ["libs/suspense/src/**/*.ts"],
+  "exclude": ["libs/suspense/src/test.ts", "libs/suspense/src/**/*.spec.ts"]
+}

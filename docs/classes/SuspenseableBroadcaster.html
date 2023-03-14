@@ -1,0 +1,753 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>qp-suspense documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	   <link rel="stylesheet" href="../styles/style.css">
+        <link rel="stylesheet" href="../styles/dark.css">
+        <link rel="stylesheet" href="../styles/readthedocs.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">qp-suspense documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Escribe para buscar"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content class">
+                   <div class="content-data">
+
+
+
+
+
+
+
+
+
+
+
+
+<ol class="breadcrumb">
+  <li>Clases</li>
+  <li >SuspenseableBroadcaster</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info">
+        <p class="comment">
+            <h3>Fichero</h3>
+        </p>
+        <p class="comment">
+            <code>libs/suspense/src/lib/types/suspenseable-broadcaster.ts</code>
+        </p>
+
+
+            <p class="comment">
+                <h3>Descripción</h3>
+            </p>
+            <p class="comment">
+                <p>Definición de clase abstracta para la implementación de un componente Suspenseable
+cuya operación de en modo &quot;reactivo&quot;, es decir basada en la captura de eventos que indiquen
+cuando el componente está listo para ser desplegado o cuando se ha producido un error.
+Sólo fuerza la definición del método <code>eventHandler()</code>, que debe definir el nombre del evento
+a capturar.</p>
+<h2 id="modo-reactivo">Modo reactivo</h2>
+<p>El componente se despliega una vez recibido el evento <code>&lt;eventName&gt;:load</code>:</p>
+<div><pre class="line-numbers"><code class="language-none">&lt;suspense&gt;
+ &lt;ng-template [defaultView]=&quot;compFactory&quot; [componentParams]=&quot;compParams&quot; clazzName=&quot;CompComponent&quot; onEvent=&quot;comp&quot;&gt;&lt;/ng-template&gt;
+
+ &lt;ng-template fallbackView&gt;&lt;qp-suspense-spinner&gt;Cargando Comp...&lt;/qp-suspense-spinner&gt;&lt;/ng-template&gt;
+ &lt;ng-template errorView&gt;&lt;qp-suspense-error&gt;Falló carga de Comp&lt;/qp-suspense-error&gt;&lt;/ng-template&gt;
+&lt;/suspense&gt;</code></pre></div><p>El nombre del evento debe ser el mismo que el nombre del componente SuspenseableBroadcaster, sin el sufijo &quot;Component&quot;;
+y debe ser indicado como el @Input() <code>onEvent</code> del componente.
+Si se especifica onEvent con algún error, el componente no se desplegará y el mensaje de error indicará la corrección a realizar.
+En este modo, una vez que el componente realice las operaciones que lo disponibilizan para ser desplegado, se deberá incluir la
+correspondiente llamada al método <code>this.broadcastLoad()</code>.
+Análogamente, en caso de error se deberá llamar al método <code>this.broadcastError()</code>.</p>
+
+            </p>
+
+            <p class="comment">
+                <h3>Extiende</h3>
+            </p>
+            <p class="comment">
+                        <code><a href="../injectables/Suspenseable.html" target="_self" >SuspenseableRenderer</a></code>
+            </p>
+
+            <p class="comment">
+                <h3>Implementa</h3>
+            </p>
+            <p class="comment">
+                        <code>Pick</code>
+            </p>
+
+
+            <section>
+    <h3 id="index">Índice</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Propiedades</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                    <span class="modifier">Opcional</span>
+                                <a href="#eventName" >eventName</a>
+                            </li>
+                            <li>
+                                <a href="#eventService" >eventService</a>
+                            </li>
+                            <li>
+                                <a href="#defaultDisplay" >defaultDisplay</a>
+                            </li>
+                            <li>
+                                <a href="#elementRef" >elementRef</a>
+                            </li>
+                            <li>
+                                <a href="#platformId" >platformId</a>
+                            </li>
+                            <li>
+                                <a href="#renderer" >renderer</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Métodos</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#broadcastError" >broadcastError</a>
+                            </li>
+                            <li>
+                                <a href="#broadcastLoad" >broadcastLoad</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Abstract</span>
+                                <a href="#eventHandler" >eventHandler</a>
+                            </li>
+                            <li>
+                                <a href="#renderComponenteReady" >renderComponenteReady</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+
+            <section>
+    
+    <h3 id="inputs">
+        Propiedades
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="eventName"></a>
+                    <span class="name">
+                            <span class="modifier">Opcional</span>
+                        <span ><b>eventName</b></span>
+                        <a href="#eventName"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Tipo : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Definido en <a href="" data-line="42" class="link-to-prism">libs/suspense/src/lib/types/suspenseable-broadcaster.ts:42</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Nombre del evento a capturar, en caso de operar en modo &quot;reactivo&quot;</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="eventService"></a>
+                    <span class="name">
+                        <span ><b>eventService</b></span>
+                        <a href="#eventService"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Tipo : </i>        <code><a href="../injectables/EventService.html" target="_self" >EventService</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Valor por defecto : </i><code>inject(EventService)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Definido en <a href="" data-line="37" class="link-to-prism">libs/suspense/src/lib/types/suspenseable-broadcaster.ts:37</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Servicio de eventos, requerido para el modo de operación &quot;reactivo&quot;</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="defaultDisplay"></a>
+                    <span class="name">
+                        <span ><b>defaultDisplay</b></span>
+                        <a href="#defaultDisplay"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Tipo : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Valor por defecto : </i><code>&#x27;inherit&#x27;</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Heredado desde         <code><a href="../injectables/Suspenseable.html" target="_self" >SuspenseableRenderer</a></code>
+</div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Definido en         <code><a href="../injectables/Suspenseable.html#source" target="_self" >SuspenseableRenderer:92</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="elementRef"></a>
+                    <span class="name">
+                        <span ><b>elementRef</b></span>
+                        <a href="#elementRef"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Tipo : </i>        <code><a href="https://angular.io/api/core/ElementRef" target="_blank" >ElementRef</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Valor por defecto : </i><code>inject(ElementRef)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Heredado desde         <code><a href="../injectables/Suspenseable.html" target="_self" >SuspenseableRenderer</a></code>
+</div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Definido en         <code><a href="../injectables/Suspenseable.html#source" target="_self" >SuspenseableRenderer:89</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="platformId"></a>
+                    <span class="name">
+                        <span ><b>platformId</b></span>
+                        <a href="#platformId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Tipo : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object" target="_blank" >Object</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Valor por defecto : </i><code>inject(PLATFORM_ID)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Heredado desde         <code><a href="../injectables/Suspenseable.html" target="_self" >SuspenseableRenderer</a></code>
+</div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Definido en         <code><a href="../injectables/Suspenseable.html#source" target="_self" >SuspenseableRenderer:90</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="renderer"></a>
+                    <span class="name">
+                        <span ><b>renderer</b></span>
+                        <a href="#renderer"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Tipo : </i>        <code><a href="https://angular.io/api/core/Renderer2" target="_blank" >Renderer2</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Valor por defecto : </i><code>inject(Renderer2)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Heredado desde         <code><a href="../injectables/Suspenseable.html" target="_self" >SuspenseableRenderer</a></code>
+</div>
+                            </td>
+                        </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Definido en         <code><a href="../injectables/Suspenseable.html#source" target="_self" >SuspenseableRenderer:88</a></code>
+</div>
+                        </td>
+                    </tr>
+
+
+        </tbody>
+    </table>
+</section>
+
+            <section>
+    
+    <h3 id="methods">
+        Métodos
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="broadcastError"></a>
+                    <span class="name">
+                        <span ><b>broadcastError</b></span>
+                        <a href="#broadcastError"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>broadcastError()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Definido en <a href="" data-line="58"
+                            class="link-to-prism">libs/suspense/src/lib/types/suspenseable-broadcaster.ts:58</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Devuelve : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="broadcastLoad"></a>
+                    <span class="name">
+                        <span ><b>broadcastLoad</b></span>
+                        <a href="#broadcastLoad"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>broadcastLoad()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Definido en <a href="" data-line="46"
+                            class="link-to-prism">libs/suspense/src/lib/types/suspenseable-broadcaster.ts:46</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Devuelve : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="eventHandler"></a>
+                    <span class="name">
+                        <span class="modifier">Abstract</span>
+                        <span ><b>eventHandler</b></span>
+                        <a href="#eventHandler"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                    <span class="modifier-icon icon ion-ios-reset"></span>
+                    <code>eventHandler(eventName: <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank">string</a>)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Definido en <a href="" data-line="44"
+                            class="link-to-prism">libs/suspense/src/lib/types/suspenseable-broadcaster.ts:44</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parámetros :</b>
+                        
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Nombre</td>
+                                    <td>Tipo</td>
+                                    <td>Opcional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>eventName</td>
+                                    <td>
+                                                <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+                                    </td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Devuelve : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="renderComponenteReady"></a>
+                    <span class="name">
+                        <span ><b>renderComponenteReady</b></span>
+                        <a href="#renderComponenteReady"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>renderComponenteReady()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Heredado desde         <code><a href="../injectables/Suspenseable.html" target="_self" >SuspenseableRenderer</a></code>
+</div>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+                        <div class="io-line">Definido en         <code><a href="../injectables/Suspenseable.html#source" target="_self" >SuspenseableRenderer:110</a></code>
+</div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>En caso que la operación sea desde dentro de un browser, se cambia el valor de <code>display</code> a su valor inicial; de
+esa manera se despliega el componente (asumiendo un estado <em>listo para ser desplegado</em>).</p>
+</div>
+
+                    <div class="io-description">
+                        <b>Devuelve : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+
+
+
+
+    </div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { inject } from &quot;@angular/core&quot;;
+import { EventService } from &quot;../services/event.service&quot;;
+import { ISuspenseable, SuspenseableRenderer } from &quot;./types&quot;;
+
+/**
+ * Definición de clase abstracta para la implementación de un componente Suspenseable
+ * cuya operación de en modo &quot;reactivo&quot;, es decir basada en la captura de eventos que indiquen
+ * cuando el componente está listo para ser desplegado o cuando se ha producido un error.
+ * Sólo fuerza la definición del método &#x60;eventHandler()&#x60;, que debe definir el nombre del evento
+ * a capturar.
+ * 
+ * Modo reactivo 
+ * ----------------
+ * 
+ * El componente se despliega una vez recibido el evento &#x60;&lt;eventName&gt;:load&#x60;:
+ * 
+ * &#x60;&#x60;&#x60;
+ * &lt;suspense&gt;
+ *  &lt;ng-template [defaultView]&#x3D;&quot;compFactory&quot; [componentParams]&#x3D;&quot;compParams&quot; clazzName&#x3D;&quot;CompComponent&quot; onEvent&#x3D;&quot;comp&quot;&gt;&lt;/ng-template&gt;
+ * 
+ *  &lt;ng-template fallbackView&gt;&lt;qp-suspense-spinner&gt;Cargando Comp...&lt;/qp-suspense-spinner&gt;&lt;/ng-template&gt;
+ *  &lt;ng-template errorView&gt;&lt;qp-suspense-error&gt;Falló carga de Comp&lt;/qp-suspense-error&gt;&lt;/ng-template&gt;
+ * &lt;/suspense&gt;
+ * &#x60;&#x60;&#x60;
+ * 
+ * El nombre del evento debe ser el mismo que el nombre del componente SuspenseableBroadcaster, sin el sufijo &quot;Component&quot;;
+ * y debe ser indicado como el @Input() &#x60;onEvent&#x60; del componente.  
+ * Si se especifica onEvent con algún error, el componente no se desplegará y el mensaje de error indicará la corrección a realizar.
+ * En este modo, una vez que el componente realice las operaciones que lo disponibilizan para ser desplegado, se deberá incluir la 
+ * correspondiente llamada al método &#x60;this.broadcastLoad()&#x60;.  
+ * Análogamente, en caso de error se deberá llamar al método &#x60;this.broadcastError()&#x60;.
+ */
+export abstract class SuspenseableBroadcaster extends SuspenseableRenderer implements Pick&lt;ISuspenseable, &#x27;eventHandler&#x27; | &#x27;broadcastLoad&#x27; | &#x27;broadcastError&#x27;&gt; {
+  /**
+   * Servicio de eventos, requerido para el modo de operación &quot;reactivo&quot;
+   */
+  eventService : EventService &#x3D; inject(EventService);
+
+  /**
+   * Nombre del evento a capturar, en caso de operar en modo &quot;reactivo&quot;
+   */
+  eventName   ?: string;
+  
+  abstract eventHandler(eventName: string): void;
+
+  broadcastLoad(): void {
+    /**
+     * Sólo notifica el estado en caso de  estar operando en modo &quot;reactivo&quot;
+     */
+    if (this.eventName) {   
+      this.renderComponenteReady();   
+      this.eventService.broadcast(&#x60;${this.eventName}:load&#x60;, true);
+    } else {
+      throw new Error(&#x27;Usando modo reactivo sin haber defido el nombre del evento. Verifique implementación de eventHandler()&#x27;);
+    }
+  }
+
+  broadcastError(): void {
+    /**
+     * Sólo notifica el estado en caso de  estar operando en modo &quot;reactivo&quot;
+     */    
+    if (this.eventName) {
+      this.renderComponenteReady();
+      this.eventService.broadcast(&#x60;${this.eventName}:error&#x60;, true);
+    } else {
+      throw new Error(&#x27;Usando modo reactivo sin haber defido el nombre del evento. Verifique implementación de eventHandler()&#x27;);
+    }
+  }
+  
+}</code></pre>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> comparación de resultados "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No hay resultados que coincidan "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+          <label class="dark-mode-switch">
+               <input type="checkbox">
+               <span class="slider">
+                    <svg class="slider-icon" viewBox="0 0 24 24" fill="none" height="20" stroke="#000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="20" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+                    </svg>
+               </span>
+          </label>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'class';
+            var COMPODOC_CURRENT_PAGE_URL = 'SuspenseableBroadcaster.html';
+            var MAX_SEARCH_RESULTS = 15;
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+
+       <script src="../js/menu-wc.js" defer></script>
+       <script nomodule src="../js/menu-wc_es5.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>
