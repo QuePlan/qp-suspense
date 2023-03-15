@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import { timer } from 'rxjs';
-import { Suspenseable, SuspenseableClassic, useSuspense } from '@queplan/suspense';
+import { SuspenseableClassic, useSuspense } from '@queplan/qp-suspense/types';
 
 @Component({
   selector: 'app-not-lazy2',

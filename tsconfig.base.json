@@ -9,9 +9,16 @@
     "target": "es2015",
     "module": "es2020",
     "lib": ["es2018", "dom"],
-    "baseUrl": "./",
+    "baseUrl": "/",
     "paths": {
-      "@queplan/suspense": ["libs/suspense/src/index.ts"]
+      "@queplan/qp-suspense/*": [ 
+        "dist/libs/suspense/*", 
+        "libs/suspense/*" 
+      ],
+      "@queplan/qp-suspense"  : [ 
+        "dist/libs/suspense",
+        "libs/suspense"
+      ]
     }
   }
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Suspenseable } from '@queplan/suspense';
+import { Suspenseable } from '@queplan/qp-suspense/types';
 
 @Component({
   selector: 'app-test-suspenseable',

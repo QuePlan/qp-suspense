@@ -1,6 +1,4 @@
-import { Injectable, Type } from '@angular/core';
-import { Router } from '@angular/router';
-import { TDefaultSuspenseable, SuspenseFactoryPromise } from '../types';
+import { Injectable } from '@angular/core';
 
 /**
  * Implementación de servicio de cache en memoria (simple), para las
@@ -12,7 +10,7 @@ import { TDefaultSuspenseable, SuspenseFactoryPromise } from '../types';
 export class SuspenseCacheService<T> {
   private clazzMap: Map<string, T> = new Map();
 
-  constructor(private router: Router) { }
+  constructor() { }
 
   /**
    * Verifica si una clase sen encuentra en el caché.
