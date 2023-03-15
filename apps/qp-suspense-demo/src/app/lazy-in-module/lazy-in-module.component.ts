@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { ObservableInput, of } from 'rxjs';
-import {  SuspenseableInModule } from '@queplan/qp-suspense/types/types';
+import {  SuspenseableInModule } from '@queplan/qp-suspense/types';
 
 @Component({
   selector: 'app-lazy-in-module',

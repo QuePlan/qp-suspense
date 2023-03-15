@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SuspenseableBroadcaster } from '@queplan/qp-suspense/types/suspenseable-broadcaster';
+import { SuspenseableBroadcaster } from '@queplan/qp-suspense/types';
 import { tap, timer } from 'rxjs';
 
 @Component({
