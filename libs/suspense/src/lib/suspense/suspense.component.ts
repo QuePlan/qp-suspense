@@ -16,9 +16,9 @@ import {
 } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
 import { from, forkJoin, Subject, takeUntil, finalize } from 'rxjs';
-import { ISuspenseable, SUSPENSE, SuspenseableModule, SuspenseableRenderer, TDefaultSuspenseable } from '../types/types';
-import { DefaultViewDirective, FallbackViewDirective, ErrorViewDirective } from '../directives';
-import { EventService, YieldToMainService } from '../services';
+import { ISuspenseable, SUSPENSE, SuspenseableModule, SuspenseableRenderer, TDefaultSuspenseable } from '@queplan/qp-suspense/types';
+import { DefaultViewDirective, FallbackViewDirective, ErrorViewDirective } from '@queplan/qp-suspense/directives';
+import { EventService, YieldToMainService } from '@queplan/qp-suspense/services';
 
 /**
  * Componente suspense
@@ -168,14 +168,14 @@ export class SuspenseComponent {
   /**
    * Inyectores que permiten la incorporación de estos componentes en la vista.
    */
-  environmentInjector = inject(EnvironmentInjector);
-  injector            = inject(Injector);
+  environmentInjector: EnvironmentInjector = inject(EnvironmentInjector);
+  injector           : Injector            = inject(Injector);
 
 
-  /**
+    /**
    * Servicio de eventos para comunicación entre componentes. Utilizado para el modo de operacion reactivo.
    */
-  eventService        = inject(EventService);
+  eventService: EventService = inject(EventService);
 
   /**
    * Boolean para controlar el despliegue del bloque d proyección de contenido. Esto va a aplicar en caso que se utilice un
@@ -373,7 +373,7 @@ export class SuspenseComponent {
         }
       }
     })
-    .catch(suspenseErr => {
+    .catch((suspenseErr: unknown) => {
       this.done.next(false);
       console.error(`No se pudo generar instancia de component Suspense!`, suspenseErr);
 

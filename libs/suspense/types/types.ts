@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { ElementRef, inject, Injectable, InjectionToken, OnDestroy, OnInit, PLATFORM_ID, Renderer2, Type } from '@angular/core';
 import { ObservableInput } from 'rxjs';
-import { EventService } from '../services/event.service';
+import { EventService } from '@queplan/qp-suspense/services';
 import { SuspenseableBroadcaster } from './suspenseable-broadcaster';
 import { SuspenseableClassic } from './suspenseable-classic';
 import { SuspenseableEventDriven } from './suspenseable-event-driven';

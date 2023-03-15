@@ -1,5 +1,5 @@
 import { inject } from "@angular/core";
-import { EventService } from "../services/event.service";
+import { EventService } from "@queplan/qp-suspense/services";
 import { ISuspenseable, SuspenseableRenderer } from "./types";
 
 /**

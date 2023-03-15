@@ -8,7 +8,8 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": false,
     "noFallthroughCasesInSwitch": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "experimentalDecorators": true
   },
   "files": [],
   "include": [],

@@ -1,6 +1,6 @@
 import { Directive, Input } from '@angular/core';
-import { SuspenseCacheService } from '../services';
-import { SuspenseFactoryPromise } from '../types/types';
+import { SuspenseCacheService } from '@queplan/qp-suspense/services';
+import { SuspenseFactoryPromise } from '@queplan/qp-suspense/types';
 
 /**
  * Directiva que define el área donde se va a incluir el componente de tipo Suspenseable.
