@@ -9,7 +9,7 @@
     "target": "es2015",
     "module": "es2020",
     "lib": ["es2018", "dom"],
-    "baseUrl": "/",
+    "baseUrl": "./",
     "paths": {
       "@queplan/qp-suspense/*": [ 
         "dist/libs/suspense/*", 
