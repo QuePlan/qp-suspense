@@ -1,7 +1,24 @@
 {
   "root": true,
   "ignorePatterns": ["**/*"],
-  "plugins": ["@nrwl/nx"],
+  "plugins": ["import", "@nrwl/nx"],
+  "rules": {
+    "import/no-unresolved": "error"
+  },
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": [
+          "apps/*/tsconfig.json",
+          "libs/*/tsconfig.json"
+        ]
+      }
+    }
+  },
   "overrides": [
     {
       "files": ["*.ts", "*.tsx", "*.js", "*.jsx"],

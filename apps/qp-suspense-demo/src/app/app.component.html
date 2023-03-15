@@ -6,8 +6,7 @@
     <h4>Fetching Users...</h4>
   </ng-template>
 </section>
-
-<suspense>
+<suspense style="display: flex; flex-direction: column; min-height: 6.5rem;">
   <app-not-lazy saludo="Hola hola"></app-not-lazy>
   <app-not-lazy2 saludos="lalalala holas"></app-not-lazy2>
 
@@ -16,7 +15,7 @@
   </ng-template>
 </suspense>
 
-<suspense>
+<suspense style="display: block; min-height: 3rem;">
   <app-not-lazy-eventdriven eventNameRef="evtReferencia"></app-not-lazy-eventdriven>
   <ng-template fallbackView>
     <p>Cargando event driven componente no lazy</p>
@@ -26,7 +25,7 @@
   </ng-template>
 </suspense>
 
-<suspense>
+<suspense style="display: block; min-height: 3rem;">
   <ng-template [defaultView]="lazyInModuleFactory" [componentParams]="lazyInModuleParams" [isModule]="true"></ng-template>
   <ng-template fallbackView>
     <p>Cargando componente lazy desde modulo</p>
@@ -43,7 +42,7 @@
   <p>No se cumple</p>
 </ng-template>
 
-<suspense>
+<suspense style="display: block; min-height: 3rem;">
   <ng-template [defaultView]="lazyStandaloneFactory" [componentParams]="lazyStandaloneParams" onEvent="lazystandalone"></ng-template>
   <ng-template fallbackView>
     <p>Cargando componente lazy standalone</p>

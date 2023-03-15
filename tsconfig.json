@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "experimentalDecorators": true
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
