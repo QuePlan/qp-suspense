@@ -278,7 +278,10 @@ export class SuspenseComponent {
       const setup = this.suspenseables.map((comp) => { 
         return comp.setup();
       });
-      forkJoin(setup).subscribe({
+      forkJoin(setup).pipe(
+        takeUntil(this.done),
+        finalize(async () => await YieldToMainService.yieldToMain())
+      ).subscribe({
         next: (_readyStatus?: Array<unknown>) => {
           this.suspenseables.forEach(comp => {
             (<unknown> comp as SuspenseableRenderer).renderComponenteReady();
@@ -289,10 +292,12 @@ export class SuspenseComponent {
            * Muestra el  ng-content (proyección de contenido)
            */
           this.show = true;
+          this.done.next(true);
         },
         error: (_err) => {
           this.anchor.remove(0);
           this.anchor.createEmbeddedView(this.errorView.tpl);
+          this.done.next(false);
         },
       });
 
@@ -385,7 +390,7 @@ export class SuspenseComponent {
       this.anchor.createEmbeddedView(this.errorView.tpl);
     });
 
-    await YieldToMainService.yieldToMain();
+    // await YieldToMainService.yieldToMain();
   }
 
   ngOnDestroy() {
