@@ -15,7 +15,7 @@ import {
   NgModuleRef,
 } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
-import { from, forkJoin, Subject, takeUntil, finalize } from 'rxjs';
+import { from, forkJoin, Subject, takeUntil, finalize, ObservableInput } from 'rxjs';
 import { ISuspenseable, SUSPENSE, SuspenseableModule, SuspenseableRenderer, TDefaultSuspenseable } from '@queplan/qp-suspense/types';
 import { DefaultViewDirective, FallbackViewDirective, ErrorViewDirective } from '@queplan/qp-suspense/directives';
 import { EventService, YieldToMainService } from '@queplan/qp-suspense/services';
@@ -275,7 +275,7 @@ export class SuspenseComponent {
        * Recorre los componentes Suspenseable hijos y ejecuta la función setup() de cada uno de ellos.
        * Una vez que estén listos, se ejecuta la función renderComponenteReady() para desplegarlos en la vista.
        */
-      const setup = this.suspenseables.map((comp) => { 
+      const setup: Array<ObservableInput<any>> = this.suspenseables.map((comp) => { 
         return comp.setup();
       });
       forkJoin(setup).pipe(
@@ -381,7 +381,8 @@ export class SuspenseComponent {
     .catch((suspenseErr: unknown) => {
       this.done.next(false);
       console.error(`No se pudo generar instancia de component Suspense!`, suspenseErr);
-
+      console.error('Verifique el tipo de componente implementado. Si es de tipo SuspenseableBroadcaster de debe indicar el nombre del evento en el @Input() onEvent');
+      
       /**
        * En caso de error, limpia la vista y despliega el componente para desplegar el estado de error
        * en la carga del componente Suspenseable.
