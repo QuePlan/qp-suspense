@@ -1,6 +1,6 @@
 import { inject } from "@angular/core";
 import { EventService } from "@queplan/qp-suspense/services";
-import { ISuspenseable, SuspenseableRenderer } from "./types";
+import { EVENT_SERVICE, ISuspenseable, SuspenseableRenderer } from "./types";
 
 /**
  * Definición de clase abstracta para la implementación de un componente Suspenseable
@@ -34,7 +34,7 @@ export abstract class SuspenseableBroadcaster extends SuspenseableRenderer imple
   /**
    * Servicio de eventos, requerido para el modo de operación "reactivo"
    */
-  eventService : EventService = inject(EventService);
+  eventService : EventService = inject(EVENT_SERVICE);
 
   /**
    * Nombre del evento a capturar, en caso de operar en modo "reactivo"

@@ -58,7 +58,7 @@
             <h3>Fichero</h3>
         </p>
         <p class="comment">
-            <code>libs/suspense/src/lib/directives/default-view.directive.ts</code>
+            <code>libs/suspense/directives/default-view.directive.ts</code>
         </p>
 
 
@@ -84,7 +84,9 @@ IMPORTANTE: Es opcional definir el nombre de la clase del componente. De hacerlo
                         <td class="col-md-3">Proveedores</td>
                         <td class="col-md-9">
                             <code>
-                                SuspenseCacheService
+                                {
+    provide: SuspenseCacheService, useValue: SUSPENSE_CACHE
+}
                             </code>
                         </td>
                     </tr>
@@ -181,7 +183,7 @@ IMPORTANTE: Es opcional definir el nombre de la clase del componente. De hacerlo
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="54" class="link-to-prism">libs/suspense/src/lib/directives/default-view.directive.ts:54</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="59" class="link-to-prism">libs/suspense/directives/default-view.directive.ts:59</a></div>
                             </td>
                         </tr>
 
@@ -244,7 +246,7 @@ IMPORTANTE: Es opcional definir el nombre de la clase del componente. De hacerlo
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Definido en <a href="" data-line="32" class="link-to-prism">libs/suspense/src/lib/directives/default-view.directive.ts:32</a></div>
+                                    <div class="io-line">Definido en <a href="" data-line="37" class="link-to-prism">libs/suspense/directives/default-view.directive.ts:37</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -273,7 +275,7 @@ IMPORTANTE: Su opcionalidad está condicionada a que el valor de clazzName
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Definido en <a href="" data-line="39" class="link-to-prism">libs/suspense/src/lib/directives/default-view.directive.ts:39</a></div>
+                                    <div class="io-line">Definido en <a href="" data-line="44" class="link-to-prism">libs/suspense/directives/default-view.directive.ts:44</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -302,7 +304,7 @@ IMPORTANTE: Es opcional (caso que no haya @Input()), pero clazzName debe estar d
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Definido en <a href="" data-line="25" class="link-to-prism">libs/suspense/src/lib/directives/default-view.directive.ts:25</a></div>
+                                    <div class="io-line">Definido en <a href="" data-line="30" class="link-to-prism">libs/suspense/directives/default-view.directive.ts:30</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -331,7 +333,7 @@ se asigna como parámetro.
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Definido en <a href="" data-line="54" class="link-to-prism">libs/suspense/src/lib/directives/default-view.directive.ts:54</a></div>
+                                    <div class="io-line">Definido en <a href="" data-line="59" class="link-to-prism">libs/suspense/directives/default-view.directive.ts:59</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -360,7 +362,7 @@ implemente SuspenseableModule.</p>
                 </tr>
                         <tr>
                             <td class="col-md-2" colspan="2">
-                                    <div class="io-line">Definido en <a href="" data-line="47" class="link-to-prism">libs/suspense/src/lib/directives/default-view.directive.ts:47</a></div>
+                                    <div class="io-line">Definido en <a href="" data-line="52" class="link-to-prism">libs/suspense/directives/default-view.directive.ts:52</a></div>
                             </td>
                         </tr>
                 <tr>
@@ -400,8 +402,8 @@ implemente SuspenseableModule.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Definido en <a href="" data-line="77"
-                            class="link-to-prism">libs/suspense/src/lib/directives/default-view.directive.ts:77</a></div>
+                    <div class="io-line">Definido en <a href="" data-line="82"
+                            class="link-to-prism">libs/suspense/directives/default-view.directive.ts:82</a></div>
                 </td>
             </tr>
 
@@ -479,8 +481,8 @@ la petición nuevamente.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Definido en <a href="" data-line="66"
-                            class="link-to-prism">libs/suspense/src/lib/directives/default-view.directive.ts:66</a></div>
+                    <div class="io-line">Definido en <a href="" data-line="71"
+                            class="link-to-prism">libs/suspense/directives/default-view.directive.ts:71</a></div>
                 </td>
             </tr>
 
@@ -528,9 +530,18 @@ la petición nuevamente.</p>
 
                     </td>
                 </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <b>Decoradores : </b>
+                        <br />
+                        <code>
+                            @Inject(SUSPENSE_CACHE)<br />
+                        </code>
+                    </td>
+                </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="60" class="link-to-prism">libs/suspense/src/lib/directives/default-view.directive.ts:60</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="65" class="link-to-prism">libs/suspense/directives/default-view.directive.ts:65</a></div>
                         </td>
                     </tr>
 
@@ -549,9 +560,9 @@ la petición nuevamente.</p>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Directive, Input } from &#x27;@angular/core&#x27;;
-import { SuspenseCacheService } from &#x27;../services&#x27;;
-import { SuspenseFactoryPromise } from &#x27;../types/types&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Directive, Inject, Input } from &#x27;@angular/core&#x27;;
+import { SuspenseCacheService } from &#x27;@queplan/qp-suspense/services&#x27;;
+import { SuspenseFactoryPromise, SUSPENSE_CACHE } from &#x27;@queplan/qp-suspense/types&#x27;;
 
 /**
  * Directiva que define el área donde se va a incluir el componente de tipo Suspenseable.
@@ -562,7 +573,12 @@ import { SuspenseFactoryPromise } from &#x27;../types/types&#x27;;
 @Directive({
   selector  : &#x27;[defaultView]&#x27;,
   standalone: true,
-  providers : [ SuspenseCacheService ]
+  providers : [ 
+    {
+      provide: SuspenseCacheService,
+      useValue: SUSPENSE_CACHE
+    }
+  ]
 })
 export class DefaultViewDirective {
   // Ref: https://medium.com/javascript-everyday/tip-20-prefetch-lazy-loaded-component-fc04abb6eb87
@@ -608,7 +624,7 @@ export class DefaultViewDirective {
    * Constructor de la directiva.
    * @param suspenseCache Servicio que se encargará de almacenar los componentes que se hayan cargado previamente.
    */
-  constructor(public suspenseCache: SuspenseCacheService&lt;SuspenseFactoryPromise&gt;) {}
+  constructor(@Inject(SUSPENSE_CACHE) public suspenseCache: SuspenseCacheService&lt;SuspenseFactoryPromise&gt;) {}
 
   /**
    * Rescata el nombre de la clase que eventualmente pudiera haberse entregado como parámetro del componente.

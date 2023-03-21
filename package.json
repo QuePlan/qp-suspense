@@ -1,6 +1,6 @@
 {
   "name": "qp-suspense",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "scripts": {
     "ng": "nx",
     "start": "ng serve",

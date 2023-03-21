@@ -63,7 +63,7 @@
             <h3>Fichero</h3>
         </p>
         <p class="comment">
-            <code>libs/suspense/src/lib/types/suspenseable-broadcaster.ts</code>
+            <code>libs/suspense/types/suspenseable-broadcaster.ts</code>
         </p>
 
 
@@ -201,7 +201,7 @@ Análogamente, en caso de error se deberá llamar al método <code>this.broadcas
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="42" class="link-to-prism">libs/suspense/src/lib/types/suspenseable-broadcaster.ts:42</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="42" class="link-to-prism">libs/suspense/types/suspenseable-broadcaster.ts:42</a></div>
                         </td>
                     </tr>
 
@@ -233,12 +233,12 @@ Análogamente, en caso de error se deberá llamar al método <code>this.broadcas
                 </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Valor por defecto : </i><code>inject(EventService)</code>
+                        <i>Valor por defecto : </i><code>inject(EVENT_SERVICE)</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="37" class="link-to-prism">libs/suspense/src/lib/types/suspenseable-broadcaster.ts:37</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="37" class="link-to-prism">libs/suspense/types/suspenseable-broadcaster.ts:37</a></div>
                         </td>
                     </tr>
 
@@ -431,7 +431,7 @@ Análogamente, en caso de error se deberá llamar al método <code>this.broadcas
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Definido en <a href="" data-line="58"
-                            class="link-to-prism">libs/suspense/src/lib/types/suspenseable-broadcaster.ts:58</a></div>
+                            class="link-to-prism">libs/suspense/types/suspenseable-broadcaster.ts:58</a></div>
                 </td>
             </tr>
 
@@ -468,7 +468,7 @@ Análogamente, en caso de error se deberá llamar al método <code>this.broadcas
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Definido en <a href="" data-line="46"
-                            class="link-to-prism">libs/suspense/src/lib/types/suspenseable-broadcaster.ts:46</a></div>
+                            class="link-to-prism">libs/suspense/types/suspenseable-broadcaster.ts:46</a></div>
                 </td>
             </tr>
 
@@ -507,7 +507,7 @@ Análogamente, en caso de error se deberá llamar al método <code>this.broadcas
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Definido en <a href="" data-line="44"
-                            class="link-to-prism">libs/suspense/src/lib/types/suspenseable-broadcaster.ts:44</a></div>
+                            class="link-to-prism">libs/suspense/types/suspenseable-broadcaster.ts:44</a></div>
                 </td>
             </tr>
 
@@ -612,8 +612,8 @@ esa manera se despliega el componente (asumiendo un estado <em>listo para ser de
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { inject } from &quot;@angular/core&quot;;
-import { EventService } from &quot;../services/event.service&quot;;
-import { ISuspenseable, SuspenseableRenderer } from &quot;./types&quot;;
+import { EventService } from &quot;@queplan/qp-suspense/services&quot;;
+import { EVENT_SERVICE, ISuspenseable, SuspenseableRenderer } from &quot;./types&quot;;
 
 /**
  * Definición de clase abstracta para la implementación de un componente Suspenseable
@@ -647,7 +647,7 @@ export abstract class SuspenseableBroadcaster extends SuspenseableRenderer imple
   /**
    * Servicio de eventos, requerido para el modo de operación &quot;reactivo&quot;
    */
-  eventService : EventService &#x3D; inject(EventService);
+  eventService : EventService &#x3D; inject(EVENT_SERVICE);
 
   /**
    * Nombre del evento a capturar, en caso de operar en modo &quot;reactivo&quot;

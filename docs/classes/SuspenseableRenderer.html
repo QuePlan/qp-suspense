@@ -63,7 +63,7 @@
             <h3>Fichero</h3>
         </p>
         <p class="comment">
-            <code>libs/suspense/src/lib/types/types.ts</code>
+            <code>libs/suspense/types/types.ts</code>
         </p>
 
 
@@ -148,7 +148,7 @@ en un estado listo.</p>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="92" class="link-to-prism">libs/suspense/src/lib/types/types.ts:92</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="92" class="link-to-prism">libs/suspense/types/types.ts:92</a></div>
                             </td>
                         </tr>
 
@@ -192,7 +192,7 @@ del componente, y se cambiará a none, de esa manera se oculta el componente (as
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="92" class="link-to-prism">libs/suspense/src/lib/types/types.ts:92</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="92" class="link-to-prism">libs/suspense/types/types.ts:92</a></div>
                         </td>
                     </tr>
 
@@ -223,7 +223,7 @@ del componente, y se cambiará a none, de esa manera se oculta el componente (as
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="89" class="link-to-prism">libs/suspense/src/lib/types/types.ts:89</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="89" class="link-to-prism">libs/suspense/types/types.ts:89</a></div>
                         </td>
                     </tr>
 
@@ -254,7 +254,7 @@ del componente, y se cambiará a none, de esa manera se oculta el componente (as
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="90" class="link-to-prism">libs/suspense/src/lib/types/types.ts:90</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="90" class="link-to-prism">libs/suspense/types/types.ts:90</a></div>
                         </td>
                     </tr>
 
@@ -285,7 +285,7 @@ del componente, y se cambiará a none, de esa manera se oculta el componente (as
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="88" class="link-to-prism">libs/suspense/src/lib/types/types.ts:88</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="88" class="link-to-prism">libs/suspense/types/types.ts:88</a></div>
                         </td>
                     </tr>
 
@@ -320,7 +320,7 @@ del componente, y se cambiará a none, de esa manera se oculta el componente (as
             <tr>
                 <td class="col-md-4">
                     <div class="io-line">Definido en <a href="" data-line="110"
-                            class="link-to-prism">libs/suspense/src/lib/types/types.ts:110</a></div>
+                            class="link-to-prism">libs/suspense/types/types.ts:110</a></div>
                 </td>
             </tr>
 
@@ -352,7 +352,7 @@ esa manera se despliega el componente (asumiendo un estado <em>listo para ser de
         <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { isPlatformBrowser } from &#x27;@angular/common&#x27;;
 import { ElementRef, inject, Injectable, InjectionToken, OnDestroy, OnInit, PLATFORM_ID, Renderer2, Type } from &#x27;@angular/core&#x27;;
 import { ObservableInput } from &#x27;rxjs&#x27;;
-import { EventService } from &#x27;../services/event.service&#x27;;
+import { EventService, SuspenseCacheService } from &#x27;@queplan/qp-suspense/services&#x27;;
 import { SuspenseableBroadcaster } from &#x27;./suspenseable-broadcaster&#x27;;
 import { SuspenseableClassic } from &#x27;./suspenseable-classic&#x27;;
 import { SuspenseableEventDriven } from &#x27;./suspenseable-event-driven&#x27;;
@@ -568,6 +568,32 @@ export type TSuspenseable &#x3D; Type&lt;Suspenseable | SuspenseableClassic | Su
 export const useSuspense &#x3D; (comp: TSuspenseable) &#x3D;&gt; ({
   provide: SUSPENSE,
   useExisting: comp,
+});
+
+/**
+ * InjectionToken para servicio de eventos.
+ * Se define de esta manera para asegurarse que sea efectivamente un Singleton, y que sea posible reutilizar 
+ * el objeto.
+ */
+export const EVENT_SERVICE &#x3D; new InjectionToken&lt;EventService&gt;(&#x27;EventService&#x27;, {
+  providedIn: &#x27;root&#x27;,
+  factory: () &#x3D;&gt; {
+    console.log(&#x27;EVENT_SERVICE&#x27;, new Date());
+    return inject(EventService);
+  }
+});
+
+/**
+ * InjectionToken para servicio de caché para clases de componentes importados dinamicamente.
+ * Se define de esta manera para asegurarse que sea efectivamente un Singleton, y que sea posible reutilizar 
+ * el objeto.
+ */
+export const SUSPENSE_CACHE &#x3D; new InjectionToken&lt;SuspenseCacheService&lt;any&gt;&gt;(&#x27;SuspenseCache&#x27;, {
+  providedIn: &#x27;root&#x27;,
+  factory: () &#x3D;&gt; {
+    console.log(&#x27;SUSPENSE_CACHE&#x27;, new Date());
+    return inject(SuspenseCacheService&lt;any&gt;);
+  }
 });
 </code></pre>
     </div>

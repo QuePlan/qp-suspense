@@ -1,4 +1,4 @@
 {
-  "include": ["libs/suspense/src/**/*.ts"],
+  "include": ["libs/suspense/**/*.ts"],
   "exclude": ["libs/suspense/src/test.ts", "libs/suspense/src/**/*.spec.ts"]
 }
