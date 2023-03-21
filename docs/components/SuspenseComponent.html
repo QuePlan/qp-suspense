@@ -162,7 +162,13 @@ ya que en ese caso el import se hace antes de que realmente sea necesario (pudie
             <tr>
                 <td class="col-md-3">providers</td>
                 <td class="col-md-9">
-                                <code><a href="../injectables/EventService.html" target="_self" >EventService</a></code>
+                                <code><a href="../injectables/EventService.html" target="_self" >{
+    provide: EventService, useValue: EVENT_SERVICE
+}</a></code>
+                                <code><a href="../injectables/SuspenseCacheService.html" target="_self" >{
+    provide: SuspenseCacheService, useValue: SUSPENSE_CACHE
+}</a></code>
+                                <code><a href="../injectables/YieldToMainService.html" target="_self" >YieldToMainService</a></code>
                 </td>
             </tr>
 
@@ -257,7 +263,6 @@ ya que en ese caso el import se hace antes de que realmente sea necesario (pudie
                                 <a href="#getComponentInstance" >getComponentInstance</a>
                             </li>
                             <li>
-                                    <span class="modifier">Async</span>
                                 <a href="#ngAfterViewInit" >ngAfterViewInit</a>
                             </li>
                             <li>
@@ -289,7 +294,7 @@ ya que en ese caso el import se hace antes de que realmente sea necesario (pudie
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="195" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:195</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="205" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:205</a></div>
                             </td>
                         </tr>
 
@@ -328,8 +333,8 @@ ya que en ese caso el import se hace antes de que realmente sea necesario (pudie
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Definido en <a href="" data-line="226"
-                            class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:226</a></div>
+                    <div class="io-line">Definido en <a href="" data-line="236"
+                            class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:236</a></div>
                 </td>
             </tr>
 
@@ -451,7 +456,6 @@ La instancia será creada de la clase del componente o desde el módulo donde es
                 <td class="col-md-4">
                     <a name="ngAfterViewInit"></a>
                     <span class="name">
-                        <span class="modifier">Async</span>
                         <span ><b>ngAfterViewInit</b></span>
                         <a href="#ngAfterViewInit"><span class="icon ion-ios-link"></span></a>
                     </span>
@@ -459,16 +463,15 @@ La instancia será creada de la clase del componente o desde el módulo donde es
             </tr>
             <tr>
                 <td class="col-md-4">
-                    <span class="modifier-icon icon ion-ios-reset"></span>
-                    <code>ngAfterViewInit()</code>
+<code>ngAfterViewInit()</code>
                 </td>
             </tr>
 
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Definido en <a href="" data-line="258"
-                            class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:258</a></div>
+                    <div class="io-line">Definido en <a href="" data-line="268"
+                            class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:268</a></div>
                 </td>
             </tr>
 
@@ -477,7 +480,7 @@ La instancia será creada de la clase del componente o desde el módulo donde es
                 <td class="col-md-4">
 
                     <div class="io-description">
-                        <b>Devuelve : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+                        <b>Devuelve : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
 
                     </div>
                 </td>
@@ -504,8 +507,8 @@ La instancia será creada de la clase del componente o desde el módulo donde es
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Definido en <a href="" data-line="391"
-                            class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:391</a></div>
+                    <div class="io-line">Definido en <a href="" data-line="440"
+                            class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:440</a></div>
                 </td>
             </tr>
 
@@ -541,8 +544,8 @@ La instancia será creada de la clase del componente o desde el módulo donde es
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Definido en <a href="" data-line="207"
-                            class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:207</a></div>
+                    <div class="io-line">Definido en <a href="" data-line="217"
+                            class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:217</a></div>
                 </td>
             </tr>
 
@@ -663,7 +666,7 @@ iterando por cada una de las llaves del objeto de parámetros.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="140" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:140</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="150" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:150</a></div>
                         </td>
                     </tr>
 
@@ -697,7 +700,7 @@ el componente Suspenseable, o sus estados de &quot;estoy cargando&quot; o de err
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="189" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:189</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="199" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:199</a></div>
                         </td>
                     </tr>
 
@@ -738,7 +741,7 @@ el componente Suspenseable, o sus estados de &quot;estoy cargando&quot; o de err
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="146" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:146</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="156" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:156</a></div>
                         </td>
                     </tr>
 
@@ -777,7 +780,7 @@ corresponda según el flujo de carga del componente Suspenseable</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="195" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:195</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="205" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:205</a></div>
                         </td>
                     </tr>
 
@@ -804,12 +807,18 @@ setup() de componente Suspenseable en modo de operación &quot;normal&quot; (no 
             </tr>
                 <tr>
                     <td class="col-md-4">
+                        <i>Tipo : </i>    <code>EnvironmentInjector</code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
                         <i>Valor por defecto : </i><code>inject(EnvironmentInjector)</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="171" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:171</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="181" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:181</a></div>
                         </td>
                     </tr>
 
@@ -850,7 +859,7 @@ setup() de componente Suspenseable en modo de operación &quot;normal&quot; (no 
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="148" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:148</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="158" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:158</a></div>
                         </td>
                     </tr>
 
@@ -870,12 +879,18 @@ setup() de componente Suspenseable en modo de operación &quot;normal&quot; (no 
             </tr>
                 <tr>
                     <td class="col-md-4">
-                        <i>Valor por defecto : </i><code>inject(EventService)</code>
+                        <i>Tipo : </i>        <code><a href="../injectables/EventService.html" target="_self" >EventService</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Valor por defecto : </i><code>inject(EVENT_SERVICE)</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="178" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:178</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="188" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:188</a></div>
                         </td>
                     </tr>
 
@@ -916,7 +931,7 @@ setup() de componente Suspenseable en modo de operación &quot;normal&quot; (no 
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="147" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:147</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="157" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:157</a></div>
                         </td>
                     </tr>
 
@@ -936,12 +951,18 @@ setup() de componente Suspenseable en modo de operación &quot;normal&quot; (no 
             </tr>
                 <tr>
                     <td class="col-md-4">
+                        <i>Tipo : </i>        <code><a href="https://angular.io/api/core/Injector" target="_blank" >Injector</a></code>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
                         <i>Valor por defecto : </i><code>inject(Injector)</code>
                     </td>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="172" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:172</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="182" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:182</a></div>
                         </td>
                     </tr>
 
@@ -966,7 +987,7 @@ setup() de componente Suspenseable en modo de operación &quot;normal&quot; (no 
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="184" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:184</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="194" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:194</a></div>
                         </td>
                     </tr>
 
@@ -1008,7 +1029,7 @@ componente Suspenseable de tipo &quot;no-lazy&quot; (ie que no se carga dinámic
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="165" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:165</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="175" class="link-to-prism">libs/suspense/src/lib/suspense/suspense.component.ts:175</a></div>
                         </td>
                     </tr>
 
@@ -1052,10 +1073,10 @@ export class NotLazyComponent extends SuspenseableClassic  { ... }</code></pre><
   NgModuleRef,
 } from &#x27;@angular/core&#x27;;
 import { CommonModule, NgIf } from &#x27;@angular/common&#x27;;
-import { from, forkJoin, Subject, takeUntil, finalize } from &#x27;rxjs&#x27;;
-import { ISuspenseable, SUSPENSE, SuspenseableModule, SuspenseableRenderer, TDefaultSuspenseable } from &#x27;../types/types&#x27;;
-import { DefaultViewDirective, FallbackViewDirective, ErrorViewDirective } from &#x27;../directives&#x27;;
-import { EventService, YieldToMainService } from &#x27;../services&#x27;;
+import { from, forkJoin, Subject, takeUntil, finalize, ObservableInput } from &#x27;rxjs&#x27;;
+import { EVENT_SERVICE, ISuspenseable, SUSPENSE, SuspenseableModule, SuspenseableRenderer, SUSPENSE_CACHE, TDefaultSuspenseable } from &#x27;@queplan/qp-suspense/types&#x27;;
+import { DefaultViewDirective, FallbackViewDirective, ErrorViewDirective } from &#x27;@queplan/qp-suspense/directives&#x27;;
+import { EventService, SuspenseCacheService, YieldToMainService } from &#x27;@queplan/qp-suspense/services&#x27;;
 
 /**
  * Componente suspense
@@ -1167,7 +1188,17 @@ import { EventService, YieldToMainService } from &#x27;../services&#x27;;
     FallbackViewDirective, 
     ErrorViewDirective
   ],
-  providers: [ EventService ]
+  providers: [ 
+    {
+      provide: EventService,
+      useValue: EVENT_SERVICE
+    },
+    {
+      provide: SuspenseCacheService,
+      useValue: SUSPENSE_CACHE
+    },
+    YieldToMainService 
+  ]
 })
 export class SuspenseComponent {
   /**
@@ -1205,14 +1236,14 @@ export class SuspenseComponent {
   /**
    * Inyectores que permiten la incorporación de estos componentes en la vista.
    */
-  environmentInjector &#x3D; inject(EnvironmentInjector);
-  injector            &#x3D; inject(Injector);
+  environmentInjector: EnvironmentInjector &#x3D; inject(EnvironmentInjector);
+  injector           : Injector            &#x3D; inject(Injector);
 
 
-  /**
+    /**
    * Servicio de eventos para comunicación entre componentes. Utilizado para el modo de operacion reactivo.
    */
-  eventService        &#x3D; inject(EventService);
+  eventService: EventService &#x3D; inject(EVENT_SERVICE);
 
   /**
    * Boolean para controlar el despliegue del bloque d proyección de contenido. Esto va a aplicar en caso que se utilice un
@@ -1292,7 +1323,7 @@ export class SuspenseComponent {
     return componentInstance;
   }
 
-  async ngAfterViewInit() {
+  ngAfterViewInit() {
     this.anchor.clear();
 
     /**
@@ -1312,24 +1343,37 @@ export class SuspenseComponent {
        * Recorre los componentes Suspenseable hijos y ejecuta la función setup() de cada uno de ellos.
        * Una vez que estén listos, se ejecuta la función renderComponenteReady() para desplegarlos en la vista.
        */
-      const setup &#x3D; this.suspenseables.map((comp) &#x3D;&gt; { 
+      const setup: Array&lt;ObservableInput&lt;any&gt;&gt; &#x3D; this.suspenseables.map((comp) &#x3D;&gt; { 
         return comp.setup();
       });
-      forkJoin(setup).subscribe({
+      forkJoin(setup).pipe(
+        takeUntil(this.done),
+        finalize(async () &#x3D;&gt; await YieldToMainService.yieldToMain())
+      ).subscribe({
         next: (_readyStatus?: Array&lt;unknown&gt;) &#x3D;&gt; {
-          this.suspenseables.forEach(comp &#x3D;&gt; {
-            (&lt;unknown&gt; comp as SuspenseableRenderer).renderComponenteReady();
-          });
-          this.anchor.clear();
-
-          /**
-           * Muestra el  ng-content (proyección de contenido)
-           */
-          this.show &#x3D; true;
+          try {
+            this.suspenseables.forEach(comp &#x3D;&gt; {
+              (&lt;unknown&gt; comp as SuspenseableRenderer)?.renderComponenteReady();
+            });
+            this.anchor?.clear();
+  
+            /**
+             * Muestra el  ng-content (proyección de contenido)
+             */
+            this.show &#x3D; true;
+            this.done.next(true);
+          } catch(renderErr) {
+            console.warn(&#x27;Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).&#x27;, renderErr);
+          }
         },
         error: (_err) &#x3D;&gt; {
-          this.anchor.remove(0);
-          this.anchor.createEmbeddedView(this.errorView.tpl);
+          try {
+            this.anchor?.remove(0);
+            this.anchor?.createEmbeddedView(this.errorView.tpl);
+            this.done.next(false);
+          } catch(renderErr) {
+            console.warn(&#x27;Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).&#x27;, renderErr);
+          }
         },
       });
 
@@ -1359,15 +1403,23 @@ export class SuspenseComponent {
           finalize(async () &#x3D;&gt; await YieldToMainService.yieldToMain())
         ).subscribe({
           next: () &#x3D;&gt; {
-            (&lt;unknown&gt; this.compRef.instance as SuspenseableRenderer).renderComponenteReady();
-            this.anchor.remove(0);
-            this.anchor.insert(this.compRef.hostView);
-            this.done.next(true);
+            try {
+              (&lt;unknown&gt; this.compRef.instance as SuspenseableRenderer)?.renderComponenteReady();
+              this.anchor?.remove(0);
+              this.anchor?.insert(this.compRef.hostView);
+              this.done.next(true);
+            } catch (renderErr) {
+              console.warn(&#x27;Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).&#x27;, renderErr);
+            }
           },
           error: () &#x3D;&gt; {
-            this.anchor.remove(0);
-            this.anchor.createEmbeddedView(this.errorView.tpl);
-            this.done.next(false);
+            try {
+              this.anchor?.remove(0);
+              this.anchor?.createEmbeddedView(this.errorView.tpl);
+              this.done.next(false);
+            } catch (renderErr) {
+              console.warn(&#x27;Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).&#x27;, renderErr);
+            }
           },
         });
       } else {
@@ -1393,36 +1445,54 @@ export class SuspenseComponent {
            */
           this.eventService.on(&#x60;${eventName}:load&#x60;, async () &#x3D;&gt; {
             console.log(&#x60;${eventName}:load&#x60;);
-            this.anchor.remove(0);
-            this.anchor.insert(this.compRef.hostView);
-            this.done.next(true);
+            try {
+              /**
+               * Requiere un fallback para el caso en que  la navegacion haya  interrumpido el proceso de renderizado, y
+               * que haya eventos pendientes por recibir (mismo componente intentando ser renderizado después de múltiples 
+               * navegaciones).
+               */
+              if (this.anchor.length &gt;&#x3D; 2) { this.anchor?.remove(0); }
+              this.anchor?.insert(this.compRef.hostView);
+              this.done.next(true);
 
-            await YieldToMainService.yieldToMain();
+              await YieldToMainService.yieldToMain();
+            } catch (renderErr) {
+              console.warn(&#x27;Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).&#x27;, renderErr);
+              console.log(this.anchor.length);
+            }
           });  
           this.eventService.on(&#x60;${eventName}:error&#x60;, async () &#x3D;&gt; {
             console.log(&#x60;${eventName}:error&#x60;);
-            this.anchor.clear();
-            this.anchor.createEmbeddedView(this.errorView.tpl);
-            this.done.next(false);
+            try {
+              this.anchor?.clear();
+              this.anchor?.createEmbeddedView(this.errorView.tpl);
+              this.done.next(false);
 
-            await YieldToMainService.yieldToMain();
+              await YieldToMainService.yieldToMain();
+            } catch (renderErr) {
+              console.warn(&#x27;Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).&#x27;, renderErr);
+            }
           });
         }
       }
     })
-    .catch(suspenseErr &#x3D;&gt; {
+    .catch((suspenseErr: unknown) &#x3D;&gt; {
       this.done.next(false);
       console.error(&#x60;No se pudo generar instancia de component Suspense!&#x60;, suspenseErr);
-
+      console.error(&#x27;Verifique el tipo de componente implementado. Si es de tipo SuspenseableBroadcaster de debe indicar el nombre del evento en el @Input() onEvent&#x27;);
+      
       /**
        * En caso de error, limpia la vista y despliega el componente para desplegar el estado de error
        * en la carga del componente Suspenseable.
        */
-      this.anchor.clear();
-      this.anchor.createEmbeddedView(this.errorView.tpl);
+      try {
+        this.anchor?.clear();
+        this.anchor?.createEmbeddedView(this.errorView.tpl);
+      } catch (renderErr) {
+        console.warn(&#x27;Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).&#x27;, renderErr);
+      }
     });
 
-    await YieldToMainService.yieldToMain();
   }
 
   ngOnDestroy() {
@@ -1431,16 +1501,20 @@ export class SuspenseComponent {
      */
     this.compRef?.destroy();
     (this.compRef as any) &#x3D; null;
+    this.done.next(true);
 
     /**
      * En caso de operación reactiva, elimina los eventos usados para
      * notificar la carga o error en la carga del componente.
      * Son eventos &quot;de un solo uso&quot;.
      */
-    const eventName &#x3D; this.defaultView.onEvent;
+    const eventName &#x3D; this.defaultView?.onEvent || (this.compRef?.instance as any)?.eventName;
     if(eventName){
+      console.log(&#x60;Eliminando eventos: ${eventName}:load y ${eventName}:error&#x60;);
       this.eventService.off(&#x60;${eventName}:load&#x60;);
       this.eventService.off(&#x60;${eventName}:error&#x60;);
+    } else {
+      console.log(&#x60;No fue posible detectar eventos para eliminar.&#x60;);
     }
   }
 }

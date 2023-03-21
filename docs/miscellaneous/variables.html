@@ -62,10 +62,16 @@
                 <td class="col-md-4">
                     <ul class="index-list">
                         <li>
-                            <a href="#SUSPENSE" title="libs/suspense/src/lib/types/types.ts" ><b>SUSPENSE</b>&nbsp;&nbsp;&nbsp;(libs/.../types.ts)</a>
+                            <a href="#EVENT_SERVICE" title="libs/suspense/types/types.ts" ><b>EVENT_SERVICE</b>&nbsp;&nbsp;&nbsp;(libs/.../types.ts)</a>
                         </li>
                         <li>
-                            <a href="#useSuspense" title="libs/suspense/src/lib/types/types.ts" ><b>useSuspense</b>&nbsp;&nbsp;&nbsp;(libs/.../types.ts)</a>
+                            <a href="#SUSPENSE" title="libs/suspense/types/types.ts" ><b>SUSPENSE</b>&nbsp;&nbsp;&nbsp;(libs/.../types.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#SUSPENSE_CACHE" title="libs/suspense/types/types.ts" ><b>SUSPENSE_CACHE</b>&nbsp;&nbsp;&nbsp;(libs/.../types.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#useSuspense" title="libs/suspense/types/types.ts" ><b>useSuspense</b>&nbsp;&nbsp;&nbsp;(libs/.../types.ts)</a>
                         </li>
                     </ul>
                 </td>
@@ -74,9 +80,43 @@
     </table>
 </section>
 
-    <h3>libs/suspense/src/lib/types/types.ts</h3>
+    <h3>libs/suspense/types/types.ts</h3>
     <section>
     <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="EVENT_SERVICE"></a>
+                    <span class="name">
+                        <span ><b>EVENT_SERVICE</b></span>
+                        <a href="#EVENT_SERVICE"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Valor por defecto : </i><code>new InjectionToken&lt;EventService&gt;(&#x27;EventService&#x27;, {
+  providedIn: &#x27;root&#x27;,
+  factory: () &#x3D;&gt; {
+    console.log(&#x27;EVENT_SERVICE&#x27;, new Date());
+    return inject(EventService);
+  }
+})</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>InjectionToken para servicio de eventos.
+Se define de esta manera para asegurarse que sea efectivamente un Singleton, y que sea posible reutilizar 
+el objeto.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
         <tbody>
             <tr>
                 <td class="col-md-4">
@@ -93,6 +133,40 @@
                     </td>
                 </tr>
 
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SUSPENSE_CACHE"></a>
+                    <span class="name">
+                        <span ><b>SUSPENSE_CACHE</b></span>
+                        <a href="#SUSPENSE_CACHE"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Valor por defecto : </i><code>new InjectionToken&lt;SuspenseCacheService&lt;any&gt;&gt;(&#x27;SuspenseCache&#x27;, {
+  providedIn: &#x27;root&#x27;,
+  factory: () &#x3D;&gt; {
+    console.log(&#x27;SUSPENSE_CACHE&#x27;, new Date());
+    return inject(SuspenseCacheService&lt;any&gt;);
+  }
+})</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>InjectionToken para servicio de caché para clases de componentes importados dinamicamente.
+Se define de esta manera para asegurarse que sea efectivamente un Singleton, y que sea posible reutilizar 
+el objeto.</p>
+</div>
+                </td>
+            </tr>
 
         </tbody>
     </table>

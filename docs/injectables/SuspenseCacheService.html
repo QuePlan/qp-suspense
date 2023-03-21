@@ -59,7 +59,7 @@
             <h3>Fichero</h3>
         </p>
         <p class="comment">
-            <code>libs/suspense/src/lib/services/suspense-cache.service.ts</code>
+            <code>libs/suspense/services/suspense-cache.service.ts</code>
         </p>
 
 
@@ -132,45 +132,15 @@ clases asociadas a los componentes lazy que se van a cargar usando qp-suspense</
             <tbody>
                 <tr>
                     <td class="col-md-4">
-<code>constructor(router: <a href="https://angular.io/api/router/Router" target="_blank">Router</a>)</code>
+<code>constructor()</code>
                     </td>
                 </tr>
                         <tr>
                             <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="13" class="link-to-prism">libs/suspense/src/lib/services/suspense-cache.service.ts:13</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="11" class="link-to-prism">libs/suspense/services/suspense-cache.service.ts:11</a></div>
                             </td>
                         </tr>
 
-                <tr>
-                    <td class="col-md-4">
-                            <div>
-                                    <b>Parámetros :</b>
-                                    <table class="params">
-                                        <thead>
-                                            <tr>
-                                                <td>Nombre</td>
-                                                    <td>Tipo</td>
-                                                <td>Opcional</td>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                <tr>
-                                                        <td>router</td>
-                                                  
-                                                        <td>
-                                                                        <code><a href="https://angular.io/api/router/Router" target="_blank" >Router</a></code>
-                                                        </td>
-                                                  
-                                                    <td>
-                                                            No
-                                                    </td>
-                                                    
-                                                </tr>
-                                        </tbody>
-                                    </table>
-                            </div>
-                    </td>
-                </tr>
             </tbody>
         </table>
 </section>
@@ -200,8 +170,8 @@ clases asociadas a los componentes lazy que se van a cargar usando qp-suspense</
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Definido en <a href="" data-line="50"
-                            class="link-to-prism">libs/suspense/src/lib/services/suspense-cache.service.ts:50</a></div>
+                    <div class="io-line">Definido en <a href="" data-line="48"
+                            class="link-to-prism">libs/suspense/services/suspense-cache.service.ts:48</a></div>
                 </td>
             </tr>
 
@@ -240,8 +210,8 @@ Sólo para debug.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Definido en <a href="" data-line="32"
-                            class="link-to-prism">libs/suspense/src/lib/services/suspense-cache.service.ts:32</a></div>
+                    <div class="io-line">Definido en <a href="" data-line="30"
+                            class="link-to-prism">libs/suspense/services/suspense-cache.service.ts:30</a></div>
                 </td>
             </tr>
 
@@ -318,8 +288,8 @@ Supone que previamente se ha hecho una verificación de su existencia.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Definido en <a href="" data-line="22"
-                            class="link-to-prism">libs/suspense/src/lib/services/suspense-cache.service.ts:22</a></div>
+                    <div class="io-line">Definido en <a href="" data-line="20"
+                            class="link-to-prism">libs/suspense/services/suspense-cache.service.ts:20</a></div>
                 </td>
             </tr>
 
@@ -395,8 +365,8 @@ Supone que previamente se ha hecho una verificación de su existencia.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Definido en <a href="" data-line="42"
-                            class="link-to-prism">libs/suspense/src/lib/services/suspense-cache.service.ts:42</a></div>
+                    <div class="io-line">Definido en <a href="" data-line="40"
+                            class="link-to-prism">libs/suspense/services/suspense-cache.service.ts:40</a></div>
                 </td>
             </tr>
 
@@ -499,7 +469,7 @@ como llave de búsqueda.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="13" class="link-to-prism">libs/suspense/src/lib/services/suspense-cache.service.ts:13</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="11" class="link-to-prism">libs/suspense/services/suspense-cache.service.ts:11</a></div>
                         </td>
                     </tr>
 
@@ -512,9 +482,7 @@ como llave de búsqueda.</p>
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable, Type } from &#x27;@angular/core&#x27;;
-import { Router } from &#x27;@angular/router&#x27;;
-import { TDefaultSuspenseable, SuspenseFactoryPromise } from &#x27;../types&#x27;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Injectable } from &#x27;@angular/core&#x27;;
 
 /**
  * Implementación de servicio de cache en memoria (simple), para las
@@ -526,7 +494,7 @@ import { TDefaultSuspenseable, SuspenseFactoryPromise } from &#x27;../types&#x27
 export class SuspenseCacheService&lt;T&gt; {
   private clazzMap: Map&lt;string, T&gt; &#x3D; new Map();
 
-  constructor(private router: Router) { }
+  constructor() { }
 
   /**
    * Verifica si una clase sen encuentra en el caché.
