@@ -14,7 +14,7 @@ De momento el único requerimiento es una versión de Angular >= v14 , ya que  u
 
 La librería aún no está publicada en NPM, sin embargo se puede instalar desde el repositorio Github, referenciando directamente el paquete:
 
-`npm install https://github.com/QuePlan/qp-suspense/releases/download/v1.0.0/queplan-qp-suspense-1.0.0.tgz`
+`npm install https://github.com/QuePlan/qp-suspense/releases/download/v1.0.1/queplan-qp-suspense-1.0.1.tgz`
 
 Versiones disponibles: https://github.com/QuePlan/qp-suspense/releases
 
