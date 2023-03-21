@@ -16,9 +16,9 @@ import {
 } from '@angular/core';
 import { CommonModule, NgIf } from '@angular/common';
 import { from, forkJoin, Subject, takeUntil, finalize, ObservableInput } from 'rxjs';
-import { ISuspenseable, SUSPENSE, SuspenseableModule, SuspenseableRenderer, TDefaultSuspenseable } from '@queplan/qp-suspense/types';
+import { EVENT_SERVICE, ISuspenseable, SUSPENSE, SuspenseableModule, SuspenseableRenderer, SUSPENSE_CACHE, TDefaultSuspenseable } from '@queplan/qp-suspense/types';
 import { DefaultViewDirective, FallbackViewDirective, ErrorViewDirective } from '@queplan/qp-suspense/directives';
-import { EventService, YieldToMainService } from '@queplan/qp-suspense/services';
+import { EventService, SuspenseCacheService, YieldToMainService } from '@queplan/qp-suspense/services';
 
 /**
  * Componente suspense
@@ -130,7 +130,17 @@ import { EventService, YieldToMainService } from '@queplan/qp-suspense/services'
     FallbackViewDirective, 
     ErrorViewDirective
   ],
-  providers: [ EventService ]
+  providers: [ 
+    {
+      provide: EventService,
+      useValue: EVENT_SERVICE
+    },
+    {
+      provide: SuspenseCacheService,
+      useValue: SUSPENSE_CACHE
+    },
+    YieldToMainService 
+  ]
 })
 export class SuspenseComponent {
   /**
@@ -175,7 +185,7 @@ export class SuspenseComponent {
     /**
    * Servicio de eventos para comunicación entre componentes. Utilizado para el modo de operacion reactivo.
    */
-  eventService: EventService = inject(EventService);
+  eventService: EventService = inject(EVENT_SERVICE);
 
   /**
    * Boolean para controlar el despliegue del bloque d proyección de contenido. Esto va a aplicar en caso que se utilice un
@@ -255,7 +265,7 @@ export class SuspenseComponent {
     return componentInstance;
   }
 
-  async ngAfterViewInit() {
+  ngAfterViewInit() {
     this.anchor.clear();
 
     /**
@@ -283,21 +293,29 @@ export class SuspenseComponent {
         finalize(async () => await YieldToMainService.yieldToMain())
       ).subscribe({
         next: (_readyStatus?: Array<unknown>) => {
-          this.suspenseables.forEach(comp => {
-            (<unknown> comp as SuspenseableRenderer).renderComponenteReady();
-          });
-          this.anchor.clear();
-
-          /**
-           * Muestra el  ng-content (proyección de contenido)
-           */
-          this.show = true;
-          this.done.next(true);
+          try {
+            this.suspenseables.forEach(comp => {
+              (<unknown> comp as SuspenseableRenderer)?.renderComponenteReady();
+            });
+            this.anchor?.clear();
+  
+            /**
+             * Muestra el  ng-content (proyección de contenido)
+             */
+            this.show = true;
+            this.done.next(true);
+          } catch(renderErr) {
+            console.warn('Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).', renderErr);
+          }
         },
         error: (_err) => {
-          this.anchor.remove(0);
-          this.anchor.createEmbeddedView(this.errorView.tpl);
-          this.done.next(false);
+          try {
+            this.anchor?.remove(0);
+            this.anchor?.createEmbeddedView(this.errorView.tpl);
+            this.done.next(false);
+          } catch(renderErr) {
+            console.warn('Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).', renderErr);
+          }
         },
       });
 
@@ -327,15 +345,23 @@ export class SuspenseComponent {
           finalize(async () => await YieldToMainService.yieldToMain())
         ).subscribe({
           next: () => {
-            (<unknown> this.compRef.instance as SuspenseableRenderer).renderComponenteReady();
-            this.anchor.remove(0);
-            this.anchor.insert(this.compRef.hostView);
-            this.done.next(true);
+            try {
+              (<unknown> this.compRef.instance as SuspenseableRenderer)?.renderComponenteReady();
+              this.anchor?.remove(0);
+              this.anchor?.insert(this.compRef.hostView);
+              this.done.next(true);
+            } catch (renderErr) {
+              console.warn('Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).', renderErr);
+            }
           },
           error: () => {
-            this.anchor.remove(0);
-            this.anchor.createEmbeddedView(this.errorView.tpl);
-            this.done.next(false);
+            try {
+              this.anchor?.remove(0);
+              this.anchor?.createEmbeddedView(this.errorView.tpl);
+              this.done.next(false);
+            } catch (renderErr) {
+              console.warn('Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).', renderErr);
+            }
           },
         });
       } else {
@@ -361,19 +387,33 @@ export class SuspenseComponent {
            */
           this.eventService.on(`${eventName}:load`, async () => {
             console.log(`${eventName}:load`);
-            this.anchor.remove(0);
-            this.anchor.insert(this.compRef.hostView);
-            this.done.next(true);
+            try {
+              /**
+               * Requiere un fallback para el caso en que  la navegacion haya  interrumpido el proceso de renderizado, y
+               * que haya eventos pendientes por recibir (mismo componente intentando ser renderizado después de múltiples 
+               * navegaciones).
+               */
+              if (this.anchor.length >= 2) { this.anchor?.remove(0); }
+              this.anchor?.insert(this.compRef.hostView);
+              this.done.next(true);
 
-            await YieldToMainService.yieldToMain();
+              await YieldToMainService.yieldToMain();
+            } catch (renderErr) {
+              console.warn('Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).', renderErr);
+              console.log(this.anchor.length);
+            }
           });  
           this.eventService.on(`${eventName}:error`, async () => {
             console.log(`${eventName}:error`);
-            this.anchor.clear();
-            this.anchor.createEmbeddedView(this.errorView.tpl);
-            this.done.next(false);
+            try {
+              this.anchor?.clear();
+              this.anchor?.createEmbeddedView(this.errorView.tpl);
+              this.done.next(false);
 
-            await YieldToMainService.yieldToMain();
+              await YieldToMainService.yieldToMain();
+            } catch (renderErr) {
+              console.warn('Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).', renderErr);
+            }
           });
         }
       }
@@ -387,11 +427,14 @@ export class SuspenseComponent {
        * En caso de error, limpia la vista y despliega el componente para desplegar el estado de error
        * en la carga del componente Suspenseable.
        */
-      this.anchor.clear();
-      this.anchor.createEmbeddedView(this.errorView.tpl);
+      try {
+        this.anchor?.clear();
+        this.anchor?.createEmbeddedView(this.errorView.tpl);
+      } catch (renderErr) {
+        console.warn('Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).', renderErr);
+      }
     });
 
-    // await YieldToMainService.yieldToMain();
   }
 
   ngOnDestroy() {
@@ -400,16 +443,20 @@ export class SuspenseComponent {
      */
     this.compRef?.destroy();
     (this.compRef as any) = null;
+    this.done.next(true);
 
     /**
      * En caso de operación reactiva, elimina los eventos usados para
      * notificar la carga o error en la carga del componente.
      * Son eventos "de un solo uso".
      */
-    const eventName = this.defaultView.onEvent;
+    const eventName = this.defaultView?.onEvent || (this.compRef?.instance as any)?.eventName;
     if(eventName){
+      console.log(`Eliminando eventos: ${eventName}:load y ${eventName}:error`);
       this.eventService.off(`${eventName}:load`);
       this.eventService.off(`${eventName}:error`);
+    } else {
+      console.log(`No fue posible detectar eventos para eliminar.`);
     }
   }
 }
