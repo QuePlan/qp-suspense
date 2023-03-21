@@ -1,7 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
 import { ElementRef, inject, Injectable, InjectionToken, OnDestroy, OnInit, PLATFORM_ID, Renderer2, Type } from '@angular/core';
 import { ObservableInput } from 'rxjs';
-import { EventService } from '@queplan/qp-suspense/services';
+import { EventService, SuspenseCacheService } from '@queplan/qp-suspense/services';
 import { SuspenseableBroadcaster } from './suspenseable-broadcaster';
 import { SuspenseableClassic } from './suspenseable-classic';
 import { SuspenseableEventDriven } from './suspenseable-event-driven';
@@ -217,4 +217,30 @@ export type TSuspenseable = Type<Suspenseable | SuspenseableClassic | Suspenseab
 export const useSuspense = (comp: TSuspenseable) => ({
   provide: SUSPENSE,
   useExisting: comp,
+});
+
+/**
+ * InjectionToken para servicio de eventos.
+ * Se define de esta manera para asegurarse que sea efectivamente un Singleton, y que sea posible reutilizar 
+ * el objeto.
+ */
+export const EVENT_SERVICE = new InjectionToken<EventService>('EventService', {
+  providedIn: 'root',
+  factory: () => {
+    console.log('EVENT_SERVICE', new Date());
+    return inject(EventService);
+  }
+});
+
+/**
+ * InjectionToken para servicio de caché para clases de componentes importados dinamicamente.
+ * Se define de esta manera para asegurarse que sea efectivamente un Singleton, y que sea posible reutilizar 
+ * el objeto.
+ */
+export const SUSPENSE_CACHE = new InjectionToken<SuspenseCacheService<any>>('SuspenseCache', {
+  providedIn: 'root',
+  factory: () => {
+    console.log('SUSPENSE_CACHE', new Date());
+    return inject(SuspenseCacheService<any>);
+  }
 });
