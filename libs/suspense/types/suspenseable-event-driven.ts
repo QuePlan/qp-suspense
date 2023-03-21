@@ -1,5 +1,6 @@
+import { inject } from "@angular/core";
 import { BehaviorSubject, combineLatest, filter, map, ObservableInput, takeUntil, tap } from "rxjs";
-import { ISuspenseable, SuspenseableRenderer } from "./types";
+import { ISuspenseable, SuspenseableRenderer, SUSPENSE_LOG } from "./types";
 
 /**
  * Definición de la clase abstracta que permite implementar un componente de tipo Suspenseable en su modo de
@@ -15,6 +16,8 @@ import { ISuspenseable, SuspenseableRenderer } from "./types";
  * provee la función `defaultEventDrivenSetup()` que permite implementar el control de estados de forma sencilla.
  */
 export abstract class SuspenseableEventDriven  extends SuspenseableRenderer implements Pick<ISuspenseable, 'setup'> {
+  suspenseConsole = inject(SUSPENSE_LOG);
+  
   /**
    * Variable de control para saber si ya está lista la inicializacion del componente.
    * Pudiera no utilizarse.
@@ -45,7 +48,7 @@ export abstract class SuspenseableEventDriven  extends SuspenseableRenderer impl
    * @returns { ObservableInput<any> } Observable que se resolverá cuando el componente esté listo para ser desplegado. La respuesta es del mismo tipo que  la de setup()
    */
   defaultEventDrivenSetup(response: { [key: string]: unknown }, useInit = false): ObservableInput<any> {
-    console.log('[defaultEventDrivenSetup] setup()');
+    this.suspenseConsole.log('[defaultEventDrivenSetup] setup()');
 
     if(useInit) {
       this.init();
@@ -62,7 +65,7 @@ export abstract class SuspenseableEventDriven  extends SuspenseableRenderer impl
           filter(([ isReady, hasError ]) => isReady || hasError),
           tap( 
             ([ isReady, hasError ]) => {
-              console.log('[defaultEventDrivenSetup] isReady, hasError: ', isReady, hasError );
+              this.suspenseConsole.log('[defaultEventDrivenSetup] isReady, hasError: ', isReady, hasError );
               if (hasError) throw new Error('[defaultEventDrivenSetup] No se pudo cargar el componente');
             } 
           )
