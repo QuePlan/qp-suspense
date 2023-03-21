@@ -1,6 +1,6 @@
-import { Directive, Input } from '@angular/core';
+import { Directive, Inject, Input } from '@angular/core';
 import { SuspenseCacheService } from '@queplan/qp-suspense/services';
-import { SuspenseFactoryPromise } from '@queplan/qp-suspense/types';
+import { SuspenseFactoryPromise, SUSPENSE_CACHE } from '@queplan/qp-suspense/types';
 
 /**
  * Directiva que define el área donde se va a incluir el componente de tipo Suspenseable.
@@ -11,7 +11,12 @@ import { SuspenseFactoryPromise } from '@queplan/qp-suspense/types';
 @Directive({
   selector  : '[defaultView]',
   standalone: true,
-  providers : [ SuspenseCacheService ]
+  providers : [ 
+    {
+      provide: SuspenseCacheService,
+      useValue: SUSPENSE_CACHE
+    }
+  ]
 })
 export class DefaultViewDirective {
   // Ref: https://medium.com/javascript-everyday/tip-20-prefetch-lazy-loaded-component-fc04abb6eb87
@@ -57,7 +62,7 @@ export class DefaultViewDirective {
    * Constructor de la directiva.
    * @param suspenseCache Servicio que se encargará de almacenar los componentes que se hayan cargado previamente.
    */
-  constructor(public suspenseCache: SuspenseCacheService<SuspenseFactoryPromise>) {}
+  constructor(@Inject(SUSPENSE_CACHE) public suspenseCache: SuspenseCacheService<SuspenseFactoryPromise>) {}
 
   /**
    * Rescata el nombre de la clase que eventualmente pudiera haberse entregado como parámetro del componente.
