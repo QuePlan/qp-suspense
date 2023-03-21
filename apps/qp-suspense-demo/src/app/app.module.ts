@@ -1,10 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ErrorViewDirective, DefaultViewDirective, FallbackViewDirective } from '@queplan/qp-suspense/directives';
-import { SuspenseComponent } from '@queplan/qp-suspense';
+import { DEBUG_SUSPENSE } from '@queplan/qp-suspense/types';
 
 @NgModule({
   declarations: [
@@ -14,7 +12,12 @@ import { SuspenseComponent } from '@queplan/qp-suspense';
     BrowserModule, 
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: DEBUG_SUSPENSE,
+      useValue: true
+    },
+  ],
   bootstrap: [ AppComponent ],
 })
-export class AppModule {}
+export class AppModule { }

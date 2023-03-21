@@ -227,7 +227,7 @@ export const useSuspense = (comp: TSuspenseable) => ({
 export const EVENT_SERVICE = new InjectionToken<EventService>('EventService', {
   providedIn: 'root',
   factory: () => {
-    console.log('EVENT_SERVICE', new Date());
+    // console.log('EVENT_SERVICE', new Date());
     return inject(EventService);
   }
 });
@@ -240,7 +240,30 @@ export const EVENT_SERVICE = new InjectionToken<EventService>('EventService', {
 export const SUSPENSE_CACHE = new InjectionToken<SuspenseCacheService<any>>('SuspenseCache', {
   providedIn: 'root',
   factory: () => {
-    console.log('SUSPENSE_CACHE', new Date());
+    // console.log('SUSPENSE_CACHE', new Date());
     return inject(SuspenseCacheService<any>);
   }
+});
+
+const _noOp                 =  () => {};
+const  originalConsole      = console;
+export const DEBUG_SUSPENSE = new InjectionToken<boolean>('DEBUG_SUSPENSE');
+export const toggleConsole  = (debug: boolean = false): Console => {
+  let newConsole: Console = originalConsole;
+  if (!debug) {
+    (newConsole as any) = {
+      log  : _noOp,
+      warn : _noOp,
+      debug: _noOp,
+      info : _noOp,
+    };
+  }
+
+  return newConsole;
+};
+
+export const SUSPENSE_LOG = new InjectionToken<Console>('SUSPENSE_LOG',
+{
+  providedIn: 'root',
+  factory   : () => toggleConsole(inject(DEBUG_SUSPENSE))
 });

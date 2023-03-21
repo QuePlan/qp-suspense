@@ -1,6 +1,6 @@
-import { Directive, Inject, Input } from '@angular/core';
+import { Directive, inject, Inject, Input } from '@angular/core';
 import { SuspenseCacheService } from '@queplan/qp-suspense/services';
-import { SuspenseFactoryPromise, SUSPENSE_CACHE } from '@queplan/qp-suspense/types';
+import { SuspenseFactoryPromise, SUSPENSE_CACHE, SUSPENSE_LOG } from '@queplan/qp-suspense/types';
 
 /**
  * Directiva que define el área donde se va a incluir el componente de tipo Suspenseable.
@@ -58,6 +58,8 @@ export class DefaultViewDirective {
    */
   @Input() isModule?          : boolean | string;
 
+  suspenseConsole = inject(SUSPENSE_LOG);
+
   /**
    * Constructor de la directiva.
    * @param suspenseCache Servicio que se encargará de almacenar los componentes que se hayan cargado previamente.
@@ -81,14 +83,14 @@ export class DefaultViewDirective {
    */
   fetch(clazzName?: string): SuspenseFactoryPromise {  
     if(clazzName) {
-      console.log('Usando cache para clazzName: ', clazzName);
+      this.suspenseConsole.log('Usando cache para clazzName: ', clazzName);
       if (!this.suspenseCache.hasClazz(clazzName)) {
-        console.log('Seteando cache para clazzName: ', clazzName);
+        this.suspenseConsole.log('Seteando cache para clazzName: ', clazzName);
         this.suspenseCache.setClazz(clazzName, this.componentFactory);
       }       
       return this.suspenseCache.getClazz(clazzName);
     } else {
-      console.log('Devolviendo componentFactory');
+      this.suspenseConsole.log('Devolviendo componentFactory');
       return this.componentFactory;
     }
   }
