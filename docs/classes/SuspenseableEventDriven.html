@@ -122,6 +122,9 @@ provee la función <code>defaultEventDrivenSetup()</code> que permite implementa
                                 <a href="#setupReady" >setupReady</a>
                             </li>
                             <li>
+                                <a href="#suspenseConsole" >suspenseConsole</a>
+                            </li>
+                            <li>
                                 <a href="#defaultDisplay" >defaultDisplay</a>
                             </li>
                             <li>
@@ -170,6 +173,24 @@ provee la función <code>defaultEventDrivenSetup()</code> que permite implementa
     </table>
 </section>
 
+            <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor()</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Definido en <a href="" data-line="26" class="link-to-prism">libs/suspense/types/suspenseable-event-driven.ts:26</a></div>
+                            </td>
+                        </tr>
+
+            </tbody>
+        </table>
+</section>
 
             <section>
     
@@ -200,7 +221,7 @@ provee la función <code>defaultEventDrivenSetup()</code> que permite implementa
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="35" class="link-to-prism">libs/suspense/types/suspenseable-event-driven.ts:35</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="50" class="link-to-prism">libs/suspense/types/suspenseable-event-driven.ts:50</a></div>
                         </td>
                     </tr>
 
@@ -232,7 +253,7 @@ Como es un BehaviorSubject, admite un valor inicial.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="22" class="link-to-prism">libs/suspense/types/suspenseable-event-driven.ts:22</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="37" class="link-to-prism">libs/suspense/types/suspenseable-event-driven.ts:37</a></div>
                         </td>
                     </tr>
 
@@ -270,7 +291,7 @@ Pudiera no utilizarse.</p>
                 </tr>
                     <tr>
                         <td class="col-md-4">
-                                <div class="io-line">Definido en <a href="" data-line="28" class="link-to-prism">libs/suspense/types/suspenseable-event-driven.ts:28</a></div>
+                                <div class="io-line">Definido en <a href="" data-line="43" class="link-to-prism">libs/suspense/types/suspenseable-event-driven.ts:43</a></div>
                         </td>
                     </tr>
 
@@ -278,6 +299,38 @@ Pudiera no utilizarse.</p>
                 <td class="col-md-4">
                     <div class="io-description"><p>Indica que el componente está listo para ser desplegado.
 Como es un BehaviorSubject, admite un valor inicial.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="suspenseConsole"></a>
+                    <span class="name">
+                        <span ><b>suspenseConsole</b></span>
+                        <a href="#suspenseConsole"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Valor por defecto : </i><code>inject(SUSPENSE_LOG)</code>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                                <div class="io-line">Definido en <a href="" data-line="26" class="link-to-prism">libs/suspense/types/suspenseable-event-driven.ts:26</a></div>
+                        </td>
+                    </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Wrapper para función de registro de mensajes de log.
+Mostrará los mensajes solamente si la aplicación ha configurado el provider DEBUG_SUSPENSE explícitamente en true.</p>
 </div>
                 </td>
             </tr>
@@ -463,8 +516,8 @@ Como es un BehaviorSubject, admite un valor inicial.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Definido en <a href="" data-line="47"
-                            class="link-to-prism">libs/suspense/types/suspenseable-event-driven.ts:47</a></div>
+                    <div class="io-line">Definido en <a href="" data-line="62"
+                            class="link-to-prism">libs/suspense/types/suspenseable-event-driven.ts:62</a></div>
                 </td>
             </tr>
 
@@ -564,8 +617,8 @@ de error.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Definido en <a href="" data-line="75"
-                            class="link-to-prism">libs/suspense/types/suspenseable-event-driven.ts:75</a></div>
+                    <div class="io-line">Definido en <a href="" data-line="90"
+                            class="link-to-prism">libs/suspense/types/suspenseable-event-driven.ts:90</a></div>
                 </td>
             </tr>
 
@@ -603,8 +656,8 @@ de error.</p>
 
             <tr>
                 <td class="col-md-4">
-                    <div class="io-line">Definido en <a href="" data-line="83"
-                            class="link-to-prism">libs/suspense/types/suspenseable-event-driven.ts:83</a></div>
+                    <div class="io-line">Definido en <a href="" data-line="98"
+                            class="link-to-prism">libs/suspense/types/suspenseable-event-driven.ts:98</a></div>
                 </td>
             </tr>
 
@@ -676,8 +729,11 @@ esa manera se despliega el componente (asumiendo un estado <em>listo para ser de
 
 
     <div class="tab-pane fade  tab-source-code" id="c-source">
-        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { BehaviorSubject, combineLatest, filter, map, ObservableInput, takeUntil, tap } from &quot;rxjs&quot;;
-import { ISuspenseable, SuspenseableRenderer } from &quot;./types&quot;;
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { inject } from &quot;@angular/core&quot;;
+import { BehaviorSubject, combineLatest, filter, map, ObservableInput, takeUntil, tap } from &quot;rxjs&quot;;
+import { ISuspenseable, SuspenseableRenderer, SUSPENSE_LOG } from &quot;./types&quot;;
+
+let suspenseConsole: Console;
 
 /**
  * Definición de la clase abstracta que permite implementar un componente de tipo Suspenseable en su modo de
@@ -693,6 +749,18 @@ import { ISuspenseable, SuspenseableRenderer } from &quot;./types&quot;;
  * provee la función &#x60;defaultEventDrivenSetup()&#x60; que permite implementar el control de estados de forma sencilla.
  */
 export abstract class SuspenseableEventDriven  extends SuspenseableRenderer implements Pick&lt;ISuspenseable, &#x27;setup&#x27;&gt; {
+
+  /**
+   * Wrapper para función de registro de mensajes de log.
+   * Mostrará los mensajes solamente si la aplicación ha configurado el provider DEBUG_SUSPENSE explícitamente en true.
+   */
+  suspenseConsole &#x3D; inject(SUSPENSE_LOG);
+
+  constructor() {
+    super();
+    suspenseConsole &#x3D; this.suspenseConsole;
+  }
+  
   /**
    * Variable de control para saber si ya está lista la inicializacion del componente.
    * Pudiera no utilizarse.
@@ -723,7 +791,7 @@ export abstract class SuspenseableEventDriven  extends SuspenseableRenderer impl
    * @returns { ObservableInput&lt;any&gt; } Observable que se resolverá cuando el componente esté listo para ser desplegado. La respuesta es del mismo tipo que  la de setup()
    */
   defaultEventDrivenSetup(response: { [key: string]: unknown }, useInit &#x3D; false): ObservableInput&lt;any&gt; {
-    console.log(&#x27;[defaultEventDrivenSetup] setup()&#x27;);
+    suspenseConsole.log(&#x27;[defaultEventDrivenSetup] setup()&#x27;);
 
     if(useInit) {
       this.init();
@@ -740,7 +808,7 @@ export abstract class SuspenseableEventDriven  extends SuspenseableRenderer impl
           filter(([ isReady, hasError ]) &#x3D;&gt; isReady || hasError),
           tap( 
             ([ isReady, hasError ]) &#x3D;&gt; {
-              console.log(&#x27;[defaultEventDrivenSetup] isReady, hasError: &#x27;, isReady, hasError );
+              suspenseConsole.log(&#x27;[defaultEventDrivenSetup] isReady, hasError: &#x27;, isReady, hasError );
               if (hasError) throw new Error(&#x27;[defaultEventDrivenSetup] No se pudo cargar el componente&#x27;);
             } 
           )

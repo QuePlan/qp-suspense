@@ -62,13 +62,37 @@
                 <td class="col-md-4">
                     <ul class="index-list">
                         <li>
+                            <a href="#_noOp" title="libs/suspense/types/types.ts" ><b>_noOp</b>&nbsp;&nbsp;&nbsp;(libs/.../types.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#DEBUG_SUSPENSE" title="libs/suspense/types/types.ts" ><b>DEBUG_SUSPENSE</b>&nbsp;&nbsp;&nbsp;(libs/.../types.ts)</a>
+                        </li>
+                        <li>
                             <a href="#EVENT_SERVICE" title="libs/suspense/types/types.ts" ><b>EVENT_SERVICE</b>&nbsp;&nbsp;&nbsp;(libs/.../types.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#originalConsole" title="libs/suspense/types/types.ts" ><b>originalConsole</b>&nbsp;&nbsp;&nbsp;(libs/.../types.ts)</a>
                         </li>
                         <li>
                             <a href="#SUSPENSE" title="libs/suspense/types/types.ts" ><b>SUSPENSE</b>&nbsp;&nbsp;&nbsp;(libs/.../types.ts)</a>
                         </li>
                         <li>
                             <a href="#SUSPENSE_CACHE" title="libs/suspense/types/types.ts" ><b>SUSPENSE_CACHE</b>&nbsp;&nbsp;&nbsp;(libs/.../types.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#SUSPENSE_LOG" title="libs/suspense/types/types.ts" ><b>SUSPENSE_LOG</b>&nbsp;&nbsp;&nbsp;(libs/.../types.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#suspenseConsole" title="libs/suspense/directives/default-view.directive.ts" ><b>suspenseConsole</b>&nbsp;&nbsp;&nbsp;(libs/.../default-view.directive.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#suspenseConsole" title="libs/suspense/types/suspenseable-event-driven.ts" ><b>suspenseConsole</b>&nbsp;&nbsp;&nbsp;(libs/.../suspenseable-event-driven.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#suspenseConsole" title="libs/suspense/src/lib/suspense/suspense.component.ts" ><b>suspenseConsole</b>&nbsp;&nbsp;&nbsp;(libs/.../suspense.component.ts)</a>
+                        </li>
+                        <li>
+                            <a href="#toggleConsole" title="libs/suspense/types/types.ts" ><b>toggleConsole</b>&nbsp;&nbsp;&nbsp;(libs/.../types.ts)</a>
                         </li>
                         <li>
                             <a href="#useSuspense" title="libs/suspense/types/types.ts" ><b>useSuspense</b>&nbsp;&nbsp;&nbsp;(libs/.../types.ts)</a>
@@ -86,6 +110,68 @@
         <tbody>
             <tr>
                 <td class="col-md-4">
+                    <a name="_noOp"></a>
+                    <span class="name">
+                        <span ><b>_noOp</b></span>
+                        <a href="#_noOp"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Valor por defecto : </i><code>() &#x3D;&gt; {}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Función deno-operación que permite deshabilitar la consola del navegador.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="DEBUG_SUSPENSE"></a>
+                    <span class="name">
+                        <span ><b>DEBUG_SUSPENSE</b></span>
+                        <a href="#DEBUG_SUSPENSE"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Valor por defecto : </i><code>new InjectionToken&lt;boolean&gt;(&#x27;DEBUG_SUSPENSE&#x27;,{
+  providedIn: &#x27;root&#x27;,
+  factory: () &#x3D;&gt; false
+})</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>InjectionToken para habilitar o deshabilitar la consola del navegador.
+Si está en true se habilita, si está en false se deshabilita. Se utiliza como <code>provider</code> en el
+<code>app.module</code> de la aplicación.  </p>
+<div><pre class="line-numbers"><code class="language-none">providers: [
+   {
+      provide: DEBUG_SUSPENSE,
+      useValue: false // true para habilitar la consola del navegador
+    },
+  ],</code></pre></div></div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
                     <a name="EVENT_SERVICE"></a>
                     <span class="name">
                         <span ><b>EVENT_SERVICE</b></span>
@@ -98,7 +184,7 @@
                         <i>Valor por defecto : </i><code>new InjectionToken&lt;EventService&gt;(&#x27;EventService&#x27;, {
   providedIn: &#x27;root&#x27;,
   factory: () &#x3D;&gt; {
-    console.log(&#x27;EVENT_SERVICE&#x27;, new Date());
+    // console.log(&#x27;EVENT_SERVICE&#x27;, new Date());
     return inject(EventService);
   }
 })</code>
@@ -110,6 +196,32 @@
                     <div class="io-description"><p>InjectionToken para servicio de eventos.
 Se define de esta manera para asegurarse que sea efectivamente un Singleton, y que sea posible reutilizar 
 el objeto.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="originalConsole"></a>
+                    <span class="name">
+                        <span ><b>originalConsole</b></span>
+                        <a href="#originalConsole"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Valor por defecto : </i><code>console</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Variable de respaldo de la consola del navegador en si estado original.</p>
 </div>
                 </td>
             </tr>
@@ -152,7 +264,7 @@ el objeto.</p>
                         <i>Valor por defecto : </i><code>new InjectionToken&lt;SuspenseCacheService&lt;any&gt;&gt;(&#x27;SuspenseCache&#x27;, {
   providedIn: &#x27;root&#x27;,
   factory: () &#x3D;&gt; {
-    console.log(&#x27;SUSPENSE_CACHE&#x27;, new Date());
+    // console.log(&#x27;SUSPENSE_CACHE&#x27;, new Date());
     return inject(SuspenseCacheService&lt;any&gt;);
   }
 })</code>
@@ -164,6 +276,76 @@ el objeto.</p>
                     <div class="io-description"><p>InjectionToken para servicio de caché para clases de componentes importados dinamicamente.
 Se define de esta manera para asegurarse que sea efectivamente un Singleton, y que sea posible reutilizar 
 el objeto.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="SUSPENSE_LOG"></a>
+                    <span class="name">
+                        <span ><b>SUSPENSE_LOG</b></span>
+                        <a href="#SUSPENSE_LOG"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Valor por defecto : </i><code>new InjectionToken&lt;Console&gt;(&#x27;SUSPENSE_LOG&#x27;,
+{
+  providedIn: &#x27;root&#x27;,
+  factory   : () &#x3D;&gt; toggleConsole(inject(DEBUG_SUSPENSE))
+})</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>InjectionToken para exponer la consola del navegador.
+La consola que  será disponibilizada será bajo el contexto de la líbrería, de modo de no afectar el comportamiento
+de las demás aplicaciones.</p>
+</div>
+                </td>
+            </tr>
+
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="toggleConsole"></a>
+                    <span class="name">
+                        <span ><b>toggleConsole</b></span>
+                        <a href="#toggleConsole"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Valor por defecto : </i><code>(debug: boolean &#x3D; false): Console &#x3D;&gt; {
+  let newConsole: Console &#x3D; originalConsole;
+  if (!debug) {
+    (newConsole as any) &#x3D; {
+      log  : _noOp,
+      warn : _noOp,
+      debug: _noOp,
+      info : _noOp,
+    };
+  }
+
+  return newConsole;
+}</code>
+                    </td>
+                </tr>
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-description"><p>Habilita o deshabilita la consola del navegador en función del parámetro que reciba.</p>
 </div>
                 </td>
             </tr>
@@ -197,6 +379,78 @@ En este caso, lo más habitual es que los componentes esten definidos dentro de 
 </div>
                 </td>
             </tr>
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/suspense/directives/default-view.directive.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="suspenseConsole"></a>
+                    <span class="name">
+                        <span ><b>suspenseConsole</b></span>
+                        <a href="#suspenseConsole"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Tipo : </i>    <code>Console</code>
+
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/suspense/types/suspenseable-event-driven.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="suspenseConsole"></a>
+                    <span class="name">
+                        <span ><b>suspenseConsole</b></span>
+                        <a href="#suspenseConsole"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Tipo : </i>    <code>Console</code>
+
+                    </td>
+                </tr>
+
+
+        </tbody>
+    </table>
+</section>
+    <h3>libs/suspense/src/lib/suspense/suspense.component.ts</h3>
+    <section>
+    <h3></h3>    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="suspenseConsole"></a>
+                    <span class="name">
+                        <span ><b>suspenseConsole</b></span>
+                        <a href="#suspenseConsole"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <i>Tipo : </i>    <code>Console</code>
+
+                    </td>
+                </tr>
+
 
         </tbody>
     </table>

@@ -578,7 +578,7 @@ export const useSuspense &#x3D; (comp: TSuspenseable) &#x3D;&gt; ({
 export const EVENT_SERVICE &#x3D; new InjectionToken&lt;EventService&gt;(&#x27;EventService&#x27;, {
   providedIn: &#x27;root&#x27;,
   factory: () &#x3D;&gt; {
-    console.log(&#x27;EVENT_SERVICE&#x27;, new Date());
+    // console.log(&#x27;EVENT_SERVICE&#x27;, new Date());
     return inject(EventService);
   }
 });
@@ -591,9 +591,67 @@ export const EVENT_SERVICE &#x3D; new InjectionToken&lt;EventService&gt;(&#x27;E
 export const SUSPENSE_CACHE &#x3D; new InjectionToken&lt;SuspenseCacheService&lt;any&gt;&gt;(&#x27;SuspenseCache&#x27;, {
   providedIn: &#x27;root&#x27;,
   factory: () &#x3D;&gt; {
-    console.log(&#x27;SUSPENSE_CACHE&#x27;, new Date());
+    // console.log(&#x27;SUSPENSE_CACHE&#x27;, new Date());
     return inject(SuspenseCacheService&lt;any&gt;);
   }
+});
+
+/**
+ * Función deno-operación que permite deshabilitar la consola del navegador.
+ */
+const _noOp                 &#x3D;  () &#x3D;&gt; {};
+
+/**
+ * Variable de respaldo de la consola del navegador en si estado original.
+ */
+const  originalConsole      &#x3D; console;
+
+/**
+ * InjectionToken para habilitar o deshabilitar la consola del navegador.
+ * Si está en true se habilita, si está en false se deshabilita. Se utiliza como &#x60;provider&#x60; en el
+ * &#x60;app.module&#x60; de la aplicación.  
+ * &#x60;&#x60;&#x60;
+ * providers: [
+ *    {
+ *       provide: DEBUG_SUSPENSE,
+ *       useValue: false // true para habilitar la consola del navegador
+ *     },
+ *   ],
+ * &#x60;&#x60;&#x60;
+ */
+export let DEBUG_SUSPENSE &#x3D; new InjectionToken&lt;boolean&gt;(&#x27;DEBUG_SUSPENSE&#x27;,{
+  providedIn: &#x27;root&#x27;,
+  factory: () &#x3D;&gt; false
+});
+
+/**
+ * Habilita o deshabilita la consola del navegador en función del parámetro que reciba.
+ * @param debug {boolean} Indica si se debe habilitar o deshabilitar la consola del navegador.
+ * @returns Función de console a utilizar.
+ */
+export const toggleConsole  &#x3D; (debug: boolean &#x3D; false): Console &#x3D;&gt; {
+  let newConsole: Console &#x3D; originalConsole;
+  if (!debug) {
+    (newConsole as any) &#x3D; {
+      log  : _noOp,
+      warn : _noOp,
+      debug: _noOp,
+      info : _noOp,
+    };
+  }
+
+  return newConsole;
+};
+
+/**
+ * InjectionToken para exponer la consola del navegador.
+ * La consola que  será disponibilizada será bajo el contexto de la líbrería, de modo de no afectar el comportamiento
+ * de las demás aplicaciones.
+ */
+export const SUSPENSE_LOG &#x3D; new InjectionToken&lt;Console&gt;(&#x27;SUSPENSE_LOG&#x27;,
+{
+  providedIn: &#x27;root&#x27;,
+  factory   : () &#x3D;&gt; toggleConsole(inject(DEBUG_SUSPENSE))
 });
 </code></pre>
     </div>
