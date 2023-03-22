@@ -268,7 +268,10 @@ const  originalConsole      = console;
  *   ],
  * ```
  */
-export const DEBUG_SUSPENSE = new InjectionToken<boolean>('DEBUG_SUSPENSE');
+export let DEBUG_SUSPENSE = new InjectionToken<boolean>('DEBUG_SUSPENSE',{
+  providedIn: 'root',
+  factory: () => false
+});
 
 /**
  * Habilita o deshabilita la consola del navegador en función del parámetro que reciba.
