@@ -245,9 +245,36 @@ export const SUSPENSE_CACHE = new InjectionToken<SuspenseCacheService<any>>('Sus
   }
 });
 
+/**
+ * Función deno-operación que permite deshabilitar la consola del navegador.
+ */
 const _noOp                 =  () => {};
+
+/**
+ * Variable de respaldo de la consola del navegador en si estado original.
+ */
 const  originalConsole      = console;
+
+/**
+ * InjectionToken para habilitar o deshabilitar la consola del navegador.
+ * Si está en true se habilita, si está en false se deshabilita. Se utiliza como `provider` en el
+ * `app.module` de la aplicación.  
+ * ```
+ * providers: [
+ *    {
+ *       provide: DEBUG_SUSPENSE,
+ *       useValue: false // true para habilitar la consola del navegador
+ *     },
+ *   ],
+ * ```
+ */
 export const DEBUG_SUSPENSE = new InjectionToken<boolean>('DEBUG_SUSPENSE');
+
+/**
+ * Habilita o deshabilita la consola del navegador en función del parámetro que reciba.
+ * @param debug {boolean} Indica si se debe habilitar o deshabilitar la consola del navegador.
+ * @returns Función de console a utilizar.
+ */
 export const toggleConsole  = (debug: boolean = false): Console => {
   let newConsole: Console = originalConsole;
   if (!debug) {
@@ -262,6 +289,11 @@ export const toggleConsole  = (debug: boolean = false): Console => {
   return newConsole;
 };
 
+/**
+ * InjectionToken para exponer la consola del navegador.
+ * La consola que  será disponibilizada será bajo el contexto de la líbrería, de modo de no afectar el comportamiento
+ * de las demás aplicaciones.
+ */
 export const SUSPENSE_LOG = new InjectionToken<Console>('SUSPENSE_LOG',
 {
   providedIn: 'root',
