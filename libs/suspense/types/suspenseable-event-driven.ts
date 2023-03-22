@@ -2,6 +2,8 @@ import { inject } from "@angular/core";
 import { BehaviorSubject, combineLatest, filter, map, ObservableInput, takeUntil, tap } from "rxjs";
 import { ISuspenseable, SuspenseableRenderer, SUSPENSE_LOG } from "./types";
 
+let suspenseConsole: Console;
+
 /**
  * Definición de la clase abstracta que permite implementar un componente de tipo Suspenseable en su modo de
  * operación en base a un control de estados de tipo evento. Sigue la misma lógica que el modo "normal" (usando  función `setup()`), sin embargo
@@ -16,7 +18,17 @@ import { ISuspenseable, SuspenseableRenderer, SUSPENSE_LOG } from "./types";
  * provee la función `defaultEventDrivenSetup()` que permite implementar el control de estados de forma sencilla.
  */
 export abstract class SuspenseableEventDriven  extends SuspenseableRenderer implements Pick<ISuspenseable, 'setup'> {
+
+  /**
+   * Wrapper para función de registro de mensajes de log.
+   * Mostrará los mensajes solamente si la aplicación ha configurado el provider DEBUG_SUSPENSE explícitamente en true.
+   */
   suspenseConsole = inject(SUSPENSE_LOG);
+
+  constructor() {
+    super();
+    suspenseConsole = this.suspenseConsole;
+  }
   
   /**
    * Variable de control para saber si ya está lista la inicializacion del componente.
@@ -48,7 +60,7 @@ export abstract class SuspenseableEventDriven  extends SuspenseableRenderer impl
    * @returns { ObservableInput<any> } Observable que se resolverá cuando el componente esté listo para ser desplegado. La respuesta es del mismo tipo que  la de setup()
    */
   defaultEventDrivenSetup(response: { [key: string]: unknown }, useInit = false): ObservableInput<any> {
-    this.suspenseConsole.log('[defaultEventDrivenSetup] setup()');
+    suspenseConsole.log('[defaultEventDrivenSetup] setup()');
 
     if(useInit) {
       this.init();
@@ -65,7 +77,7 @@ export abstract class SuspenseableEventDriven  extends SuspenseableRenderer impl
           filter(([ isReady, hasError ]) => isReady || hasError),
           tap( 
             ([ isReady, hasError ]) => {
-              this.suspenseConsole.log('[defaultEventDrivenSetup] isReady, hasError: ', isReady, hasError );
+              suspenseConsole.log('[defaultEventDrivenSetup] isReady, hasError: ', isReady, hasError );
               if (hasError) throw new Error('[defaultEventDrivenSetup] No se pudo cargar el componente');
             } 
           )

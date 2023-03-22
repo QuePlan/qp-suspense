@@ -2,6 +2,8 @@ import { Directive, inject, Inject, Input } from '@angular/core';
 import { SuspenseCacheService } from '@queplan/qp-suspense/services';
 import { SuspenseFactoryPromise, SUSPENSE_CACHE, SUSPENSE_LOG } from '@queplan/qp-suspense/types';
 
+let suspenseConsole: Console;
+
 /**
  * Directiva que define el área donde se va a incluir el componente de tipo Suspenseable.
  * IMPORTANTE: Es opcional definir el nombre de la clase del componente. De hacerlo se debe usar el 
@@ -58,13 +60,19 @@ export class DefaultViewDirective {
    */
   @Input() isModule?          : boolean | string;
 
+  /**
+   * Wrapper para función de registro de mensajes de log.
+   * Mostrará los mensajes solamente si la aplicación ha configurado el provider DEBUG_SUSPENSE explícitamente en true.
+   */
   suspenseConsole = inject(SUSPENSE_LOG);
 
   /**
    * Constructor de la directiva.
    * @param suspenseCache Servicio que se encargará de almacenar los componentes que se hayan cargado previamente.
    */
-  constructor(@Inject(SUSPENSE_CACHE) public suspenseCache: SuspenseCacheService<SuspenseFactoryPromise>) {}
+  constructor(@Inject(SUSPENSE_CACHE) public suspenseCache: SuspenseCacheService<SuspenseFactoryPromise>) {
+    suspenseConsole = this.suspenseConsole;
+  }
 
   /**
    * Rescata el nombre de la clase que eventualmente pudiera haberse entregado como parámetro del componente.
@@ -83,14 +91,14 @@ export class DefaultViewDirective {
    */
   fetch(clazzName?: string): SuspenseFactoryPromise {  
     if(clazzName) {
-      this.suspenseConsole.log('Usando cache para clazzName: ', clazzName);
+      suspenseConsole.log('Usando cache para clazzName: ', clazzName);
       if (!this.suspenseCache.hasClazz(clazzName)) {
-        this.suspenseConsole.log('Seteando cache para clazzName: ', clazzName);
+        suspenseConsole.log('Seteando cache para clazzName: ', clazzName);
         this.suspenseCache.setClazz(clazzName, this.componentFactory);
       }       
       return this.suspenseCache.getClazz(clazzName);
     } else {
-      this.suspenseConsole.log('Devolviendo componentFactory');
+      suspenseConsole.log('Devolviendo componentFactory');
       return this.componentFactory;
     }
   }

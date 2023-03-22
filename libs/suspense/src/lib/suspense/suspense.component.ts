@@ -20,6 +20,8 @@ import { EVENT_SERVICE, ISuspenseable, SUSPENSE, SuspenseableModule, Suspenseabl
 import { DefaultViewDirective, FallbackViewDirective, ErrorViewDirective } from '@queplan/qp-suspense/directives';
 import { EventService, SuspenseCacheService, YieldToMainService } from '@queplan/qp-suspense/services';
 
+let suspenseConsole: Console;
+
 /**
  * Componente suspense
  * ========================
@@ -204,9 +206,15 @@ export class SuspenseComponent {
    */
   private done: Subject<boolean> = new Subject<boolean>();
 
+  /**
+   * Wrapper para función de registro de mensajes de log.
+   * Mostrará los mensajes solamente si la aplicación ha configurado el provider DEBUG_SUSPENSE explícitamente en true.
+   */
   suspenseConsole = inject(SUSPENSE_LOG);
 
-  constructor() { }
+  constructor() { 
+    suspenseConsole = this.suspenseConsole;
+  }
 
   /**
    * En caso que existan parámetros para el componente los asignará a la correspondiente instancia,
@@ -244,12 +252,12 @@ export class SuspenseComponent {
     let compClazz        : Type<ISuspenseable>;
     let isStandAlone = false;
     if (isModule) {
-      this.suspenseConsole.log('Componente esta dentro de un modulo: ', clazz, Object.keys(clazz));
+      suspenseConsole.log('Componente esta dentro de un modulo: ', clazz, Object.keys(clazz));
       const moduleName: string                         = (typeof isModule === 'string') ? isModule : Object.keys(clazz).shift() as string;
       const moduleRef: NgModuleRef<SuspenseableModule> = createNgModule(clazz[moduleName as keyof typeof clazz], this.injector)
             compClazz                                  = moduleRef.instance.getComponent();
     } else { 
-      this.suspenseConsole.log('Componente es de tipo Suspenseable: ', clazz);
+      suspenseConsole.log('Componente es de tipo Suspenseable: ', clazz);
       let _clazzName: string | undefined = !clazzName ? ( !(clazz as TDefaultSuspenseable).default ? Object.keys(clazz).shift() as string : undefined ) : clazzName;
           compClazz                      = !_clazzName ? (clazz as TDefaultSuspenseable).default : (clazz as TDefaultSuspenseable)[_clazzName as keyof typeof clazz];
           isStandAlone                   = !!_clazzName;
@@ -281,7 +289,7 @@ export class SuspenseComponent {
      * y por ende se entenderá que el componente no es lazy.
      */
     if (!isLazy) {
-      this.suspenseConsole.log('Not lazy components.')
+      suspenseConsole.log('Not lazy components.')
 
       /**
        * Recorre los componentes Suspenseable hijos y ejecuta la función setup() de cada uno de ellos.
@@ -307,7 +315,7 @@ export class SuspenseComponent {
             this.show = true;
             this.done.next(true);
           } catch(renderErr) {
-            this.suspenseConsole.warn('Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).', renderErr);
+            suspenseConsole.warn('Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).', renderErr);
           }
         },
         error: (_err) => {
@@ -316,7 +324,7 @@ export class SuspenseComponent {
             this.anchor?.createEmbeddedView(this.errorView.tpl);
             this.done.next(false);
           } catch(renderErr) {
-            this.suspenseConsole.warn('Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).', renderErr);
+            suspenseConsole.warn('Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).', renderErr);
           }
         },
       });
@@ -335,7 +343,7 @@ export class SuspenseComponent {
       this.compRef = this.getComponentInstance(comp, this.defaultView.componentParams, this.defaultView.isModule);
 
       if(!this.defaultView.onEvent) {
-        this.suspenseConsole.log(`No hay evento para carga dinamica del componente.\nUsando setup().`);
+        suspenseConsole.log(`No hay evento para carga dinamica del componente.\nUsando setup().`);
 
         /**
          * La operación normal de suspense intentará desplegar el componente trás la 
@@ -353,7 +361,7 @@ export class SuspenseComponent {
               this.anchor?.insert(this.compRef.hostView);
               this.done.next(true);
             } catch (renderErr) {
-              this.suspenseConsole.warn('Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).', renderErr);
+              suspenseConsole.warn('Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).', renderErr);
             }
           },
           error: () => {
@@ -362,7 +370,7 @@ export class SuspenseComponent {
               this.anchor?.createEmbeddedView(this.errorView.tpl);
               this.done.next(false);
             } catch (renderErr) {
-              this.suspenseConsole.warn('Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).', renderErr);
+              suspenseConsole.warn('Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).', renderErr);
             }
           },
         });
@@ -378,7 +386,7 @@ export class SuspenseComponent {
            * - Genera la instancia del componente
            * - Setea eventName en el componente (llamada a `eventHandlers()`)
            */
-          this.suspenseConsole.log(`EventHandlers para ${clazzName}`);
+          suspenseConsole.log(`EventHandlers para ${clazzName}`);
           this.compRef.instance.eventHandler(eventName);
 
           /**
@@ -388,7 +396,7 @@ export class SuspenseComponent {
            * IMPORTANTE: Aquí no se tiene el detalle específico del error.
            */
           this.eventService.on(`${eventName}:load`, async () => {
-            this.suspenseConsole.log(`${eventName}:load`);
+            suspenseConsole.log(`${eventName}:load`);
             try {
               /**
                * Requiere un fallback para el caso en que  la navegacion haya  interrumpido el proceso de renderizado, y
@@ -401,12 +409,12 @@ export class SuspenseComponent {
 
               await YieldToMainService.yieldToMain();
             } catch (renderErr) {
-              this.suspenseConsole.warn('Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).', renderErr);
-              this.suspenseConsole.log(this.anchor.length);
+              suspenseConsole.warn('Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).', renderErr);
+              suspenseConsole.log(this.anchor.length);
             }
           });  
           this.eventService.on(`${eventName}:error`, async () => {
-            this.suspenseConsole.log(`${eventName}:error`);
+            suspenseConsole.log(`${eventName}:error`);
             try {
               this.anchor?.clear();
               this.anchor?.createEmbeddedView(this.errorView.tpl);
@@ -414,7 +422,7 @@ export class SuspenseComponent {
 
               await YieldToMainService.yieldToMain();
             } catch (renderErr) {
-              this.suspenseConsole.warn('Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).', renderErr);
+              suspenseConsole.warn('Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).', renderErr);
             }
           });
         }
@@ -422,8 +430,8 @@ export class SuspenseComponent {
     })
     .catch((suspenseErr: unknown) => {
       this.done.next(false);
-      this.suspenseConsole.error(`No se pudo generar instancia de component Suspense!`, suspenseErr);
-      this.suspenseConsole.error('Verifique el tipo de componente implementado. Si es de tipo SuspenseableBroadcaster de debe indicar el nombre del evento en el @Input() onEvent');
+      suspenseConsole.error(`No se pudo generar instancia de component Suspense!`, suspenseErr);
+      suspenseConsole.error('Verifique el tipo de componente implementado. Si es de tipo SuspenseableBroadcaster de debe indicar el nombre del evento en el @Input() onEvent');
       
       /**
        * En caso de error, limpia la vista y despliega el componente para desplegar el estado de error
@@ -433,7 +441,7 @@ export class SuspenseComponent {
         this.anchor?.clear();
         this.anchor?.createEmbeddedView(this.errorView.tpl);
       } catch (renderErr) {
-        this.suspenseConsole.warn('Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).', renderErr);
+        suspenseConsole.warn('Se interrumpio proceso de renderizado del componente (probablemente debido a un navegacion fuera de la página inicial antes de terminar de cargarla).', renderErr);
       }
     });
 
@@ -454,11 +462,11 @@ export class SuspenseComponent {
      */
     const eventName = this.defaultView?.onEvent || (this.compRef?.instance as any)?.eventName;
     if(eventName){
-      this.suspenseConsole.log(`Eliminando eventos: ${eventName}:load y ${eventName}:error`);
+      suspenseConsole.log(`Eliminando eventos: ${eventName}:load y ${eventName}:error`);
       this.eventService.off(`${eventName}:load`);
       this.eventService.off(`${eventName}:error`);
     } else {
-      this.suspenseConsole.log(`No fue posible detectar eventos para eliminar.`);
+      suspenseConsole.log(`No fue posible detectar eventos para eliminar.`);
     }
   }
 }
