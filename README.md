@@ -1,5 +1,7 @@
 # QP Suspense
 
+( English documentation for the library here -> https://queplan-github-io.translate.goog/qp-suspense/?_x_tr_sl=es&_x_tr_tl=en&_x_tr_hl=es )
+
 QP Suspense es una implementación de la lógica de Suspense (al estilo React, Vue, Svelte). Muy en simple (y raptando descaradamente la definición de Suspense que trae React):
 
 > `<Suspense>` lets you display a fallback until its children have finished loading.
